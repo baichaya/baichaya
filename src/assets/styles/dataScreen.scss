@@ -1,0 +1,43 @@
+.dataSreen {
+  width: 1920px;
+  height: 1080px;
+}
+
+.item {
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(100% / 2 - 10px) !important;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.item-1{
+  width: 100%;
+  height: calc(100% / 3 * 2 - 20px) !important;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.item-2 {
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(100% / 4 - 10px) !important;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.item-3 {
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(75% / 2 - 10px) !important;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.item-4 {
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(100% / 3 - 10px) !important;
+  margin-bottom: 10px;
+  padding: 10px;
+}
