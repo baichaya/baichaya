@@ -4,7 +4,7 @@
  * @param url
  */
 export const isHttp = (url: string): boolean => {
-  return url.indexOf('http://') !== -1 || url.indexOf('https://') !== -1;
+  return url.indexOf("http://") !== -1 || url.indexOf("https://") !== -1;
 };
 
 /**
@@ -21,7 +21,7 @@ export const isExternal = (path: string) => {
  * @returns {Boolean}
  */
 export const validUsername = (str: string) => {
-  const valid_map = ['admin', 'editor'];
+  const valid_map = ["admin", "editor"];
   return valid_map.indexOf(str.trim()) >= 0;
 };
 
@@ -77,7 +77,7 @@ export const validEmail = (email: string) => {
  * @returns {Boolean}
  */
 export const isString = (str: any) => {
-  return typeof str === 'string' || str instanceof String;
+  return typeof str === "string" || str instanceof String;
 };
 
 /**
@@ -85,8 +85,8 @@ export const isString = (str: any) => {
  * @returns {Boolean}
  */
 export const isArray = (arg: string | string[]) => {
-  if (typeof Array.isArray === 'undefined') {
-    return Object.prototype.toString.call(arg) === '[object Array]';
+  if (typeof Array.isArray === "undefined") {
+    return Object.prototype.toString.call(arg) === "[object Array]";
   }
   return Array.isArray(arg);
 };

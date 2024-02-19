@@ -1,6 +1,10 @@
 <template>
-  <div :class="{ 'show': show }" class="header-search">
-    <svg-icon class-name="search-icon" icon-class="search" @click.stop="click"/>
+  <div :class="{ show: show }" class="header-search">
+    <svg-icon
+      class-name="search-icon"
+      icon-class="search"
+      @click.stop="click"
+    />
     <el-select
       ref="headerSearchSelectRef"
       v-model="search"
@@ -12,25 +16,29 @@
       class="header-search-select"
       @change="change"
     >
-      <el-option v-for="option in options" :key="option.item.path" :value="option.item"
-                 :label="option.item.title.join(' > ')"/>
+      <el-option
+        v-for="option in options"
+        :key="option.item.path"
+        :value="option.item"
+        :label="option.item.title.join(' > ')"
+      />
     </el-select>
   </div>
 </template>
 
 <script setup lang="ts" name="HeaderSearch">
-import Fuse from 'fuse.js';
-import {getNormalPath} from '@/utils/ruoyi';
-import {isHttp} from '@/utils/validate';
-import usePermissionStore from '@/store/modules/permission';
-import {RouteOption} from 'vue-router';
+import Fuse from "fuse.js";
+import { getNormalPath } from "@/utils/ruoyi";
+import { isHttp } from "@/utils/validate";
+import usePermissionStore from "@/store/modules/permission";
+import { RouteOption } from "vue-router";
 
 type Router = Array<{
   path: string;
   title: string[];
-}>
+}>;
 
-const search = ref('');
+const search = ref("");
 const options = ref<any>([]);
 const searchPool = ref<Router>([]);
 const show = ref(false);
@@ -40,16 +48,16 @@ const router = useRouter();
 const routes = computed(() => usePermissionStore().routes);
 
 const click = () => {
-  show.value = !show.value
+  show.value = !show.value;
   if (show.value) {
-    headerSearchSelectRef.value && headerSearchSelectRef.value.focus()
+    headerSearchSelectRef.value && headerSearchSelectRef.value.focus();
   }
 };
 const close = () => {
-  headerSearchSelectRef.value && headerSearchSelectRef.value.blur()
-  options.value = []
-  show.value = false
-}
+  headerSearchSelectRef.value && headerSearchSelectRef.value.blur();
+  options.value = [];
+  show.value = false;
+};
 const change = (val: any) => {
   const path = val.path;
   const query = val.query;
@@ -61,15 +69,15 @@ const change = (val: any) => {
     if (query) {
       router.push({ path: path, query: JSON.parse(query) });
     } else {
-      router.push(path)
+      router.push(path);
     }
   }
-  search.value = ''
-  options.value = []
+  search.value = "";
+  options.value = [];
   nextTick(() => {
-    show.value = false
-  })
-}
+    show.value = false;
+  });
+};
 const initFuse = (list: Router) => {
   fuse.value = new Fuse(list, {
     shouldSort: true,
@@ -77,31 +85,38 @@ const initFuse = (list: Router) => {
     location: 0,
     distance: 100,
     minMatchCharLength: 1,
-    keys: [{
-      name: 'title',
-      weight: 0.7
-    }, {
-      name: 'path',
-      weight: 0.3
-    }]
-  })
-}
+    keys: [
+      {
+        name: "title",
+        weight: 0.7,
+      },
+      {
+        name: "path",
+        weight: 0.3,
+      },
+    ],
+  });
+};
 // Filter out the routes that can be displayed in the sidebar
 // And generate the internationalized title
-const generateRoutes = (routes: RouteOption[], basePath = '', prefixTitle: string[] = []) => {
-  let res: Router = []
-  routes.forEach(r => {
+const generateRoutes = (
+  routes: RouteOption[],
+  basePath = "",
+  prefixTitle: string[] = []
+) => {
+  let res: Router = [];
+  routes.forEach((r) => {
     // skip hidden router
     if (!r.hidden) {
-      const p = r.path.length > 0 && r.path[0] === '/' ? r.path : '/' + r.path;
+      const p = r.path.length > 0 && r.path[0] === "/" ? r.path : "/" + r.path;
       const data = {
         path: !isHttp(r.path) ? getNormalPath(basePath + p) : r.path,
         title: [...prefixTitle],
-        query: ''
-      }
+        query: "",
+      };
       if (r.meta && r.meta.title) {
         data.title = [...data.title, r.meta.title];
-        if (r.redirect !== 'noRedirect') {
+        if (r.redirect !== "noRedirect") {
           // only push the routes with title
           // special case: need to exclude parent router without redirect
           res.push(data);
@@ -109,7 +124,7 @@ const generateRoutes = (routes: RouteOption[], basePath = '', prefixTitle: strin
       }
 
       if (r.query) {
-        data.query = r.query
+        data.query = r.query;
       }
 
       // recursive child routes
@@ -120,20 +135,20 @@ const generateRoutes = (routes: RouteOption[], basePath = '', prefixTitle: strin
         }
       }
     }
-  })
+  });
   return res;
-}
+};
 const querySearch = (query: string) => {
-  if (query !== '') {
-    options.value = fuse.value.search(query)
+  if (query !== "") {
+    options.value = fuse.value.search(query);
   } else {
-    options.value = []
+    options.value = [];
   }
-}
+};
 
 onMounted(() => {
   searchPool.value = generateRoutes(routes.value);
-})
+});
 
 // watchEffect(() => {
 //     searchPool.value = generateRoutes(routes.value)
@@ -141,15 +156,15 @@ onMounted(() => {
 
 watch(show, (value) => {
   if (value) {
-    document.body.addEventListener('click', close)
+    document.body.addEventListener("click", close);
   } else {
-    document.body.removeEventListener('click', close)
+    document.body.removeEventListener("click", close);
   }
-})
+});
 
 watch(searchPool, (list) => {
-  initFuse(list)
-})
+  initFuse(list);
+});
 </script>
 
 <style lang="scss" scoped>

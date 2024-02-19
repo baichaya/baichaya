@@ -1,6 +1,6 @@
-import { useTagsViewStore } from '@/store/modules/tagsView';
-import router from '@/router';
-import { TagView, RouteLocationRaw } from 'vue-router';
+import { useTagsViewStore } from "@/store/modules/tagsView";
+import router from "@/router";
+import { TagView, RouteLocationRaw } from "vue-router";
 
 export default {
   /**
@@ -12,22 +12,22 @@ export default {
     if (obj === undefined) {
       matched.forEach((m) => {
         if (m.components && m.components.default && m.components.default.name) {
-          if (!['Layout', 'ParentView'].includes(m.components.default.name)) {
+          if (!["Layout", "ParentView"].includes(m.components.default.name)) {
             obj = { name: m.components.default.name, path: path, query: query };
           }
         }
       });
     }
     let query1: undefined | {} = {};
-    let path1: undefined | string = '';
+    let path1: undefined | string = "";
     if (obj) {
       query1 = obj.query;
       path1 = obj.path;
     }
     await useTagsViewStore().delCachedView(obj);
     await router.replace({
-      path: '/redirect' + path1,
-      query: query1
+      path: "/redirect" + path1,
+      query: query1,
     });
   },
   // 关闭当前tab页签，打开新页签
@@ -38,7 +38,9 @@ export default {
     }
   },
   // 关闭指定tab页签
-  async closePage(obj?: TagView): Promise<{ visitedViews: TagView[]; cachedViews: string[] } | any> {
+  async closePage(
+    obj?: TagView
+  ): Promise<{ visitedViews: TagView[]; cachedViews: string[] } | any> {
     if (obj === undefined) {
       // prettier-ignore
       const { visitedViews } = await useTagsViewStore().delView(router.currentRoute.value) as any
@@ -46,7 +48,7 @@ export default {
       if (latestView) {
         return router.push(latestView.fullPath);
       }
-      return router.push('/');
+      return router.push("/");
     }
     return useTagsViewStore().delView(obj);
   },
@@ -82,5 +84,5 @@ export default {
    */
   updatePage(obj: TagView) {
     return useTagsViewStore().updateVisitedView(obj);
-  }
+  },
 };

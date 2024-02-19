@@ -1,6 +1,6 @@
-import request from '@/utils/request';
-import { AxiosPromise } from 'axios';
-import { TreeVO, TreeForm, TreeQuery } from '@/api/demo/tree/types';
+import request from "@/utils/request";
+import { AxiosPromise } from "axios";
+import { TreeVO, TreeForm, TreeQuery } from "@/api/demo/tree/types";
 
 /**
  * 查询测试树列表
@@ -9,9 +9,9 @@ import { TreeVO, TreeForm, TreeQuery } from '@/api/demo/tree/types';
  */
 export const listTree = (query?: TreeQuery): AxiosPromise<TreeVO[]> => {
   return request({
-    url: '/demo/tree/list',
-    method: 'get',
-    params: query
+    url: "/demo/tree/list",
+    method: "get",
+    params: query,
   });
 };
 
@@ -21,8 +21,8 @@ export const listTree = (query?: TreeQuery): AxiosPromise<TreeVO[]> => {
  */
 export const getTree = (id: string | number): AxiosPromise<TreeVO> => {
   return request({
-    url: '/demo/tree/' + id,
-    method: 'get'
+    url: "/demo/tree/" + id,
+    method: "get",
   });
 };
 
@@ -32,9 +32,9 @@ export const getTree = (id: string | number): AxiosPromise<TreeVO> => {
  */
 export const addTree = (data: TreeForm) => {
   return request({
-    url: '/demo/tree',
-    method: 'post',
-    data: data
+    url: "/demo/tree",
+    method: "post",
+    data: data,
   });
 };
 
@@ -44,9 +44,9 @@ export const addTree = (data: TreeForm) => {
  */
 export const updateTree = (data: TreeForm) => {
   return request({
-    url: '/demo/tree',
-    method: 'put',
-    data: data
+    url: "/demo/tree",
+    method: "put",
+    data: data,
   });
 };
 
@@ -56,7 +56,7 @@ export const updateTree = (data: TreeForm) => {
  */
 export const delTree = (id: string | number | Array<string | number>) => {
   return request({
-    url: '/demo/tree/' + id,
-    method: 'delete'
+    url: "/demo/tree/" + id,
+    method: "delete",
   });
 };

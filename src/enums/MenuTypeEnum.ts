@@ -2,14 +2,14 @@ export enum MenuTypeEnum {
   /**
    * 目录
    */
-  M = 'M',
+  M = "M",
   /**
    * 菜单
    */
-  C = 'C',
+  C = "C",
 
   /**
    * 按钮
    */
-  F = 'F'
+  F = "F",
 }

@@ -1,45 +1,51 @@
-import { createApp } from 'vue';
+import { createApp } from "vue";
 // global css
-import 'uno.css';
-import '@/assets/styles/index.scss';
-import 'element-plus/theme-chalk/dark/css-vars.css';
+import "uno.css";
+import "@/assets/styles/index.scss";
+import "element-plus/theme-chalk/dark/css-vars.css";
 
 // App、router、store
-import App from './App.vue';
-import store from './store';
-import router from './router';
+import App from "./App.vue";
+import store from "./store";
+import router from "./router";
 
 // 自定义指令
-import directive from './directive';
+import directive from "./directive";
 
 // 注册插件
-import plugins from './plugins/index'; // plugins
-import { download } from '@/utils/request';
+import plugins from "./plugins/index"; // plugins
+import { download } from "@/utils/request";
 
 // 预设动画
-import animate from './animate';
+import animate from "./animate";
 
 // svg图标
-import 'virtual:svg-icons-register';
-import ElementIcons from '@/plugins/svgicon';
+import "virtual:svg-icons-register";
+import ElementIcons from "@/plugins/svgicon";
 
 // permission control
-import './permission';
+import "./permission";
 
-import { useDict } from '@/utils/dict';
-import { getConfigKey, updateConfigByKey } from '@/api/system/config';
-import { parseTime, addDateRange, handleTree, selectDictLabel, selectDictLabels } from '@/utils/ruoyi';
+import { useDict } from "@/utils/dict";
+import { getConfigKey, updateConfigByKey } from "@/api/system/config";
+import {
+  parseTime,
+  addDateRange,
+  handleTree,
+  selectDictLabel,
+  selectDictLabels,
+} from "@/utils/ruoyi";
 
 // 国际化
-import i18n from '@/lang/index';
+import i18n from "@/lang/index";
 
 // 拖拽组件
-import Vue3DraggableResizable from 'vue3-draggable-resizable';
+import Vue3DraggableResizable from "vue3-draggable-resizable";
 //需引入默认样式
-import 'vue3-draggable-resizable/dist/Vue3DraggableResizable.css';
+import "vue3-draggable-resizable/dist/Vue3DraggableResizable.css";
 
 // datav
-import DataVVue3 from '@kjgl77/datav-vue3';
+import DataVVue3 from "@kjgl77/datav-vue3";
 
 const app = createApp(App);
 // 全局方法挂载
@@ -64,4 +70,4 @@ app.use(DataVVue3);
 // 自定义指令
 directive(app);
 
-app.mount('#app');
+app.mount("#app");

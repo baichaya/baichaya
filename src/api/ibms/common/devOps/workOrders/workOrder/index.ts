@@ -1,6 +1,10 @@
-import request from '@/utils/request';
-import { AxiosPromise } from 'axios';
-import { WorkOrderVO, WorkOrderForm, WorkOrderQuery } from '@/api/ibms/common/devOps/workOrders/workOrder/types';
+import request from "@/utils/request";
+import { AxiosPromise } from "axios";
+import {
+  WorkOrderVO,
+  WorkOrderForm,
+  WorkOrderQuery,
+} from "@/api/ibms/common/devOps/workOrders/workOrder/types";
 
 /**
  * 查询工单列表
@@ -8,11 +12,13 @@ import { WorkOrderVO, WorkOrderForm, WorkOrderQuery } from '@/api/ibms/common/de
  * @returns {*}
  */
 
-export const listWorkOrder = (query?: WorkOrderQuery): AxiosPromise<WorkOrderVO[]> => {
+export const listWorkOrder = (
+  query?: WorkOrderQuery
+): AxiosPromise<WorkOrderVO[]> => {
   return request({
-    url: '/workOrders/workOrder/list',
-    method: 'get',
-    params: query
+    url: "/workOrders/workOrder/list",
+    method: "get",
+    params: query,
   });
 };
 
@@ -20,14 +26,14 @@ export const listWorkOrder = (query?: WorkOrderQuery): AxiosPromise<WorkOrderVO[
  * 查询工单详细
  * @param id
  */
-export const getWorkOrder = (id: string | number): AxiosPromise<WorkOrderVO> => {
+export const getWorkOrder = (
+  id: string | number
+): AxiosPromise<WorkOrderVO> => {
   return request({
-    url: '/workOrders/workOrder/' + id,
-    method: 'get'
+    url: "/workOrders/workOrder/" + id,
+    method: "get",
   });
 };
-
-
 
 /**
  * 新增工单
@@ -35,9 +41,9 @@ export const getWorkOrder = (id: string | number): AxiosPromise<WorkOrderVO> => 
  */
 export const addWorkOrder = (data: WorkOrderForm) => {
   return request({
-    url: '/workOrders/workOrder',
-    method: 'post',
-    data: data
+    url: "/workOrders/workOrder",
+    method: "post",
+    data: data,
   });
 };
 
@@ -47,9 +53,9 @@ export const addWorkOrder = (data: WorkOrderForm) => {
  */
 export const updateWorkOrder = (data: WorkOrderForm) => {
   return request({
-    url: '/workOrders/workOrder',
-    method: 'put',
-    data: data
+    url: "/workOrders/workOrder",
+    method: "put",
+    data: data,
   });
 };
 
@@ -59,7 +65,7 @@ export const updateWorkOrder = (data: WorkOrderForm) => {
  */
 export const delWorkOrder = (id: string | number | Array<string | number>) => {
   return request({
-    url: '/workOrders/workOrder/' + id,
-    method: 'delete'
+    url: "/workOrders/workOrder/" + id,
+    method: "delete",
   });
 };

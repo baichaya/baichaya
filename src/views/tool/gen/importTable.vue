@@ -1,32 +1,81 @@
 <template>
   <!-- 导入表 -->
-  <el-dialog title="导入表" v-model="visible" width="1100px" top="5vh" append-to-body>
+  <el-dialog
+    title="导入表"
+    v-model="visible"
+    width="1100px"
+    top="5vh"
+    append-to-body
+  >
     <el-form :model="queryParams" ref="queryFormRef" :inline="true">
       <el-form-item label="数据源" prop="dataName">
-        <el-select v-model="queryParams.dataName" filterable placeholder="请选择/输入数据源名称" style="width: 200px">
-          <el-option v-for="item in dataNameList" :key="item" :label="item" :value="item"> </el-option>
+        <el-select
+          v-model="queryParams.dataName"
+          filterable
+          placeholder="请选择/输入数据源名称"
+          style="width: 200px"
+        >
+          <el-option
+            v-for="item in dataNameList"
+            :key="item"
+            :label="item"
+            :value="item"
+          >
+          </el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="表名称" prop="tableName">
-        <el-input v-model="queryParams.tableName" placeholder="请输入表名称" clearable @keyup.enter="handleQuery" />
+        <el-input
+          v-model="queryParams.tableName"
+          placeholder="请输入表名称"
+          clearable
+          @keyup.enter="handleQuery"
+        />
       </el-form-item>
       <el-form-item label="表描述" prop="tableComment">
-        <el-input v-model="queryParams.tableComment" placeholder="请输入表描述" clearable @keyup.enter="handleQuery" />
+        <el-input
+          v-model="queryParams.tableComment"
+          placeholder="请输入表描述"
+          clearable
+          @keyup.enter="handleQuery"
+        />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
+        <el-button type="primary" icon="Search" @click="handleQuery"
+          >搜索</el-button
+        >
         <el-button icon="Refresh" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
     <el-row>
-      <el-table @row-click="clickRow" ref="tableRef" :data="dbTableList" @selection-change="handleSelectionChange" height="260px">
+      <el-table
+        @row-click="clickRow"
+        ref="tableRef"
+        :data="dbTableList"
+        @selection-change="handleSelectionChange"
+        height="260px"
+      >
         <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column prop="tableName" label="表名称" :show-overflow-tooltip="true"></el-table-column>
-        <el-table-column prop="tableComment" label="表描述" :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column
+          prop="tableName"
+          label="表名称"
+          :show-overflow-tooltip="true"
+        ></el-table-column>
+        <el-table-column
+          prop="tableComment"
+          label="表描述"
+          :show-overflow-tooltip="true"
+        ></el-table-column>
         <el-table-column prop="createTime" label="创建时间"></el-table-column>
         <el-table-column prop="updateTime" label="更新时间"></el-table-column>
       </el-table>
-      <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize" @pagination="getList" />
+      <pagination
+        v-show="total > 0"
+        :total="total"
+        v-model:page="queryParams.pageNum"
+        v-model:limit="queryParams.pageSize"
+        @pagination="getList"
+      />
     </el-row>
     <template #footer>
       <div class="dialog-footer">
@@ -38,8 +87,8 @@
 </template>
 
 <script setup lang="ts">
-import { listDbTable, importTable, getDataNames } from '@/api/tool/gen';
-import { DbTableQuery, DbTableVO } from '@/api/tool/gen/types';
+import { listDbTable, importTable, getDataNames } from "@/api/tool/gen";
+import { DbTableQuery, DbTableVO } from "@/api/tool/gen/types";
 
 const total = ref(0);
 const visible = ref(false);
@@ -53,9 +102,9 @@ const queryFormRef = ref<ElFormInstance>();
 const queryParams = reactive<DbTableQuery>({
   pageNum: 1,
   pageSize: 10,
-  dataName: '',
-  tableName: '',
-  tableComment: ''
+  dataName: "",
+  tableName: "",
+  tableComment: "",
 });
 const dataNameList = ref<Array<string>>([]);
 
@@ -67,36 +116,36 @@ const show = (dataName: string) => {
   if (dataName) {
     queryParams.dataName = dataName;
   } else {
-    queryParams.dataName = 'master';
+    queryParams.dataName = "master";
   }
   getList();
   visible.value = true;
-}
+};
 /** 单击选择行 */
 const clickRow = (row: DbTableVO) => {
   // ele bug
   tableRef.value?.toggleRowSelection(row, false);
-}
+};
 /** 多选框选中数据 */
 const handleSelectionChange = (selection: DbTableVO[]) => {
-  tables.value = selection.map(item => item.tableName);
-}
+  tables.value = selection.map((item) => item.tableName);
+};
 /** 查询表数据 */
 const getList = async () => {
   const res = await listDbTable(queryParams);
   dbTableList.value = res.rows;
   total.value = res.total;
-}
+};
 /** 搜索按钮操作 */
 const handleQuery = () => {
   queryParams.pageNum = 1;
   getList();
-}
+};
 /** 重置按钮操作 */
 const resetQuery = () => {
   queryFormRef.value?.resetFields();
   handleQuery();
-}
+};
 /** 导入按钮操作 */
 const handleImportTable = async () => {
   const tableNames = tables.value.join(",");
@@ -104,18 +153,21 @@ const handleImportTable = async () => {
     proxy?.$modal.msgError("请选择要导入的表");
     return;
   }
-  const res = await importTable({ tables: tableNames, dataName: queryParams.dataName });
+  const res = await importTable({
+    tables: tableNames,
+    dataName: queryParams.dataName,
+  });
   proxy?.$modal.msgSuccess(res.msg);
   if (res.code === 200) {
     visible.value = false;
     emit("ok");
   }
-}
+};
 /** 查询多数据源名称 */
 const getDataNameList = async () => {
-  const res = await getDataNames()
+  const res = await getDataNames();
   dataNameList.value = res.data;
-}
+};
 
 defineExpose({
   show,

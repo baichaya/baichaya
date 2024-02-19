@@ -23,7 +23,6 @@ export interface BuildingVO {
    * 备注
    */
   remark: string;
-
 }
 
 export interface BuildingForm extends BaseEntity {
@@ -51,11 +50,9 @@ export interface BuildingForm extends BaseEntity {
    * 备注
    */
   remark?: string;
-
 }
 
 export interface BuildingQuery extends PageQuery {
-
   /**
    * 楼栋名称
    */
@@ -71,11 +68,8 @@ export interface BuildingQuery extends PageQuery {
    */
   floorCount?: number;
 
-    /**
-     * 日期范围参数
-     */
-    params?: any;
+  /**
+   * 日期范围参数
+   */
+  params?: any;
 }
-
-
-

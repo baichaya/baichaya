@@ -23,7 +23,6 @@ export interface OrderDetailsVO {
    * 创建日期
    */
   createTime: string;
-
 }
 
 export interface OrderDetailsForm extends BaseEntity {
@@ -36,11 +35,9 @@ export interface OrderDetailsForm extends BaseEntity {
    * 工单详细信息值
    */
   workOrderDetailValue?: string;
-
 }
 
 export interface OrderDetailsQuery extends PageQuery {
-
   /**
    * 工单编号
    */
@@ -56,11 +53,8 @@ export interface OrderDetailsQuery extends PageQuery {
    */
   workOrderDetailValue?: string;
 
-    /**
-     * 日期范围参数
-     */
-    params?: any;
+  /**
+   * 日期范围参数
+   */
+  params?: any;
 }
-
-
-

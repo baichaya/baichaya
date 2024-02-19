@@ -48,7 +48,6 @@ export interface AlertRecordVO {
    * 备注
    */
   remark: string;
-
 }
 
 export interface AlertRecordForm extends BaseEntity {
@@ -101,11 +100,9 @@ export interface AlertRecordForm extends BaseEntity {
    * 备注
    */
   remark?: string;
-
 }
 
 export interface AlertRecordQuery extends PageQuery {
-
   /**
    * 设备id
    */
@@ -146,11 +143,8 @@ export interface AlertRecordQuery extends PageQuery {
    */
   handleBy?: string;
 
-    /**
-     * 日期范围参数
-     */
-    params?: any;
+  /**
+   * 日期范围参数
+   */
+  params?: any;
 }
-
-
-

@@ -1,6 +1,10 @@
-import request from '@/utils/request';
-import { AxiosPromise } from 'axios';
-import { AreaVO, AreaForm, AreaQuery } from '@/api/ibms/common/device/area/types';
+import request from "@/utils/request";
+import { AxiosPromise } from "axios";
+import {
+  AreaVO,
+  AreaForm,
+  AreaQuery,
+} from "@/api/ibms/common/device/area/types";
 
 /**
  * 查询区域列表
@@ -10,9 +14,9 @@ import { AreaVO, AreaForm, AreaQuery } from '@/api/ibms/common/device/area/types
 
 export const listArea = (query?: AreaQuery): AxiosPromise<AreaVO[]> => {
   return request({
-    url: '/ibms/area/list',
-    method: 'get',
-    params: query
+    url: "/ibms/area/list",
+    method: "get",
+    params: query,
   });
 };
 /**
@@ -23,9 +27,9 @@ export const listArea = (query?: AreaQuery): AxiosPromise<AreaVO[]> => {
 
 export const selectAreaTree = (query?: AreaQuery): AxiosPromise<AreaVO[]> => {
   return request({
-    url: '/ibms/area/selectAreaTree',
-    method: 'get',
-    params: query
+    url: "/ibms/area/selectAreaTree",
+    method: "get",
+    params: query,
   });
 };
 
@@ -35,8 +39,8 @@ export const selectAreaTree = (query?: AreaQuery): AxiosPromise<AreaVO[]> => {
  */
 export const getArea = (id: string | number): AxiosPromise<AreaVO> => {
   return request({
-    url: '/ibms/area/' + id,
-    method: 'get'
+    url: "/ibms/area/" + id,
+    method: "get",
   });
 };
 
@@ -46,9 +50,9 @@ export const getArea = (id: string | number): AxiosPromise<AreaVO> => {
  */
 export const addArea = (data: AreaForm) => {
   return request({
-    url: '/ibms/area',
-    method: 'post',
-    data: data
+    url: "/ibms/area",
+    method: "post",
+    data: data,
   });
 };
 
@@ -58,9 +62,9 @@ export const addArea = (data: AreaForm) => {
  */
 export const updateArea = (data: AreaForm) => {
   return request({
-    url: '/ibms/area',
-    method: 'put',
-    data: data
+    url: "/ibms/area",
+    method: "put",
+    data: data,
   });
 };
 
@@ -70,7 +74,7 @@ export const updateArea = (data: AreaForm) => {
  */
 export const delArea = (id: string | number | Array<string | number>) => {
   return request({
-    url: '/ibms/area/' + id,
-    method: 'delete'
+    url: "/ibms/area/" + id,
+    method: "delete",
   });
 };

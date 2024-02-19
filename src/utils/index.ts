@@ -1,18 +1,25 @@
-import { parseTime } from '@/utils/ruoyi';
+import { parseTime } from "@/utils/ruoyi";
 
 /**
  * 表格时间格式化
  */
 export const formatDate = (cellValue: string) => {
-  if (cellValue == null || cellValue == '') return '';
+  if (cellValue == null || cellValue == "") return "";
   const date = new Date(cellValue);
   const year = date.getFullYear();
-  const month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
-  const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
-  const hours = date.getHours() < 10 ? '0' + date.getHours() : date.getHours();
-  const minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
-  const seconds = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
-  return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+  const month =
+    date.getMonth() + 1 < 10
+      ? "0" + (date.getMonth() + 1)
+      : date.getMonth() + 1;
+  const day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+  const hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+  const minutes =
+    date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+  const seconds =
+    date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+  return (
+    year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds
+  );
 };
 
 /**
@@ -22,7 +29,7 @@ export const formatDate = (cellValue: string) => {
  */
 export const formatTime = (time: string, option: string) => {
   let t: number;
-  if (('' + time).length === 10) {
+  if (("" + time).length === 10) {
     t = parseInt(time) * 1000;
   } else {
     t = +time;
@@ -33,19 +40,29 @@ export const formatTime = (time: string, option: string) => {
   const diff = (now - d) / 1000;
 
   if (diff < 30) {
-    return '刚刚';
+    return "刚刚";
   } else if (diff < 3600) {
     // less 1 hour
-    return Math.ceil(diff / 60) + '分钟前';
+    return Math.ceil(diff / 60) + "分钟前";
   } else if (diff < 3600 * 24) {
-    return Math.ceil(diff / 3600) + '小时前';
+    return Math.ceil(diff / 3600) + "小时前";
   } else if (diff < 3600 * 24 * 2) {
-    return '1天前';
+    return "1天前";
   }
   if (option) {
     return parseTime(t, option);
   } else {
-    return d.getMonth() + 1 + '月' + d.getDate() + '日' + d.getHours() + '时' + d.getMinutes() + '分';
+    return (
+      d.getMonth() +
+      1 +
+      "月" +
+      d.getDate() +
+      "日" +
+      d.getHours() +
+      "时" +
+      d.getMinutes() +
+      "分"
+    );
   }
 };
 
@@ -55,7 +72,7 @@ export const formatTime = (time: string, option: string) => {
  */
 export const getQueryObject = (url: string) => {
   url = url == null ? window.location.href : url;
-  const search = url.substring(url.lastIndexOf('?') + 1);
+  const search = url.substring(url.lastIndexOf("?") + 1);
   const obj: { [key: string]: string } = {};
   const reg = /([^?&=]+)=([^?&=]*)/g;
   search.replace(reg, (rs, $1, $2) => {
@@ -103,13 +120,13 @@ export const cleanArray = (actual: Array<any>) => {
  * @returns {Array}
  */
 export const param = (json: any) => {
-  if (!json) return '';
+  if (!json) return "";
   return cleanArray(
     Object.keys(json).map((key) => {
-      if (json[key] === undefined) return '';
-      return encodeURIComponent(key) + '=' + encodeURIComponent(json[key]);
+      if (json[key] === undefined) return "";
+      return encodeURIComponent(key) + "=" + encodeURIComponent(json[key]);
     })
-  ).join('&');
+  ).join("&");
 };
 
 /**
@@ -117,14 +134,14 @@ export const param = (json: any) => {
  * @returns {Object}
  */
 export const param2Obj = (url: string) => {
-  const search = decodeURIComponent(url.split('?')[1]).replace(/\+/g, ' ');
+  const search = decodeURIComponent(url.split("?")[1]).replace(/\+/g, " ");
   if (!search) {
     return {};
   }
   const obj: any = {};
-  const searchArr = search.split('&');
+  const searchArr = search.split("&");
   searchArr.forEach((v) => {
-    const index = v.indexOf('=');
+    const index = v.indexOf("=");
     if (index !== -1) {
       const name = v.substring(0, index);
       const val = v.substring(index + 1, v.length);
@@ -139,7 +156,7 @@ export const param2Obj = (url: string) => {
  * @returns {string}
  */
 export const html2Text = (val: string) => {
-  const div = document.createElement('div');
+  const div = document.createElement("div");
   div.innerHTML = val;
   return div.textContent || div.innerText;
 };
@@ -151,7 +168,7 @@ export const html2Text = (val: string) => {
  * @returns {Object}
  */
 export const objectMerge = (target: any, source: any | any[]) => {
-  if (typeof target !== 'object') {
+  if (typeof target !== "object") {
     target = {};
   }
   if (Array.isArray(source)) {
@@ -159,7 +176,7 @@ export const objectMerge = (target: any, source: any | any[]) => {
   }
   Object.keys(source).forEach((property) => {
     const sourceProperty = source[property];
-    if (typeof sourceProperty === 'object') {
+    if (typeof sourceProperty === "object") {
       target[property] = objectMerge(target[property], sourceProperty);
     } else {
       target[property] = sourceProperty;
@@ -179,9 +196,11 @@ export const toggleClass = (element: HTMLElement, className: string) => {
   let classString = element.className;
   const nameIndex = classString.indexOf(className);
   if (nameIndex === -1) {
-    classString += '' + className;
+    classString += "" + className;
   } else {
-    classString = classString.substring(0, nameIndex) + classString.substring(nameIndex + className.length);
+    classString =
+      classString.substring(0, nameIndex) +
+      classString.substring(nameIndex + className.length);
   }
   element.className = classString;
 };
@@ -191,7 +210,7 @@ export const toggleClass = (element: HTMLElement, className: string) => {
  * @returns {Date}
  */
 export const getTime = (type: string) => {
-  if (type === 'start') {
+  if (type === "start") {
     return new Date().getTime() - 3600 * 1000 * 24 * 90;
   } else {
     return new Date(new Date().toDateString());
@@ -246,12 +265,12 @@ export const debounce = (func: any, wait: number, immediate: boolean) => {
  * @returns {Object}
  */
 export const deepClone = (source: any) => {
-  if (!source && typeof source !== 'object') {
-    throw new Error('error arguments', 'deepClone' as any);
+  if (!source && typeof source !== "object") {
+    throw new Error("error arguments", "deepClone" as any);
   }
   const targetObj: any = source.constructor === Array ? [] : {};
   Object.keys(source).forEach((keys) => {
-    if (source[keys] && typeof source[keys] === 'object') {
+    if (source[keys] && typeof source[keys] === "object") {
       targetObj[keys] = deepClone(source[keys]);
     } else {
       targetObj[keys] = source[keys];
@@ -272,9 +291,9 @@ export const uniqueArr = (arr: any) => {
  * @returns {string}
  */
 export const createUniqueString = (): string => {
-  const timestamp = +new Date() + '';
+  const timestamp = +new Date() + "";
   const num = (1 + Math.random()) * 65536;
-  const randomNum = parseInt(num + '');
+  const randomNum = parseInt(num + "");
   return (+(randomNum + timestamp)).toString(32);
 };
 
@@ -285,7 +304,7 @@ export const createUniqueString = (): string => {
  * @returns {boolean}
  */
 export const hasClass = (ele: HTMLElement, cls: string): boolean => {
-  return !!ele.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
+  return !!ele.className.match(new RegExp("(\\s|^)" + cls + "(\\s|$)"));
 };
 
 /**
@@ -294,7 +313,7 @@ export const hasClass = (ele: HTMLElement, cls: string): boolean => {
  * @param {string} cls
  */
 export const addClass = (ele: HTMLElement, cls: string) => {
-  if (!hasClass(ele, cls)) ele.className += ' ' + cls;
+  if (!hasClass(ele, cls)) ele.className += " " + cls;
 };
 
 /**
@@ -304,8 +323,8 @@ export const addClass = (ele: HTMLElement, cls: string) => {
  */
 export const removeClass = (ele: HTMLElement, cls: string) => {
   if (hasClass(ele, cls)) {
-    const reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
-    ele.className = ele.className.replace(reg, ' ');
+    const reg = new RegExp("(\\s|^)" + cls + "(\\s|$)");
+    ele.className = ele.className.replace(reg, " ");
   }
 };
 

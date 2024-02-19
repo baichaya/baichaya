@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+import { defineStore } from "pinia";
 
 interface NoticeItem {
   title?: string;
@@ -7,9 +7,9 @@ interface NoticeItem {
   time: string;
 }
 
-export const useNoticeStore = defineStore('notice', () => {
+export const useNoticeStore = defineStore("notice", () => {
   const state = reactive({
-    notices: [] as NoticeItem[]
+    notices: [] as NoticeItem[],
   });
 
   const addNotice = (notice: NoticeItem) => {
@@ -35,7 +35,7 @@ export const useNoticeStore = defineStore('notice', () => {
     addNotice,
     removeNotice,
     readAll,
-    clearNotice
+    clearNotice,
   };
 });
 

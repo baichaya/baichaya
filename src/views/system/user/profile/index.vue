@@ -10,7 +10,7 @@
           </template>
           <div>
             <div class="text-center">
-              <userAvatar/>
+              <userAvatar />
             </div>
             <ul class="list-group list-group-striped">
               <li class="list-group-item">
@@ -27,7 +27,9 @@
               </li>
               <li class="list-group-item">
                 <svg-icon icon-class="tree" />所属部门
-                <div class="pull-right" v-if="state.user.dept">{{ state.user.dept.deptName }} / {{ state.postGroup }}</div>
+                <div class="pull-right" v-if="state.user.dept">
+                  {{ state.user.dept.deptName }} / {{ state.postGroup }}
+                </div>
               </li>
               <li class="list-group-item">
                 <svg-icon icon-class="peoples" />所属角色
@@ -75,29 +77,29 @@ import { getUserProfile } from "@/api/system/user";
 
 const activeTab = ref("userinfo");
 const state = ref<Record<string, any>>({
-    user: {},
-    roleGroup: '',
-    postGroup: '',
-    auths: []
+  user: {},
+  roleGroup: "",
+  postGroup: "",
+  auths: [],
 });
 
 const userForm = ref({});
 
 const getUser = async () => {
-    const res = await getUserProfile();
-    state.value.user = res.data.user;
-    userForm.value = { ...res.data.user }
-    state.value.roleGroup = res.data.roleGroup;
-    state.value.postGroup = res.data.postGroup;
+  const res = await getUserProfile();
+  state.value.user = res.data.user;
+  userForm.value = { ...res.data.user };
+  state.value.roleGroup = res.data.roleGroup;
+  state.value.postGroup = res.data.postGroup;
 };
 
 const getAuths = async () => {
-    const res = await getAuthList();
-    state.value.auths = res.data;
+  const res = await getAuthList();
+  state.value.auths = res.data;
 };
 
 onMounted(() => {
-    getUser();
-    getAuths();
-})
+  getUser();
+  getAuths();
+});
 </script>

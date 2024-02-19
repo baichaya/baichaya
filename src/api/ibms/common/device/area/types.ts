@@ -23,7 +23,6 @@ export interface AreaVO {
    * 备注
    */
   remark: string;
-
 }
 
 export interface AreaForm extends BaseEntity {
@@ -51,11 +50,9 @@ export interface AreaForm extends BaseEntity {
    * 备注
    */
   remark?: string;
-
 }
 
 export interface AreaQuery extends PageQuery {
-
   /**
    * 区域名称
    */
@@ -71,11 +68,8 @@ export interface AreaQuery extends PageQuery {
    */
   areaAddress?: string;
 
-    /**
-     * 日期范围参数
-     */
-    params?: any;
+  /**
+   * 日期范围参数
+   */
+  params?: any;
 }
-
-
-

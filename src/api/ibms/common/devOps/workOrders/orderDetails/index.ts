@@ -1,6 +1,10 @@
-import request from '@/utils/request';
-import { AxiosPromise } from 'axios';
-import { OrderDetailsVO, OrderDetailsForm, OrderDetailsQuery } from '@/api/ibms/common/devOps/workOrders/orderDetails/types';
+import request from "@/utils/request";
+import { AxiosPromise } from "axios";
+import {
+  OrderDetailsVO,
+  OrderDetailsForm,
+  OrderDetailsQuery,
+} from "@/api/ibms/common/devOps/workOrders/orderDetails/types";
 
 /**
  * 查询工单管理-工单详细列表
@@ -8,11 +12,13 @@ import { OrderDetailsVO, OrderDetailsForm, OrderDetailsQuery } from '@/api/ibms/
  * @returns {*}
  */
 
-export const listOrderDetails = (query?: OrderDetailsQuery): AxiosPromise<OrderDetailsVO[]> => {
+export const listOrderDetails = (
+  query?: OrderDetailsQuery
+): AxiosPromise<OrderDetailsVO[]> => {
   return request({
-    url: '/workOrders/orderDetails/list',
-    method: 'get',
-    params: query
+    url: "/workOrders/orderDetails/list",
+    method: "get",
+    params: query,
   });
 };
 
@@ -20,10 +26,12 @@ export const listOrderDetails = (query?: OrderDetailsQuery): AxiosPromise<OrderD
  * 查询工单管理-工单详细详细
  * @param workOrderDetailSn
  */
-export const getOrderDetails = (workOrderDetailSn: string | number): AxiosPromise<OrderDetailsVO> => {
+export const getOrderDetails = (
+  workOrderDetailSn: string | number
+): AxiosPromise<OrderDetailsVO> => {
   return request({
-    url: '/workOrders/orderDetails/' + workOrderDetailSn,
-    method: 'get'
+    url: "/workOrders/orderDetails/" + workOrderDetailSn,
+    method: "get",
   });
 };
 
@@ -31,10 +39,12 @@ export const getOrderDetails = (workOrderDetailSn: string | number): AxiosPromis
  * 查询工单管理-工单详细详细---根据沟通单编号查询
  * @param getOrderDetailsByOrderSn
  */
-export const getOrderDetailsByOrderSn = (workOrderSn: string | number): AxiosPromise<OrderDetailsVO> => {
+export const getOrderDetailsByOrderSn = (
+  workOrderSn: string | number
+): AxiosPromise<OrderDetailsVO> => {
   return request({
-    url: '/workOrders/orderDetails/byOrderSn/' + workOrderSn,
-    method: 'get'
+    url: "/workOrders/orderDetails/byOrderSn/" + workOrderSn,
+    method: "get",
   });
 };
 
@@ -44,9 +54,9 @@ export const getOrderDetailsByOrderSn = (workOrderSn: string | number): AxiosPro
  */
 export const addOrderDetails = (data: OrderDetailsForm) => {
   return request({
-    url: '/workOrders/orderDetails',
-    method: 'post',
-    data: data
+    url: "/workOrders/orderDetails",
+    method: "post",
+    data: data,
   });
 };
 
@@ -56,9 +66,9 @@ export const addOrderDetails = (data: OrderDetailsForm) => {
  */
 export const updateOrderDetails = (data: OrderDetailsForm) => {
   return request({
-    url: '/workOrders/orderDetails',
-    method: 'put',
-    data: data
+    url: "/workOrders/orderDetails",
+    method: "put",
+    data: data,
   });
 };
 
@@ -66,9 +76,11 @@ export const updateOrderDetails = (data: OrderDetailsForm) => {
  * 删除工单管理-工单详细
  * @param workOrderDetailSn
  */
-export const delOrderDetails = (workOrderDetailSn: string | number | Array<string | number>) => {
+export const delOrderDetails = (
+  workOrderDetailSn: string | number | Array<string | number>
+) => {
   return request({
-    url: '/workOrders/orderDetails/' + workOrderDetailSn,
-    method: 'delete'
+    url: "/workOrders/orderDetails/" + workOrderDetailSn,
+    method: "delete",
   });
 };

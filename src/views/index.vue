@@ -20,7 +20,8 @@
           * 分布式限流 Redisson 全局、请求IP、集群ID 多种限流<br />
           * 分布式锁 Lock4j 注解锁、工具锁 多种多样<br />
           * 分布式幂等 Lock4j 基于分布式锁实现<br />
-          * 分布式链路追踪 SkyWalking 支持链路追踪、网格分析、度量聚合、可视化<br />
+          * 分布式链路追踪 SkyWalking
+          支持链路追踪、网格分析、度量聚合、可视化<br />
           * 分布式任务调度 PowerJob 高性能 高可靠 易扩展<br />
           * 文件存储 Minio 本地存储<br />
           * 文件存储 七牛、阿里、腾讯 云存储<br />
@@ -38,9 +39,27 @@
           <el-tag type="danger">&yen;免费开源</el-tag>
         </p>
         <p>
-          <el-button type="primary" icon="Cloudy" plain @click="goTarget('https://gitee.com/dromara/RuoYi-Vue-Plus')">访问码云</el-button>
-          <el-button type="primary" icon="Cloudy" plain @click="goTarget('https://github.com/dromara/RuoYi-Vue-Plus')">访问GitHub</el-button>
-          <el-button type="primary" icon="Cloudy" plain @click="goTarget('https://plus-doc.dromara.org/#/ruoyi-vue-plus/changlog')"
+          <el-button
+            type="primary"
+            icon="Cloudy"
+            plain
+            @click="goTarget('https://gitee.com/dromara/RuoYi-Vue-Plus')"
+            >访问码云</el-button
+          >
+          <el-button
+            type="primary"
+            icon="Cloudy"
+            plain
+            @click="goTarget('https://github.com/dromara/RuoYi-Vue-Plus')"
+            >访问GitHub</el-button
+          >
+          <el-button
+            type="primary"
+            icon="Cloudy"
+            plain
+            @click="
+              goTarget('https://plus-doc.dromara.org/#/ruoyi-vue-plus/changlog')
+            "
             >更新日志</el-button
           >
         </p>
@@ -49,7 +68,8 @@
       <el-col :sm="24" :lg="12" style="padding-left: 20px">
         <h2>RuoYi-Cloud-Plus多租户微服务管理系统</h2>
         <p>
-          RuoYi-Cloud-Plus 微服务通用权限管理系统 重写 RuoYi-Cloud 全方位升级(不兼容原框架)
+          RuoYi-Cloud-Plus 微服务通用权限管理系统 重写 RuoYi-Cloud
+          全方位升级(不兼容原框架)
           <br />
           * 前端开发框架 Vue3、TS、Element UI<br />
           * 后端开发框架 Spring Boot<br />
@@ -73,7 +93,8 @@
           * 分布式消息队列 Apache RocketMQ 高可用功能多样<br />
           * 分布式消息队列 RabbitMQ 支持各种扩展插件功能多样性<br />
           * 分布式搜索引擎 ElasticSearch 业界知名<br />
-          * 分布式链路追踪 Apache SkyWalking 链路追踪、网格分析、度量聚合、可视化<br />
+          * 分布式链路追踪 Apache SkyWalking
+          链路追踪、网格分析、度量聚合、可视化<br />
           * 分布式日志中心 ELK 业界成熟解决方案<br />
           * 分布式监控 Prometheus、Grafana 全方位性能监控<br />
           * 其余与 Vue 版本一致<br />
@@ -83,9 +104,29 @@
           <el-tag type="danger">&yen;免费开源</el-tag>
         </p>
         <p>
-          <el-button type="primary" icon="Cloudy" plain @click="goTarget('https://gitee.com/dromara/RuoYi-Cloud-Plus')">访问码云</el-button>
-          <el-button type="primary" icon="Cloudy" plain @click="goTarget('https://github.com/dromara/RuoYi-Cloud-Plus')">访问GitHub</el-button>
-          <el-button type="primary" icon="Cloudy" plain @click="goTarget('https://plus-doc.dromara.org/#/ruoyi-cloud-plus/changlog')"
+          <el-button
+            type="primary"
+            icon="Cloudy"
+            plain
+            @click="goTarget('https://gitee.com/dromara/RuoYi-Cloud-Plus')"
+            >访问码云</el-button
+          >
+          <el-button
+            type="primary"
+            icon="Cloudy"
+            plain
+            @click="goTarget('https://github.com/dromara/RuoYi-Cloud-Plus')"
+            >访问GitHub</el-button
+          >
+          <el-button
+            type="primary"
+            icon="Cloudy"
+            plain
+            @click="
+              goTarget(
+                'https://plus-doc.dromara.org/#/ruoyi-cloud-plus/changlog'
+              )
+            "
             >更新日志</el-button
           >
         </p>
@@ -96,16 +137,21 @@
 </template>
 
 <script setup name="Index" lang="ts">
-import { initWebSocket } from '@/utils/websocket';
+import { initWebSocket } from "@/utils/websocket";
 
 onMounted(() => {
-  let protocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://'
-  initWebSocket(protocol + window.location.host + import.meta.env.VITE_APP_BASE_API + "/resource/websocket");
+  let protocol = window.location.protocol === "https:" ? "wss://" : "ws://";
+  initWebSocket(
+    protocol +
+      window.location.host +
+      import.meta.env.VITE_APP_BASE_API +
+      "/resource/websocket"
+  );
 });
 
-const goTarget = (url:string) => {
-  window.open(url, '__blank')
-}
+const goTarget = (url: string) => {
+  window.open(url, "__blank");
+};
 </script>
 
 <style scoped lang="scss">

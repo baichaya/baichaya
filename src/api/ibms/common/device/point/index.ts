@@ -1,7 +1,11 @@
-import request from '@/utils/request';
-import { AxiosPromise } from 'axios';
-import { PointVO, PointForm, PointQuery } from '@/api/ibms/common/device/point/types';
-import {AreaVO} from "@/api/ibms/common/device/area/types";
+import request from "@/utils/request";
+import { AxiosPromise } from "axios";
+import {
+  PointVO,
+  PointForm,
+  PointQuery,
+} from "@/api/ibms/common/device/point/types";
+import { AreaVO } from "@/api/ibms/common/device/area/types";
 
 /**
  * 查询设备点位列表
@@ -11,9 +15,9 @@ import {AreaVO} from "@/api/ibms/common/device/area/types";
 
 export const listPoint = (query?: PointQuery): AxiosPromise<PointVO[]> => {
   return request({
-    url: '/ibms/point/list',
-    method: 'get',
-    params: query
+    url: "/ibms/point/list",
+    method: "get",
+    params: query,
   });
 };
 
@@ -22,9 +26,9 @@ export const listPoint = (query?: PointQuery): AxiosPromise<PointVO[]> => {
  */
 export const selectTree = (query?: PointQuery): AxiosPromise<AreaVO[]> => {
   return request({
-    url: '/ibms/point/selectByAreaBuilding',
-    method: 'get',
-    params: query
+    url: "/ibms/point/selectByAreaBuilding",
+    method: "get",
+    params: query,
   });
 };
 
@@ -34,8 +38,8 @@ export const selectTree = (query?: PointQuery): AxiosPromise<AreaVO[]> => {
  */
 export const getPoint = (id: string | number): AxiosPromise<PointVO> => {
   return request({
-    url: '/ibms/point/' + id,
-    method: 'get'
+    url: "/ibms/point/" + id,
+    method: "get",
   });
 };
 
@@ -45,9 +49,9 @@ export const getPoint = (id: string | number): AxiosPromise<PointVO> => {
  */
 export const addPoint = (data: PointForm) => {
   return request({
-    url: '/ibms/point',
-    method: 'post',
-    data: data
+    url: "/ibms/point",
+    method: "post",
+    data: data,
   });
 };
 
@@ -57,9 +61,9 @@ export const addPoint = (data: PointForm) => {
  */
 export const updatePoint = (data: PointForm) => {
   return request({
-    url: '/ibms/point',
-    method: 'put',
-    data: data
+    url: "/ibms/point",
+    method: "put",
+    data: data,
   });
 };
 
@@ -69,7 +73,7 @@ export const updatePoint = (data: PointForm) => {
  */
 export const delPoint = (id: string | number | Array<string | number>) => {
   return request({
-    url: '/ibms/point/' + id,
-    method: 'delete'
+    url: "/ibms/point/" + id,
+    method: "delete",
   });
 };

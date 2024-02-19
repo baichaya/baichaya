@@ -1,7 +1,11 @@
-import request from '@/utils/request';
-import { AxiosPromise } from 'axios';
-import { FloorVO, FloorForm, FloorQuery } from '@/api/ibms/common/device/floor/types';
-import {AreaVO} from "@/api/ibms/common/device/area/types";
+import request from "@/utils/request";
+import { AxiosPromise } from "axios";
+import {
+  FloorVO,
+  FloorForm,
+  FloorQuery,
+} from "@/api/ibms/common/device/floor/types";
+import { AreaVO } from "@/api/ibms/common/device/area/types";
 
 /**
  * 查询楼层列表
@@ -11,9 +15,9 @@ import {AreaVO} from "@/api/ibms/common/device/area/types";
 
 export const listFloor = (query?: FloorQuery): AxiosPromise<FloorVO[]> => {
   return request({
-    url: '/ibms/floor/list',
-    method: 'get',
-    params: query
+    url: "/ibms/floor/list",
+    method: "get",
+    params: query,
   });
 };
 /**
@@ -22,11 +26,13 @@ export const listFloor = (query?: FloorQuery): AxiosPromise<FloorVO[]> => {
  * @returns {*}
  */
 
-export const areaBuildingTree = (query?: FloorQuery): AxiosPromise<AreaVO[]> => {
+export const areaBuildingTree = (
+  query?: FloorQuery
+): AxiosPromise<AreaVO[]> => {
   return request({
-    url: '/ibms/floor/selectByAreaBuilding',
-    method: 'get',
-    params: query
+    url: "/ibms/floor/selectByAreaBuilding",
+    method: "get",
+    params: query,
   });
 };
 
@@ -36,8 +42,8 @@ export const areaBuildingTree = (query?: FloorQuery): AxiosPromise<AreaVO[]> => 
  */
 export const getFloor = (id: string | number): AxiosPromise<FloorVO> => {
   return request({
-    url: '/ibms/floor/' + id,
-    method: 'get'
+    url: "/ibms/floor/" + id,
+    method: "get",
   });
 };
 
@@ -47,9 +53,9 @@ export const getFloor = (id: string | number): AxiosPromise<FloorVO> => {
  */
 export const addFloor = (data: FloorForm) => {
   return request({
-    url: '/ibms/floor',
-    method: 'post',
-    data: data
+    url: "/ibms/floor",
+    method: "post",
+    data: data,
   });
 };
 
@@ -59,9 +65,9 @@ export const addFloor = (data: FloorForm) => {
  */
 export const updateFloor = (data: FloorForm) => {
   return request({
-    url: '/ibms/floor',
-    method: 'put',
-    data: data
+    url: "/ibms/floor",
+    method: "put",
+    data: data,
   });
 };
 
@@ -71,7 +77,7 @@ export const updateFloor = (data: FloorForm) => {
  */
 export const delFloor = (id: string | number | Array<string | number>) => {
   return request({
-    url: '/ibms/floor/' + id,
-    method: 'delete'
+    url: "/ibms/floor/" + id,
+    method: "delete",
   });
 };

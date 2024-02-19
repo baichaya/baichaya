@@ -1,6 +1,10 @@
-import request from '@/utils/request';
-import { AxiosPromise } from 'axios';
-import { OrderHistoryVO, OrderHistoryForm, OrderHistoryQuery } from '@/api/ibms/common/devOps/workOrders/orderHistory/types';
+import request from "@/utils/request";
+import { AxiosPromise } from "axios";
+import {
+  OrderHistoryVO,
+  OrderHistoryForm,
+  OrderHistoryQuery,
+} from "@/api/ibms/common/devOps/workOrders/orderHistory/types";
 
 /**
  * 查询处理历史列表
@@ -8,11 +12,13 @@ import { OrderHistoryVO, OrderHistoryForm, OrderHistoryQuery } from '@/api/ibms/
  * @returns {*}
  */
 
-export const listOrderHistory = (query?: OrderHistoryQuery): AxiosPromise<OrderHistoryVO[]> => {
+export const listOrderHistory = (
+  query?: OrderHistoryQuery
+): AxiosPromise<OrderHistoryVO[]> => {
   return request({
-    url: '/workOrders/orderHistory/list',
-    method: 'get',
-    params: query
+    url: "/workOrders/orderHistory/list",
+    method: "get",
+    params: query,
   });
 };
 
@@ -20,10 +26,12 @@ export const listOrderHistory = (query?: OrderHistoryQuery): AxiosPromise<OrderH
  * 查询处理历史详细
  * @param id
  */
-export const getOrderHistory = (id: string | number): AxiosPromise<OrderHistoryVO> => {
+export const getOrderHistory = (
+  id: string | number
+): AxiosPromise<OrderHistoryVO> => {
   return request({
-    url: '/workOrders/orderHistory/' + id,
-    method: 'get'
+    url: "/workOrders/orderHistory/" + id,
+    method: "get",
   });
 };
 
@@ -33,9 +41,9 @@ export const getOrderHistory = (id: string | number): AxiosPromise<OrderHistoryV
  */
 export const addOrderHistory = (data: OrderHistoryForm) => {
   return request({
-    url: '/workOrders/orderHistory',
-    method: 'post',
-    data: data
+    url: "/workOrders/orderHistory",
+    method: "post",
+    data: data,
   });
 };
 
@@ -45,9 +53,9 @@ export const addOrderHistory = (data: OrderHistoryForm) => {
  */
 export const updateOrderHistory = (data: OrderHistoryForm) => {
   return request({
-    url: '/workOrders/orderHistory',
-    method: 'put',
-    data: data
+    url: "/workOrders/orderHistory",
+    method: "put",
+    data: data,
   });
 };
 
@@ -55,9 +63,11 @@ export const updateOrderHistory = (data: OrderHistoryForm) => {
  * 删除处理历史
  * @param id
  */
-export const delOrderHistory = (id: string | number | Array<string | number>) => {
+export const delOrderHistory = (
+  id: string | number | Array<string | number>
+) => {
   return request({
-    url: '/workOrders/orderHistory/' + id,
-    method: 'delete'
+    url: "/workOrders/orderHistory/" + id,
+    method: "delete",
   });
 };

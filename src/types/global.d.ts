@@ -102,5 +102,9 @@ declare global {
     // 标题
     title: string;
   }
+
+  interface Window {
+    WebVideoCtrl: any;
+  }
 }
 export {};

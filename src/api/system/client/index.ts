@@ -1,6 +1,6 @@
-import request from '@/utils/request';
-import { AxiosPromise } from 'axios';
-import { ClientVO, ClientForm, ClientQuery } from '@/api/system/client/types';
+import request from "@/utils/request";
+import { AxiosPromise } from "axios";
+import { ClientVO, ClientForm, ClientQuery } from "@/api/system/client/types";
 
 /**
  * 查询客户端管理列表
@@ -10,9 +10,9 @@ import { ClientVO, ClientForm, ClientQuery } from '@/api/system/client/types';
 
 export const listClient = (query?: ClientQuery): AxiosPromise<ClientVO[]> => {
   return request({
-    url: '/system/client/list',
-    method: 'get',
-    params: query
+    url: "/system/client/list",
+    method: "get",
+    params: query,
   });
 };
 
@@ -22,8 +22,8 @@ export const listClient = (query?: ClientQuery): AxiosPromise<ClientVO[]> => {
  */
 export const getClient = (id: string | number): AxiosPromise<ClientVO> => {
   return request({
-    url: '/system/client/' + id,
-    method: 'get'
+    url: "/system/client/" + id,
+    method: "get",
   });
 };
 
@@ -33,9 +33,9 @@ export const getClient = (id: string | number): AxiosPromise<ClientVO> => {
  */
 export const addClient = (data: ClientForm) => {
   return request({
-    url: '/system/client',
-    method: 'post',
-    data: data
+    url: "/system/client",
+    method: "post",
+    data: data,
   });
 };
 
@@ -45,9 +45,9 @@ export const addClient = (data: ClientForm) => {
  */
 export const updateClient = (data: ClientForm) => {
   return request({
-    url: '/system/client',
-    method: 'put',
-    data: data
+    url: "/system/client",
+    method: "put",
+    data: data,
   });
 };
 
@@ -57,8 +57,8 @@ export const updateClient = (data: ClientForm) => {
  */
 export const delClient = (id: string | number | Array<string | number>) => {
   return request({
-    url: '/system/client/' + id,
-    method: 'delete'
+    url: "/system/client/" + id,
+    method: "delete",
   });
 };
 
@@ -70,11 +70,11 @@ export const delClient = (id: string | number | Array<string | number>) => {
 export function changeStatus(id: number | string, status: string) {
   const data = {
     id,
-    status
+    status,
   };
   return request({
-    url: '/system/client/changeStatus',
-    method: 'put',
-    data: data
+    url: "/system/client/changeStatus",
+    method: "put",
+    data: data,
   });
 }

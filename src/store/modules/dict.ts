@@ -1,4 +1,4 @@
-export const useDictStore = defineStore('dict', () => {
+export const useDictStore = defineStore("dict", () => {
   const dict = ref<
     Array<{
       key: string;
@@ -11,7 +11,7 @@ export const useDictStore = defineStore('dict', () => {
    * @param _key 字典key
    */
   const getDict = (_key: string): DictDataOption[] | null => {
-    if (_key == null && _key == '') {
+    if (_key == null && _key == "") {
       return null;
     }
     try {
@@ -32,10 +32,10 @@ export const useDictStore = defineStore('dict', () => {
    * @param _value 字典value
    */
   const setDict = (_key: string, _value: DictDataOption[]) => {
-    if (_key !== null && _key !== '') {
+    if (_key !== null && _key !== "") {
       dict.value.push({
         key: _key,
-        value: _value
+        value: _value,
       });
     }
   };
@@ -71,7 +71,7 @@ export const useDictStore = defineStore('dict', () => {
     getDict,
     setDict,
     removeDict,
-    cleanDict
+    cleanDict,
   };
 });
 

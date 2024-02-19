@@ -6,37 +6,48 @@
     </div>
     <div class="content-box" v-loading="state.loading">
       <template v-if="newsList.length > 0">
-        <div class="content-box-item" v-for="(v, k) in newsList" :key="k" @click="onNewsClick(k)">
+        <div
+          class="content-box-item"
+          v-for="(v, k) in newsList"
+          :key="k"
+          @click="onNewsClick(k)"
+        >
           <div class="item-conten">
             <div>{{ v.message }}</div>
             <div class="content-box-msg"></div>
             <div class="content-box-time">{{ v.time }}</div>
           </div>
           <!-- 已读/未读 -->
-          <span v-if="v.read" class="el-tag el-tag--success el-tag--mini read">已读</span>
-          <span v-else class="el-tag el-tag--danger el-tag--mini read">未读</span>
+          <span v-if="v.read" class="el-tag el-tag--success el-tag--mini read"
+            >已读</span
+          >
+          <span v-else class="el-tag el-tag--danger el-tag--mini read"
+            >未读</span
+          >
         </div>
       </template>
       <el-empty :description="'消息为空'" v-else></el-empty>
     </div>
-    <div class="foot-box" @click="onGoToGiteeClick" v-if="newsList.length > 0">前往gitee</div>
+    <div class="foot-box" @click="onGoToGiteeClick" v-if="newsList.length > 0">
+      前往gitee
+    </div>
   </div>
 </template>
 
 <script setup lang="ts" name="layoutBreadcrumbUserNews">
 import { ref } from "vue";
-import { storeToRefs } from 'pinia'
+import { storeToRefs } from "pinia";
 import { nextTick, onMounted, reactive } from "vue";
-import useNoticeStore from '@/store/modules/notice';
+import useNoticeStore from "@/store/modules/notice";
 
 const noticeStore = storeToRefs(useNoticeStore());
-const {readAll} = useNoticeStore();
+const { readAll } = useNoticeStore();
 
 // 定义变量内容
 const state = reactive({
   loading: false,
 });
-const newsList =ref([]) as any;
+const newsList = ref([]) as any;
 
 /**
  * 初始化数据
@@ -47,7 +58,6 @@ const getTableData = async () => {
   newsList.value = noticeStore.state.value.notices;
   state.loading = false;
 };
-
 
 //点击消息，写入已读
 const onNewsClick = (item: any) => {

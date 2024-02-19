@@ -1,7 +1,7 @@
-import useUserStore from '@/store/modules/user';
+import useUserStore from "@/store/modules/user";
 
 const authPermission = (permission: string): boolean => {
-  const all_permission = '*:*:*';
+  const all_permission = "*:*:*";
   const permissions: string[] = useUserStore().permissions;
   if (permission && permission.length > 0) {
     return permissions.some((v) => {
@@ -13,7 +13,7 @@ const authPermission = (permission: string): boolean => {
 };
 
 const authRole = (role: string): boolean => {
-  const super_admin = 'admin';
+  const super_admin = "admin";
   const roles = useUserStore().roles;
   if (role && role.length > 0) {
     return roles.some((v) => {
@@ -56,5 +56,5 @@ export default {
     return roles.every((item) => {
       return authRole(item);
     });
-  }
+  },
 };

@@ -18,13 +18,13 @@
  * @param {number} socketError 错误次数
  */
 
-import { getToken } from '@/utils/auth';
-import useNoticeStore from '@/store/modules/notice';
+import { getToken } from "@/utils/auth";
+import useNoticeStore from "@/store/modules/notice";
 import { ElNotification } from "element-plus";
 
 const { addNotice } = useNoticeStore();
 
-let socketUrl: any = ''; // socket地址
+let socketUrl: any = ""; // socket地址
 let websocket: any = null; // websocket 实例
 let heartTime: any = null; // 心跳定时器实例
 let socketHeart = 0 as number; // 心跳次数
@@ -33,12 +33,18 @@ let socketError = 0 as number; // 错误次数
 
 // 初始化socket
 export const initWebSocket = (url: any) => {
-  if (import.meta.env.VITE_APP_WEBSOCKET === 'false') {
+  if (import.meta.env.VITE_APP_WEBSOCKET === "false") {
     return;
   }
   socketUrl = url;
   // 初始化 websocket
-  websocket = new WebSocket(url + '?Authorization=Bearer ' + getToken() + '&clientid=' + import.meta.env.VITE_APP_CLIENT_ID);
+  websocket = new WebSocket(
+    url +
+      "?Authorization=Bearer " +
+      getToken() +
+      "&clientid=" +
+      import.meta.env.VITE_APP_CLIENT_ID
+  );
   websocketonopen();
   websocketonmessage();
   websocketonerror();
@@ -50,7 +56,7 @@ export const initWebSocket = (url: any) => {
 // socket 连接成功
 export const websocketonopen = () => {
   websocket.onopen = function () {
-    console.log('连接 websocket 成功');
+    console.log("连接 websocket 成功");
     resetHeart();
   };
 };
@@ -58,14 +64,14 @@ export const websocketonopen = () => {
 // socket 连接失败
 export const websocketonerror = () => {
   websocket.onerror = function (e: any) {
-    console.log('连接 websocket 失败', e);
+    console.log("连接 websocket 失败", e);
   };
 };
 
 // socket 断开链接
 export const websocketclose = () => {
   websocket.onclose = function (e: any) {
-    console.log('断开连接', e);
+    console.log("断开连接", e);
   };
 };
 
@@ -85,7 +91,7 @@ export const sendSocketHeart = () => {
       // if (socketHeart <= 30) {
       websocket.send(
         JSON.stringify({
-          type: 'ping'
+          type: "ping",
         })
       );
       socketHeart = socketHeart + 1;
@@ -103,10 +109,10 @@ export const reconnect = () => {
     initWebSocket(socketUrl);
     socketError = socketError + 1;
     // eslint-disable-next-line prettier/prettier
-    console.log('socket重连', socketError);
+    console.log("socket重连", socketError);
   } else {
     // eslint-disable-next-line prettier/prettier
-    console.log('重试次数已用完');
+    console.log("重试次数已用完");
     clearInterval(heartTime);
   }
 };
@@ -119,23 +125,23 @@ export const sendMsg = (data: any) => {
 // socket 接收数据
 export const websocketonmessage = () => {
   websocket.onmessage = function (e: any) {
-    if (e.data.indexOf('heartbeat') > 0) {
+    if (e.data.indexOf("heartbeat") > 0) {
       resetHeart();
     }
-    if (e.data.indexOf('ping') > 0) {
+    if (e.data.indexOf("ping") > 0) {
       return;
     }
     addNotice({
       message: e.data,
       read: false,
-      time: new Date().toLocaleString()
+      time: new Date().toLocaleString(),
     });
     ElNotification({
-      title: '消息',
+      title: "消息",
       message: e.data,
-      type: 'success',
-      duration: 3000
-    })
+      type: "success",
+      duration: 3000,
+    });
     return e.data;
   };
 };

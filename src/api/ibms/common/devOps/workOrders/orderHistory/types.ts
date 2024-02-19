@@ -28,11 +28,10 @@ export interface OrderHistoryVO {
    * 用户名
    */
   operatorName: string;
-      /**
+  /**
    * 图片
    */
-      pictureUrl: string;
-
+  pictureUrl: string;
 }
 
 export interface OrderHistoryForm extends BaseEntity {
@@ -41,14 +40,13 @@ export interface OrderHistoryForm extends BaseEntity {
    */
   operationComment?: string;
 
-      /**
+  /**
    * 图片
    */
-      pictureUrl?: string;
+  pictureUrl?: string;
 }
 
 export interface OrderHistoryQuery extends PageQuery {
-
   /**
    * 工单编号
    */
@@ -64,16 +62,13 @@ export interface OrderHistoryQuery extends PageQuery {
    */
   operationComment?: string;
 
-    /**
+  /**
    * 图片
    */
-    pictureUrl?: string;
+  pictureUrl?: string;
 
-    /**
-     * 日期范围参数
-     */
-    params?: any;
+  /**
+   * 日期范围参数
+   */
+  params?: any;
 }
-
-
-

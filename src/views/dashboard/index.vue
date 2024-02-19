@@ -1,9 +1,9 @@
 <script setup name="Index" lang="ts">
 import { useUserStore } from "@/store/modules/user";
 import { useTransition, TransitionPresets } from "@vueuse/core";
-import BarChart from './components/BarChart.vue';
-import PieChart from './components/PieChart.vue';
-import RadarChart from './components/RadarChart.vue';
+import BarChart from "./components/BarChart.vue";
+import PieChart from "./components/PieChart.vue";
+import RadarChart from "./components/RadarChart.vue";
 
 const userStore = useUserStore();
 const date: Date = new Date();
@@ -64,10 +64,15 @@ orderCount.value = 2000;
       <el-row justify="space-between">
         <el-col :span="18" :xs="24">
           <div class="flex h-full items-center">
-            <img class="w-20 h-20 mr-5 rounded-full" :src="userStore.avatar + '?imageView2/1/w/80/h/80'" />
+            <img
+              class="w-20 h-20 mr-5 rounded-full"
+              :src="userStore.avatar + '?imageView2/1/w/80/h/80'"
+            />
             <div>
               <p>{{ greetings }}</p>
-              <p class="text-sm text-gray">今日天气晴朗，气温在15℃至25℃之间，东南风。</p>
+              <p class="text-sm text-gray">
+                今日天气晴朗，气温在15℃至25℃之间，东南风。
+              </p>
             </div>
           </div>
         </el-col>
@@ -124,7 +129,9 @@ orderCount.value = 2000;
             <svg-icon icon-class="visit" size="2em" />
           </div>
 
-          <div class="flex items-center justify-between mt-5 text-sm text-[var(--el-text-color-secondary)]">
+          <div
+            class="flex items-center justify-between mt-5 text-sm text-[var(--el-text-color-secondary)]"
+          >
             <span> 总访客数 </span>
             <span> {{ Math.round(visitCountOutput * 15) }} </span>
           </div>
@@ -148,7 +155,9 @@ orderCount.value = 2000;
             <svg-icon icon-class="ip" size="2em" />
           </div>
 
-          <div class="flex items-center justify-between mt-5 text-sm text-[var(--el-text-color-secondary)]">
+          <div
+            class="flex items-center justify-between mt-5 text-sm text-[var(--el-text-color-secondary)]"
+          >
             <span> 总IP数 </span>
             <span> {{ Math.round(dauCountOutput) }} </span>
           </div>
@@ -172,7 +181,9 @@ orderCount.value = 2000;
             <svg-icon icon-class="money" size="2em" />
           </div>
 
-          <div class="flex items-center justify-between mt-5 text-sm text-[var(--el-text-color-secondary)]">
+          <div
+            class="flex items-center justify-between mt-5 text-sm text-[var(--el-text-color-secondary)]"
+          >
             <span> 总销售额 </span>
             <span> {{ Math.round(amountOutput * 15) }} </span>
           </div>
@@ -196,7 +207,9 @@ orderCount.value = 2000;
             <svg-icon icon-class="order" size="2em" />
           </div>
 
-          <div class="flex items-center justify-between mt-5 text-sm text-[var(--el-text-color-secondary)]">
+          <div
+            class="flex items-center justify-between mt-5 text-sm text-[var(--el-text-color-secondary)]"
+          >
             <span> 总订单量 </span>
             <span> {{ Math.round(orderCountOutput * 15) }} </span>
           </div>
@@ -207,15 +220,30 @@ orderCount.value = 2000;
     <!-- Echarts 图表 -->
     <el-row :gutter="10" class="mt-3">
       <el-col :sm="24" :lg="8" class="mb-2">
-        <BarChart id="barChart" height="400px" width="100%" class="bg-[var(--el-bg-color-overlay)]" />
+        <BarChart
+          id="barChart"
+          height="400px"
+          width="100%"
+          class="bg-[var(--el-bg-color-overlay)]"
+        />
       </el-col>
 
       <el-col :xs="24" :sm="12" :lg="8" class="mb-2">
-        <PieChart id="pieChart" height="400px" width="100%" class="bg-[var(--el-bg-color-overlay)]" />
+        <PieChart
+          id="pieChart"
+          height="400px"
+          width="100%"
+          class="bg-[var(--el-bg-color-overlay)]"
+        />
       </el-col>
 
       <el-col :xs="24" :sm="12" :lg="8" class="mb-2">
-        <RadarChart id="radarChart" height="400px" width="100%" class="bg-[var(--el-bg-color-overlay)]" />
+        <RadarChart
+          id="radarChart"
+          height="400px"
+          width="100%"
+          class="bg-[var(--el-bg-color-overlay)]"
+        />
       </el-col>
     </el-row>
   </div>

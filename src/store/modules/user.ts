@@ -1,16 +1,20 @@
-import { to } from 'await-to-js';
-import defAva from '@/assets/images/profile.jpg';
-import store from '@/store';
-import { getToken, removeToken, setToken } from '@/utils/auth';
-import { login as loginApi, logout as logoutApi, getInfo as getUserInfo } from '@/api/login';
-import { LoginData } from '@/api/types';
+import { to } from "await-to-js";
+import defAva from "@/assets/images/profile.jpg";
+import store from "@/store";
+import { getToken, removeToken, setToken } from "@/utils/auth";
+import {
+  login as loginApi,
+  logout as logoutApi,
+  getInfo as getUserInfo,
+} from "@/api/login";
+import { LoginData } from "@/api/types";
 
-export const useUserStore = defineStore('user', () => {
+export const useUserStore = defineStore("user", () => {
   const token = ref(getToken());
-  const name = ref('');
-  const nickname = ref('');
-  const userId = ref<string | number>('');
-  const avatar = ref('');
+  const name = ref("");
+  const nickname = ref("");
+  const userId = ref<string | number>("");
+  const avatar = ref("");
   const roles = ref<Array<string>>([]); // 用户角色编码集合 → 判断路由权限
   const permissions = ref<Array<string>>([]); // 用户权限编码集合 → 判断按钮权限
 
@@ -36,14 +40,15 @@ export const useUserStore = defineStore('user', () => {
     if (res) {
       const data = res.data;
       const user = data.user;
-      const profile = user.avatar == '' || user.avatar == null ? defAva : user.avatar;
+      const profile =
+        user.avatar == "" || user.avatar == null ? defAva : user.avatar;
 
       if (data.roles && data.roles.length > 0) {
         // 验证返回的roles是否是一个非空数组
         roles.value = data.roles;
         permissions.value = data.permissions;
       } else {
-        roles.value = ['ROLE_DEFAULT'];
+        roles.value = ["ROLE_DEFAULT"];
       }
       name.value = user.userName;
       nickname.value = user.nickName;
@@ -57,7 +62,7 @@ export const useUserStore = defineStore('user', () => {
   // 注销
   const logout = async (): Promise<void> => {
     await logoutApi();
-    token.value = '';
+    token.value = "";
     roles.value = [];
     permissions.value = [];
     removeToken();
@@ -77,7 +82,7 @@ export const useUserStore = defineStore('user', () => {
     login,
     getInfo,
     logout,
-    setAvatar
+    setAvatar,
   };
 });
 

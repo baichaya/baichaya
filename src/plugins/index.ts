@@ -1,10 +1,10 @@
-import modal from './modal';
-import tab from './tab';
-import download from './download';
-import cache from './cache';
-import auth from './auth';
+import modal from "./modal";
+import tab from "./tab";
+import download from "./download";
+import cache from "./cache";
+import auth from "./auth";
 
-import { App } from 'vue';
+import { App } from "vue";
 
 export default function installPlugin(app: App) {
   // 页签操作

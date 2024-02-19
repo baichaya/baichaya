@@ -1,6 +1,8 @@
 <template>
   <div class="errPage-container">
-    <el-button icon="arrow-left" class="pan-back-btn" @click="back"> 返回 </el-button>
+    <el-button icon="arrow-left" class="pan-back-btn" @click="back">
+      返回
+    </el-button>
     <el-row>
       <el-col :span="12">
         <h1 class="text-jumbo text-ginormous">401错误!</h1>
@@ -13,14 +15,19 @@
         </ul>
       </el-col>
       <el-col :span="12">
-        <img :src="errGif" width="313" height="428" alt="Girl has dropped her ice cream." />
+        <img
+          :src="errGif"
+          width="313"
+          height="428"
+          alt="Girl has dropped her ice cream."
+        />
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script setup lang="ts">
-import errImage from '@/assets/401_images/401.gif';
+import errImage from "@/assets/401_images/401.gif";
 
 let { proxy } = getCurrentInstance() as ComponentInternalInstance;
 

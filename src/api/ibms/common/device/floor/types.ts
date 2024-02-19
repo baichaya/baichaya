@@ -23,7 +23,6 @@ export interface FloorVO {
    * 其他情况
    */
   remark: string;
-
 }
 
 export interface FloorForm extends BaseEntity {
@@ -51,11 +50,9 @@ export interface FloorForm extends BaseEntity {
    * 其他情况
    */
   remark?: string;
-
 }
 
 export interface FloorQuery extends PageQuery {
-
   /**
    * 楼栋id
    */
@@ -71,11 +68,8 @@ export interface FloorQuery extends PageQuery {
    */
   cadUrl?: string;
 
-    /**
-     * 日期范围参数
-     */
-    params?: any;
+  /**
+   * 日期范围参数
+   */
+  params?: any;
 }
-
-
-

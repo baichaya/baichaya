@@ -14,7 +14,9 @@ const title = ref("智能数据可视化信息平台");
       </div>
     </div>
     <div class="home">
-      <dv-button @click="$router.push('/')" border="Border5" color="#10e5fa"> 首页 </dv-button>
+      <dv-button @click="$router.push('/')" border="Border5" color="#10e5fa">
+        首页
+      </dv-button>
     </div>
     <div class="timers">
       {{ formatted }}
@@ -69,7 +71,7 @@ const title = ref("智能数据可视化信息平台");
     right: 0;
     top: 30px;
     font-size: 22px;
-    font-weight:600;
+    font-weight: 600;
     display: flex;
     align-items: center;
     color: #fff;

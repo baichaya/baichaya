@@ -281,7 +281,7 @@ onMounted(() => {
   justify-content: center;
   align-items: center;
   height: 100%;
-  background-image: url("@/assets/images/l-b.jpg");
+  background-image: url("@/assets/images/bg.jpg");
   background-size: cover;
   background-position: center center;
 }
@@ -299,7 +299,7 @@ onMounted(() => {
 
 .login-form {
   border-radius: 6px;
-  background: #ffffff;
+  background-color: rgba(#fff, 0.8);
   width: 400px;
   padding: 25px 25px 5px 25px;
 

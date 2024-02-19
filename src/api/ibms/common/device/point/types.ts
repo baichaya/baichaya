@@ -51,7 +51,6 @@ export interface PointVO {
    * 是否已绑定设备
    */
   isBinding: string;
-
 }
 
 export interface PointForm extends BaseEntity {
@@ -107,11 +106,9 @@ export interface PointForm extends BaseEntity {
    * 是否已绑定设备
    */
   isBinding?: string;
-
 }
 
 export interface PointQuery extends PageQuery {
-
   /**
    * 设备id
    */
@@ -155,11 +152,8 @@ export interface PointQuery extends PageQuery {
    */
   isBinding?: string;
 
-    /**
-     * 日期范围参数
-     */
-    params?: any;
+  /**
+   * 日期范围参数
+   */
+  params?: any;
 }
-
-
-

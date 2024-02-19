@@ -1,6 +1,10 @@
-import request from '@/utils/request';
-import { AxiosPromise } from 'axios';
-import { OrderEvaluateVO, OrderEvaluateForm, OrderEvaluateQuery } from '@/api/ibms/common/devOps/workOrders/orderEvaluate/types';
+import request from "@/utils/request";
+import { AxiosPromise } from "axios";
+import {
+  OrderEvaluateVO,
+  OrderEvaluateForm,
+  OrderEvaluateQuery,
+} from "@/api/ibms/common/devOps/workOrders/orderEvaluate/types";
 
 /**
  * 查询评价列表
@@ -8,11 +12,13 @@ import { OrderEvaluateVO, OrderEvaluateForm, OrderEvaluateQuery } from '@/api/ib
  * @returns {*}
  */
 
-export const listOrderEvaluate = (query?: OrderEvaluateQuery): AxiosPromise<OrderEvaluateVO[]> => {
+export const listOrderEvaluate = (
+  query?: OrderEvaluateQuery
+): AxiosPromise<OrderEvaluateVO[]> => {
   return request({
-    url: '/workOrders/orderEvaluate/list',
-    method: 'get',
-    params: query
+    url: "/workOrders/orderEvaluate/list",
+    method: "get",
+    params: query,
   });
 };
 
@@ -20,10 +26,12 @@ export const listOrderEvaluate = (query?: OrderEvaluateQuery): AxiosPromise<Orde
  * 查询评价详细
  * @param id
  */
-export const getOrderEvaluate = (id: string | number): AxiosPromise<OrderEvaluateVO> => {
+export const getOrderEvaluate = (
+  id: string | number
+): AxiosPromise<OrderEvaluateVO> => {
   return request({
-    url: '/workOrders/orderEvaluate/' + id,
-    method: 'get'
+    url: "/workOrders/orderEvaluate/" + id,
+    method: "get",
   });
 };
 
@@ -33,9 +41,9 @@ export const getOrderEvaluate = (id: string | number): AxiosPromise<OrderEvaluat
  */
 export const addOrderEvaluate = (data: OrderEvaluateForm) => {
   return request({
-    url: '/workOrders/orderEvaluate',
-    method: 'post',
-    data: data
+    url: "/workOrders/orderEvaluate",
+    method: "post",
+    data: data,
   });
 };
 
@@ -45,9 +53,9 @@ export const addOrderEvaluate = (data: OrderEvaluateForm) => {
  */
 export const updateOrderEvaluate = (data: OrderEvaluateForm) => {
   return request({
-    url: '/workOrders/orderEvaluate',
-    method: 'put',
-    data: data
+    url: "/workOrders/orderEvaluate",
+    method: "put",
+    data: data,
   });
 };
 
@@ -55,9 +63,11 @@ export const updateOrderEvaluate = (data: OrderEvaluateForm) => {
  * 删除评价
  * @param id
  */
-export const delOrderEvaluate = (id: string | number | Array<string | number>) => {
+export const delOrderEvaluate = (
+  id: string | number | Array<string | number>
+) => {
   return request({
-    url: '/workOrders/orderEvaluate/' + id,
-    method: 'delete'
+    url: "/workOrders/orderEvaluate/" + id,
+    method: "delete",
   });
 };

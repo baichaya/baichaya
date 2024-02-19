@@ -1,6 +1,10 @@
-import request from '@/utils/request';
-import { AxiosPromise } from 'axios';
-import { BuildingVO, BuildingForm, BuildingQuery } from '@/api/ibms/common/device/building/types';
+import request from "@/utils/request";
+import { AxiosPromise } from "axios";
+import {
+  BuildingVO,
+  BuildingForm,
+  BuildingQuery,
+} from "@/api/ibms/common/device/building/types";
 
 /**
  * 查询楼栋
@@ -9,11 +13,13 @@ import { BuildingVO, BuildingForm, BuildingQuery } from '@/api/ibms/common/devic
  * @returns {*}
  */
 
-export const listBuilding = (query?: BuildingQuery): AxiosPromise<BuildingVO[]> => {
+export const listBuilding = (
+  query?: BuildingQuery
+): AxiosPromise<BuildingVO[]> => {
   return request({
-    url: '/ibms/building/list',
-    method: 'get',
-    params: query
+    url: "/ibms/building/list",
+    method: "get",
+    params: query,
   });
 };
 
@@ -24,8 +30,8 @@ export const listBuilding = (query?: BuildingQuery): AxiosPromise<BuildingVO[]> 
  */
 export const getBuilding = (id: string | number): AxiosPromise<BuildingVO> => {
   return request({
-    url: '/ibms/building/' + id,
-    method: 'get'
+    url: "/ibms/building/" + id,
+    method: "get",
   });
 };
 
@@ -36,9 +42,9 @@ export const getBuilding = (id: string | number): AxiosPromise<BuildingVO> => {
  */
 export const addBuilding = (data: BuildingForm) => {
   return request({
-    url: '/ibms/building',
-    method: 'post',
-    data: data
+    url: "/ibms/building",
+    method: "post",
+    data: data,
   });
 };
 
@@ -49,9 +55,9 @@ export const addBuilding = (data: BuildingForm) => {
  */
 export const updateBuilding = (data: BuildingForm) => {
   return request({
-    url: '/ibms/building',
-    method: 'put',
-    data: data
+    url: "/ibms/building",
+    method: "put",
+    data: data,
   });
 };
 
@@ -62,7 +68,7 @@ export const updateBuilding = (data: BuildingForm) => {
  */
 export const delBuilding = (id: string | number | Array<string | number>) => {
   return request({
-    url: '/ibms/building/' + id,
-    method: 'delete'
+    url: "/ibms/building/" + id,
+    method: "delete",
   });
 };

@@ -1,4 +1,4 @@
-declare module 'vform3-builds' {
+declare module "vform3-builds" {
   const content: any;
   export = content;
 }

@@ -12,14 +12,16 @@
 
 <script setup lang="ts">
 import InnerLink from "../InnerLink/index.vue";
-import useTagsViewStore from '@/store/modules/tagsView';
+import useTagsViewStore from "@/store/modules/tagsView";
 
 const route = useRoute();
 const tagsViewStore = useTagsViewStore();
 
 function iframeUrl(url: string, query: any) {
   if (Object.keys(query).length > 0) {
-    let params = Object.keys(query).map((key) => key + "=" + query[key]).join("&");
+    let params = Object.keys(query)
+      .map((key) => key + "=" + query[key])
+      .join("&");
     return url + "?" + params;
   }
   return url;

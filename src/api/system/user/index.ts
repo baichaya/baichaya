@@ -1,9 +1,9 @@
-import { DeptVO } from './../dept/types';
-import { RoleVO } from '@/api/system/role/types';
-import request from '@/utils/request';
-import { AxiosPromise } from 'axios';
-import { UserForm, UserQuery, UserVO, UserInfoVO } from './types';
-import { parseStrEmpty } from '@/utils/ruoyi';
+import { DeptVO } from "./../dept/types";
+import { RoleVO } from "@/api/system/role/types";
+import request from "@/utils/request";
+import { AxiosPromise } from "axios";
+import { UserForm, UserQuery, UserVO, UserInfoVO } from "./types";
+import { parseStrEmpty } from "@/utils/ruoyi";
 
 /**
  * 查询用户列表
@@ -11,9 +11,9 @@ import { parseStrEmpty } from '@/utils/ruoyi';
  */
 export const listUser = (query: UserQuery): AxiosPromise<UserVO[]> => {
   return request({
-    url: '/system/user/list',
-    method: 'get',
-    params: query
+    url: "/system/user/list",
+    method: "get",
+    params: query,
   });
 };
 
@@ -23,8 +23,8 @@ export const listUser = (query: UserQuery): AxiosPromise<UserVO[]> => {
  */
 export const getUser = (userId?: string | number): AxiosPromise<UserInfoVO> => {
   return request({
-    url: '/system/user/' + parseStrEmpty(userId),
-    method: 'get'
+    url: "/system/user/" + parseStrEmpty(userId),
+    method: "get",
   });
 };
 
@@ -33,9 +33,9 @@ export const getUser = (userId?: string | number): AxiosPromise<UserInfoVO> => {
  */
 export const addUser = (data: UserForm) => {
   return request({
-    url: '/system/user',
-    method: 'post',
-    data: data
+    url: "/system/user",
+    method: "post",
+    data: data,
   });
 };
 
@@ -44,9 +44,9 @@ export const addUser = (data: UserForm) => {
  */
 export const updateUser = (data: UserForm) => {
   return request({
-    url: '/system/user',
-    method: 'put',
-    data: data
+    url: "/system/user",
+    method: "put",
+    data: data,
   });
 };
 
@@ -56,8 +56,8 @@ export const updateUser = (data: UserForm) => {
  */
 export const delUser = (userId: Array<string | number> | string | number) => {
   return request({
-    url: '/system/user/' + userId,
-    method: 'delete'
+    url: "/system/user/" + userId,
+    method: "delete",
   });
 };
 
@@ -69,15 +69,15 @@ export const delUser = (userId: Array<string | number> | string | number) => {
 export const resetUserPwd = (userId: string | number, password: string) => {
   const data = {
     userId,
-    password
+    password,
   };
   return request({
-    url: '/system/user/resetPwd',
-    method: 'put',
+    url: "/system/user/resetPwd",
+    method: "put",
     headers: {
-      isEncrypt: true
+      isEncrypt: true,
     },
-    data: data
+    data: data,
   });
 };
 
@@ -89,12 +89,12 @@ export const resetUserPwd = (userId: string | number, password: string) => {
 export const changeUserStatus = (userId: number | string, status: string) => {
   const data = {
     userId,
-    status
+    status,
   };
   return request({
-    url: '/system/user/changeStatus',
-    method: 'put',
-    data: data
+    url: "/system/user/changeStatus",
+    method: "put",
+    data: data,
   });
 };
 
@@ -103,8 +103,8 @@ export const changeUserStatus = (userId: number | string, status: string) => {
  */
 export const getUserProfile = (): AxiosPromise<UserInfoVO> => {
   return request({
-    url: '/system/user/profile',
-    method: 'get'
+    url: "/system/user/profile",
+    method: "get",
   });
 };
 
@@ -114,9 +114,9 @@ export const getUserProfile = (): AxiosPromise<UserInfoVO> => {
  */
 export const updateUserProfile = (data: UserForm) => {
   return request({
-    url: '/system/user/profile',
-    method: 'put',
-    data: data
+    url: "/system/user/profile",
+    method: "put",
+    data: data,
   });
 };
 
@@ -128,15 +128,15 @@ export const updateUserProfile = (data: UserForm) => {
 export const updateUserPwd = (oldPassword: string, newPassword: string) => {
   const data = {
     oldPassword,
-    newPassword
+    newPassword,
   };
   return request({
-    url: '/system/user/profile/updatePwd',
-    method: 'put',
+    url: "/system/user/profile/updatePwd",
+    method: "put",
     headers: {
-      isEncrypt: true
+      isEncrypt: true,
     },
-    data: data
+    data: data,
   });
 };
 
@@ -146,9 +146,9 @@ export const updateUserPwd = (oldPassword: string, newPassword: string) => {
  */
 export const uploadAvatar = (data: FormData) => {
   return request({
-    url: '/system/user/profile/avatar',
-    method: 'post',
-    data: data
+    url: "/system/user/profile/avatar",
+    method: "post",
+    data: data,
   });
 };
 
@@ -156,10 +156,12 @@ export const uploadAvatar = (data: FormData) => {
  * 查询授权角色
  * @param userId 用户ID
  */
-export const getAuthRole = (userId: string | number): AxiosPromise<{ user: UserVO; roles: RoleVO[] }> => {
+export const getAuthRole = (
+  userId: string | number
+): AxiosPromise<{ user: UserVO; roles: RoleVO[] }> => {
   return request({
-    url: '/system/user/authRole/' + userId,
-    method: 'get'
+    url: "/system/user/authRole/" + userId,
+    method: "get",
   });
 };
 
@@ -169,9 +171,9 @@ export const getAuthRole = (userId: string | number): AxiosPromise<{ user: UserV
  */
 export const updateAuthRole = (data: { userId: string; roleIds: string }) => {
   return request({
-    url: '/system/user/authRole',
-    method: 'put',
-    params: data
+    url: "/system/user/authRole",
+    method: "put",
+    params: data,
   });
 };
 
@@ -179,10 +181,12 @@ export const updateAuthRole = (data: { userId: string; roleIds: string }) => {
  * 查询当前部门的所有用户信息
  * @param deptId
  */
-export const listUserByDeptId = (deptId: string | number): AxiosPromise<UserVO[]> => {
+export const listUserByDeptId = (
+  deptId: string | number
+): AxiosPromise<UserVO[]> => {
   return request({
-    url: '/system/user/list/dept/' + deptId,
-    method: 'get'
+    url: "/system/user/list/dept/" + deptId,
+    method: "get",
   });
 };
 
@@ -191,8 +195,8 @@ export const listUserByDeptId = (deptId: string | number): AxiosPromise<UserVO[]
  */
 export const deptTreeSelect = (): AxiosPromise<DeptVO[]> => {
   return request({
-    url: '/system/user/deptTree',
-    method: 'get'
+    url: "/system/user/deptTree",
+    method: "get",
   });
 };
 
@@ -211,5 +215,5 @@ export default {
   getAuthRole,
   updateAuthRole,
   deptTreeSelect,
-  listUserByDeptId
+  listUserByDeptId,
 };

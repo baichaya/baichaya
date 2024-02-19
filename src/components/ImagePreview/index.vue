@@ -1,5 +1,11 @@
 <template>
-  <el-image :src="`${realSrc}`" fit="cover" :style="`width:${realWidth};height:${realHeight};`" :preview-src-list="realSrcList" preview-teleported>
+  <el-image
+    :src="`${realSrc}`"
+    fit="cover"
+    :style="`width:${realWidth};height:${realHeight};`"
+    :preview-src-list="realSrcList"
+    preview-teleported
+  >
     <template #error>
       <div class="image-slot">
         <el-icon><picture-filled /></el-icon>
@@ -9,18 +15,18 @@
 </template>
 
 <script setup lang="ts">
-import { propTypes } from '@/utils/propTypes';
+import { propTypes } from "@/utils/propTypes";
 
 const props = defineProps({
-  src: propTypes.string.def(''),
+  src: propTypes.string.def(""),
   width: {
     type: [Number, String],
-    default: ""
+    default: "",
   },
   height: {
     type: [Number, String],
-    default: ""
-  }
+    default: "",
+  },
 });
 
 const realSrc = computed(() => {
@@ -37,7 +43,7 @@ const realSrcList = computed(() => {
   }
   let real_src_list = props.src.split(",");
   let srcList: string[] = [];
-  real_src_list.forEach(item => {
+  real_src_list.forEach((item) => {
     return srcList.push(item);
   });
   return srcList;
