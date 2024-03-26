@@ -8,7 +8,4 @@ public
 *.md
 
 src/assets
-
-.eslintrc.cjs
-.prettierrc.cjs
-.stylelintrc.cjs
+stats.html
