@@ -56,7 +56,11 @@ export const usePermissionStore = defineStore("permission", () => {
    * @param lastRouter 上一级路由
    * @param type 是否是重写路由
    */
-  const filterAsyncRouter = (asyncRouterMap: RouteOption[], lastRouter?: RouteOption, type = false): RouteOption[] => {
+  const filterAsyncRouter = (
+    asyncRouterMap: RouteOption[],
+    lastRouter?: RouteOption,
+    type = false
+  ): RouteOption[] => {
     return asyncRouterMap.filter((route) => {
       if (type && route.children) {
         route.children = filterChildren(route.children, undefined);
@@ -82,7 +86,10 @@ export const usePermissionStore = defineStore("permission", () => {
       return true;
     });
   };
-  const filterChildren = (childrenMap: RouteOption[], lastRouter?: RouteOption): RouteOption[] => {
+  const filterChildren = (
+    childrenMap: RouteOption[],
+    lastRouter?: RouteOption
+  ): RouteOption[] => {
     let children: RouteOption[] = [];
     childrenMap.forEach((el) => {
       if (el.children && el.children.length) {
