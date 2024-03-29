@@ -1,4 +1,4 @@
-import { TagView, RouteRecordNormalized } from "vue-router";
+import { RouteRecordNormalized, TagView } from "vue-router";
 
 export const useTagsViewStore = defineStore("tagsView", () => {
   const visitedViews = ref<TagView[]>([]);
@@ -20,9 +20,7 @@ export const useTagsViewStore = defineStore("tagsView", () => {
   };
   const delIframeView = (view: TagView): Promise<TagView[]> => {
     return new Promise((resolve) => {
-      iframeViews.value = iframeViews.value.filter(
-        (item) => item.path !== view.path
-      );
+      iframeViews.value = iframeViews.value.filter((item) => item.path !== view.path);
       resolve([...iframeViews.value]);
     });
   };
@@ -34,9 +32,7 @@ export const useTagsViewStore = defineStore("tagsView", () => {
       })
     );
   };
-  const delView = (
-    view: TagView
-  ): Promise<{ visitedViews: TagView[]; cachedViews: string[] }> => {
+  const delView = (view: TagView): Promise<{ visitedViews: TagView[]; cachedViews: string[] }> => {
     return new Promise((resolve) => {
       delVisitedView(view);
       if (!isDynamicRoute(view)) {
@@ -71,9 +67,7 @@ export const useTagsViewStore = defineStore("tagsView", () => {
       resolve([...cachedViews.value]);
     });
   };
-  const delOthersViews = (
-    view: TagView
-  ): Promise<{ visitedViews: TagView[]; cachedViews: string[] }> => {
+  const delOthersViews = (view: TagView): Promise<{ visitedViews: TagView[]; cachedViews: string[] }> => {
     return new Promise((resolve) => {
       delOthersVisitedViews(view);
       delOthersCachedViews(view);
@@ -190,9 +184,7 @@ export const useTagsViewStore = defineStore("tagsView", () => {
 
   const isDynamicRoute = (view: any): boolean => {
     // 检查匹配的路由记录中是否有动态段
-    return view.matched.some((m: RouteRecordNormalized) =>
-      m.path.includes(":")
-    );
+    return view.matched.some((m: RouteRecordNormalized) => m.path.includes(":"));
   };
 
   return {

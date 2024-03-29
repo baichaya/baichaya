@@ -52,7 +52,6 @@ const callbackByCode = async (data: LoginData) => {
 };
 
 const loginByCode = async (data: LoginData) => {
-  console.log(2);
   try {
     const res = await login(data);
     await processResponse(res);

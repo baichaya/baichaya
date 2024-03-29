@@ -7,12 +7,12 @@
     >
       <template #footer>
         <el-autocomplete
+          ref="layoutMenuAutocompleteRef"
           v-model="state.menuQuery"
           :fetch-suggestions="menuSearch"
           placeholder="搜索"
-          ref="layoutMenuAutocompleteRef"
-          @select="onHandleSelect"
           :fit-input-width="true"
+          @select="onHandleSelect"
         >
           <template #prefix>
             <svg-icon class-name="search-icon" icon-class="search" />
@@ -33,7 +33,7 @@
 import { getNormalPath } from "@/utils/ruoyi";
 import { isHttp } from "@/utils/validate";
 import usePermissionStore from "@/store/modules/permission";
-import { RouteOption } from "vue-router";
+import { RouteRecordRaw } from "vue-router";
 type Router = Array<{
   path: string;
   icon: string;
@@ -58,7 +58,7 @@ const state = reactive<SearchState>({
 const openSearch = () => {
   state.menuQuery = "";
   state.isShowSearch = true;
-  state.menuList = generateRoutes(routes.value);
+  state.menuList = generateRoutes(routes.value as any);
   nextTick(() => {
     setTimeout(() => {
       layoutMenuAutocompleteRef.value.focus();
@@ -80,7 +80,7 @@ const menuSearch = (queryString: string, cb: Function) => {
 // Filter out the routes that can be displayed in the sidebar
 // And generate the internationalized title
 const generateRoutes = (
-  routes: RouteOption[],
+  routes: RouteRecordRaw[],
   basePath = "",
   prefixTitle: string[] = []
 ) => {

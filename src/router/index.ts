@@ -94,6 +94,37 @@ export const constantRoutes: RouteOption[] = [
       },
     ],
   },
+  {
+    path: "/ibms",
+    component: Layout,
+    hidden: true,
+    redirect: "setPoint",
+    name: "PointCad",
+    children: [
+      {
+        path: "setPoint",
+        name: "SetPoint",
+        component: () =>
+          import("@/views/ibms/common/pointSetting/setPoint.vue"),
+        meta: { title: "设备点位", icon: "" },
+      },
+    ],
+  },
+  {
+    path: "/ibms/sys-video",
+    component: Layout,
+    hidden: true,
+    name: "sysVideo",
+    children: [
+      {
+        path: "playVideo",
+        name: "PlayVideo",
+        component: () =>
+          import("@/views/ibms/sys-video/videoCad/playVideo.vue"),
+        meta: { title: "视频监控", icon: "" },
+      },
+    ],
+  },
 ];
 
 // 动态路由，基于用户权限动态去加载

@@ -26,11 +26,10 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
       open: true,
       proxy: {
         [env.VITE_APP_BASE_API]: {
-          target: "http://192.168.10.41:8080",
+          target: env.VITE_APP_TARGET_URL,
           changeOrigin: true,
           ws: true,
-          rewrite: (path) =>
-            path.replace(new RegExp("^" + env.VITE_APP_BASE_API), ""),
+          rewrite: (path) => path.replace(new RegExp("^" + env.VITE_APP_BASE_API), ""),
         },
       },
     },

@@ -23,7 +23,7 @@
         <settings ref="settingRef" />
       </el-scrollbar> -->
       <div :class="{ 'fixed-header': fixedHeader }">
-        <navbar ref="navbarRef" @setLayout="setLayout" />
+        <navbar ref="navbarRef" @set-layout="setLayout" />
         <tags-view v-if="needTagsView" />
       </div>
       <app-main />
@@ -37,6 +37,7 @@ import SideBar from "./components/Sidebar/index.vue";
 import { AppMain, Navbar, Settings, TagsView } from "./components";
 import useAppStore from "@/store/modules/app";
 import useSettingsStore from "@/store/modules/settings";
+import { initWebSocket } from "@/utils/websocket";
 
 const settingsStore = useSettingsStore();
 const theme = computed(() => settingsStore.theme);
@@ -67,13 +68,23 @@ watchEffect(() => {
   }
 });
 
-const navbarRef = ref(Navbar);
-const settingRef = ref(Settings);
+const navbarRef = ref<InstanceType<typeof Navbar>>();
+const settingRef = ref<InstanceType<typeof Settings>>();
 
 onMounted(() => {
   nextTick(() => {
-    navbarRef.value.initTenantList();
+    navbarRef.value?.initTenantList();
   });
+});
+
+onMounted(() => {
+  let protocol = window.location.protocol === "https:" ? "wss://" : "ws://";
+  initWebSocket(
+    protocol +
+      window.location.host +
+      import.meta.env.VITE_APP_BASE_API +
+      "/resource/websocket"
+  );
 });
 
 const handleClickOutside = () => {
@@ -81,7 +92,7 @@ const handleClickOutside = () => {
 };
 
 const setLayout = () => {
-  settingRef.value.openSetting();
+  settingRef.value?.openSetting();
 };
 </script>
 

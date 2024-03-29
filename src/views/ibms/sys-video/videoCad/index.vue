@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <DeviceCadPoint v-bind="{ ...data }" />
-  </div>
+  <DeviceCadPoint @check-point="checkVideo" v-bind="{ ...data }" :isVideo="true" />
 </template>
 
 <script setup name="VideoCad" lang="ts">
 import { IconTypeEnum } from "@/enums/IBMSEnum";
+
+const router = useRouter();
 
 const data = reactive<CadData>({
   infoList: [
@@ -37,6 +37,10 @@ const data = reactive<CadData>({
   icon: IconTypeEnum.M,
   title: "视频监控",
 });
+
+const checkVideo = () => {
+  router.push({ name: "PlayVideo" });
+};
 </script>
 
 <style scoped></style>

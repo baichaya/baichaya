@@ -17,10 +17,10 @@
           mode="vertical"
         >
           <sidebar-item
-            v-for="(route, index) in sidebarRouters"
-            :key="route.path + index"
-            :item="route"
-            :base-path="route.path"
+            v-for="(r, index) in sidebarRouters"
+            :key="r.path + index"
+            :item="r"
+            :base-path="r.path"
           />
         </el-menu>
       </transition>
@@ -35,16 +35,16 @@ import variables from "@/assets/styles/variables.module.scss";
 import useAppStore from "@/store/modules/app";
 import useSettingsStore from "@/store/modules/settings";
 import usePermissionStore from "@/store/modules/permission";
-import { RouteOption } from "vue-router";
+import { RouteRecordRaw } from "vue-router";
+
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 
 const route = useRoute();
 const appStore = useAppStore();
 const settingsStore = useSettingsStore();
 const permissionStore = usePermissionStore();
-
-const sidebarRouters = computed<RouteOption[]>(
-  () => permissionStore.sidebarRouters
+const sidebarRouters = computed<RouteRecordRaw[]>(() =>
+  permissionStore.getSidebarRoutes()
 );
 const showLogo = computed(() => settingsStore.sidebarLogo);
 const sideTheme = computed(() => settingsStore.sideTheme);

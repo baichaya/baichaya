@@ -7,7 +7,10 @@
         !item.alwaysShow
       "
     >
-      <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
+      <app-link
+        v-if="onlyOneChild.meta"
+        :to="resolvePath(onlyOneChild.path, onlyOneChild.query)"
+      >
         <el-menu-item
           :index="resolvePath(onlyOneChild.path)"
           :class="{ 'submenu-title-noDropdown': !isNest }"
@@ -57,13 +60,11 @@
 import { isExternal } from "@/utils/validate";
 import AppLink from "./Link.vue";
 import { getNormalPath } from "@/utils/ruoyi";
-import { RouteOption } from "vue-router";
-import path from "path-browserify";
+import { RouteRecordRaw } from "vue-router";
 
 const props = defineProps({
-  // route object
   item: {
-    type: Object as PropType<RouteOption>,
+    type: Object as PropType<RouteRecordRaw>,
     required: true,
   },
   isNest: {
@@ -78,61 +79,53 @@ const props = defineProps({
 
 const onlyOneChild = ref<any>({});
 
-/**
- * 判断当前路由是否只有一个子路由
- *
- * 1：如果只有一个子路由： 返回 true
- * 2：如果无子路由 ：返回 true
- *
- * @param children 子路由数组
- * @param parent 当前路由
- */
-function hasOneShowingChild(parent: RouteOption, children?: RouteOption[]) {
+const hasOneShowingChild = (
+  parent: RouteRecordRaw,
+  children?: RouteRecordRaw[]
+) => {
   if (!children) {
     children = [];
   }
-  // 子路由集合
-  const showingChildren = children.filter((item: any) => {
+  const showingChildren = children.filter((item) => {
     if (item.hidden) {
-      // 过滤不显示的子路由
       return false;
     } else {
-      // 临时变量（多个子路由 onlyOneChild 变量是用不上的）
+      // Temp set(will be used if only has one showing child)
       onlyOneChild.value = item;
       return true;
     }
   });
 
-  // 如果只有一个子路由, 返回 true
+  // When there is only one child router, the child router is displayed by default
   if (showingChildren.length === 1) {
     return true;
   }
 
-  // 如果没有子路由，显示父级路由
+  // Show parent if there are no child router to display
   if (showingChildren.length === 0) {
     onlyOneChild.value = { ...parent, path: "", noShowingChildren: true };
     return true;
   }
-  return false;
-}
 
-/**
- *  解析路由路径(相对路径 → 绝对路径)
- *
- * @param routePath 路由路径
- */
-function resolvePath(routePath: string) {
+  return false;
+};
+
+const resolvePath = (routePath: string, routeQuery?: string): any => {
   if (isExternal(routePath)) {
     return routePath;
   }
-  if (isExternal(props.basePath)) {
+  if (isExternal(props.basePath as string)) {
     return props.basePath;
   }
-
-  // 完整路径(/system/user) = 父级路径(/system) + 路由路径(user)
-  const fullPath = path.resolve(props.basePath, routePath);
-  return fullPath;
-}
+  if (routeQuery) {
+    let query = JSON.parse(routeQuery);
+    return {
+      path: getNormalPath(props.basePath + "/" + routePath),
+      query: query,
+    };
+  }
+  return getNormalPath(props.basePath + "/" + routePath);
+};
 
 const hasTitle = (title: string | undefined): string => {
   if (!title || title.length <= 5) {

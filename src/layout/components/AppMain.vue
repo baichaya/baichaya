@@ -1,13 +1,14 @@
 <template>
   <section class="app-main">
-    <router-view v-if="routerAlive" v-slot="{ Component, route }">
+    <router-view v-slot="{ Component, route }">
       <transition :enter-active-class="animante" mode="out-in">
         <keep-alive :include="tagsViewStore.cachedViews">
           <component
-            v-if="!route.meta.link"
             :is="Component"
+            v-if="!route.meta.link"
             :key="route.path"
           />
+          <span v-else>{{ route.path }}</span>
         </keep-alive>
       </transition>
     </router-view>
@@ -16,15 +17,13 @@
 </template>
 
 <script setup name="AppMain" lang="ts">
-import useTagsViewStore from "@/store/modules/tagsView";
 import useSettingsStore from "@/store/modules/settings";
+import useTagsViewStore from "@/store/modules/tagsView";
+
 import IframeToggle from "./IframeToggle/index.vue";
-import { ComponentInternalInstance } from "vue";
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 const tagsViewStore = useTagsViewStore();
 
-//region 无感刷新
-const routerAlive = ref(true);
 // 随机动画集合
 const animante = ref<string>("");
 const animationEnable = ref(useSettingsStore().animationEnable);
@@ -42,16 +41,6 @@ watch(
   },
   { immediate: true }
 );
-
-// 无感刷新，防止出现页面闪烁白屏
-const reload = () => {
-  routerAlive.value = false;
-  nextTick(() => (routerAlive.value = true));
-};
-
-onMounted(() => {
-  reload();
-});
 </script>
 
 <style lang="scss" scoped>

@@ -3,34 +3,18 @@
     <el-card style="width: 91vw; height: 91vh">
       <el-container>
         <el-aside width="250px">
-          <el-tree
-            :data="data"
-            :props="defaultProps"
-            @node-click="handleNodeClick"
-          />
+          <el-tree ref="ref1" :data="data" :props="defaultProps" @node-click="handleNodeClick" />
         </el-aside>
         <el-main>
           <div style="font-size: 17px; line-height: 17px; margin-bottom: 5px">
             分屏:
             <el-space>
-              <i-ep-full-screen
-                class="btn"
-                :class="{ active: slipt == 1 }"
-                @click="slipt = 1"
-              />
-              <i-ep-menu
-                class="btn"
-                :class="{ active: slipt == 4 }"
-                @click="slipt = 4"
-              />
-              <i-ep-grid
-                class="btn"
-                :class="{ active: slipt == 9 }"
-                @click="slipt = 9"
-              />
+              <i-ep-full-screen class="btn" :class="{ active: slipt == 1 }" @click="slipt = 1" />
+              <i-ep-menu class="btn" :class="{ active: slipt == 4 }" @click="slipt = 4" />
+              <i-ep-grid class="btn" :class="{ active: slipt == 9 }" @click="slipt = 9" />
             </el-space>
           </div>
-          <div style="height: 84vh">
+          <div ref="ref2" style="height: 84vh">
             <HkVideo :slipt="slipt" />
           </div>
         </el-main>

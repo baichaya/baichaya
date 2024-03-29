@@ -5,12 +5,7 @@
       :leave-active-class="proxy?.animate.searchAnimate.leave"
     >
       <div class="search" v-show="showSearch">
-        <el-form
-          :model="queryParams"
-          ref="queryFormRef"
-          :inline="true"
-          label-width="68px"
-        >
+        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
           <el-form-item label="区域名称" prop="areaName">
             <el-input
               v-model="queryParams.areaName"
@@ -30,9 +25,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" icon="Search" @click="handleQuery"
-              >搜索</el-button
-            >
+            <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
             <el-button icon="Refresh" @click="resetQuery">重置</el-button>
           </el-form-item>
         </el-form>
@@ -43,12 +36,7 @@
       <template #header>
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
-            <el-button
-              type="primary"
-              plain
-              icon="Plus"
-              @click="handleAdd"
-              v-hasPermi="['ibms:area:add']"
+            <el-button type="primary" plain icon="Plus" @click="handleAdd" v-hasPermi="['ibms:area:add']"
               >新增</el-button
             >
           </el-col>
@@ -75,38 +63,22 @@
             >
           </el-col>
           <el-col :span="1.5">
-            <el-button
-              type="warning"
-              plain
-              icon="Download"
-              @click="handleExport"
-              v-hasPermi="['ibms:area:export']"
+            <el-button type="warning" plain icon="Download" @click="handleExport" v-hasPermi="['ibms:area:export']"
               >导出</el-button
             >
           </el-col>
-          <right-toolbar
-            v-model:showSearch="showSearch"
-            @queryTable="getList"
-          ></right-toolbar>
+          <right-toolbar v-model:showSearch="showSearch" @query-table="getList" />
         </el-row>
       </template>
 
-      <el-table
-        v-loading="loading"
-        :data="areaList"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table v-loading="loading" :data="areaList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column label="主键" align="center" prop="id" v-if="true" />
         <el-table-column label="区域名称" align="center" prop="areaName" />
         <!--        <el-table-column label="上级区域id" align="center" prop="parentAreaId" />-->
         <el-table-column label="区域地址" align="center" prop="areaAddress" />
         <el-table-column label="备注" align="center" prop="remark" />
-        <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
-        >
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
             <el-tooltip content="修改" placement="top">
               <el-button
@@ -115,7 +87,7 @@
                 icon="Edit"
                 @click="handleUpdate(scope.row)"
                 v-hasPermi="['ibms:area:edit']"
-              ></el-button>
+              />
             </el-tooltip>
             <el-tooltip content="删除" placement="top">
               <el-button
@@ -124,7 +96,7 @@
                 icon="Delete"
                 @click="handleDelete(scope.row)"
                 v-hasPermi="['ibms:area:remove']"
-              ></el-button>
+              />
             </el-tooltip>
           </template>
         </el-table-column>
@@ -139,18 +111,8 @@
       />
     </el-card>
     <!-- 添加或修改区域对话框 -->
-    <el-dialog
-      :title="dialog.title"
-      v-model="dialog.visible"
-      width="500px"
-      append-to-body
-    >
-      <el-form
-        ref="areaFormRef"
-        :model="form"
-        :rules="rules"
-        label-width="80px"
-      >
+    <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
+      <el-form ref="areaFormRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="区域名称" prop="areaName">
           <el-input v-model="form.areaName" placeholder="请输入区域名称" />
         </el-form-item>
@@ -174,11 +136,7 @@
           />
         </el-form-item>-->
         <el-form-item label="区域地址" prop="areaAddress">
-          <el-input
-            v-model="form.areaAddress"
-            type="textarea"
-            placeholder="请输入内容"
-          />
+          <el-input v-model="form.areaAddress" type="textarea" placeholder="请输入内容" />
         </el-form-item>
         <el-form-item label="备注" prop="remark">
           <el-input v-model="form.remark" placeholder="请输入备注" />
@@ -186,9 +144,7 @@
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button :loading="buttonLoading" type="primary" @click="submitForm"
-            >确 定</el-button
-          >
+          <el-button :loading="buttonLoading" type="primary" @click="submitForm">确 定</el-button>
           <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
@@ -197,19 +153,8 @@
 </template>
 
 <script setup name="Area" lang="ts">
-import {
-  listArea,
-  getArea,
-  delArea,
-  addArea,
-  updateArea,
-  selectAreaTree,
-} from "@/api/ibms/common/device/area";
-import {
-  AreaVO,
-  AreaQuery,
-  AreaForm,
-} from "@/api/ibms/common/device/area/types";
+import { listArea, getArea, delArea, addArea, updateArea, selectAreaTree } from "@/api/ibms/common/device/area";
+import { AreaVO, AreaQuery, AreaForm } from "@/api/ibms/common/device/area/types";
 
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 
@@ -249,12 +194,8 @@ const data = reactive<PageData<AreaForm, AreaQuery>>({
     params: {},
   },
   rules: {
-    areaName: [
-      { required: true, message: "区域名称不能为空", trigger: "blur" },
-    ],
-    parentAreaId: [
-      { required: true, message: "上级区域id不能为空", trigger: "change" },
-    ],
+    areaName: [{ required: true, message: "区域名称不能为空", trigger: "blur" }],
+    parentAreaId: [{ required: true, message: "上级区域id不能为空", trigger: "change" }],
   },
 });
 const { queryParams, form, rules } = toRefs(data);
@@ -339,14 +280,10 @@ const submitForm = () => {
     if (valid) {
       buttonLoading.value = true;
       if (form.value.id) {
-        const res = await updateArea(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        const res = await updateArea(form.value).finally(() => (buttonLoading.value = false));
         proxy?.$modal.msgSuccess(res.msg);
       } else {
-        const res = await addArea(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        const res = await addArea(form.value).finally(() => (buttonLoading.value = false));
         proxy?.$modal.msgSuccess(res.msg);
       }
       dialog.visible = false;
@@ -358,9 +295,7 @@ const submitForm = () => {
 /** 删除按钮操作 */
 const handleDelete = async (row?: AreaVO) => {
   const _ids = row?.id || ids.value;
-  await proxy?.$modal
-    .confirm('是否确认删除区域编号为"' + _ids + '"的数据项？')
-    .finally(() => (loading.value = false));
+  await proxy?.$modal.confirm('是否确认删除区域编号为"' + _ids + '"的数据项？').finally(() => (loading.value = false));
   const res = await delArea(_ids);
   proxy?.$modal.msgSuccess(res.msg);
   await getList();

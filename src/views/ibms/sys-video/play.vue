@@ -1,13 +1,15 @@
 <template>
   <div class="p-2">
-    <el-button type="primary" plain @click="open"> Primary </el-button>
+    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+      <el-form-item label="ip">
+        <el-input v-model="formInline.ip" placeholder="ip" clearable />
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" plain @click="open"> 登录 </el-button>
+      </el-form-item>
+    </el-form>
 
-    <el-dialog
-      v-model="dialogVisible"
-      title="Tips"
-      width="830px"
-      :append-to-body="true"
-    >
+    <el-dialog v-model="dialogVisible" title="Tips" width="830px" :append-to-body="true" :before-close="close">
       <!--视频窗口展示-->
       <div id="playWnd" class="playWnd" ref="playWnd"></div>
     </el-dialog>
@@ -15,6 +17,10 @@
 </template>
 
 <script setup lang="ts">
+const formInline = reactive({
+  ip: "",
+});
+
 const g_iWndIndex = 0;
 
 const dialogVisible = ref(false);
@@ -24,20 +30,34 @@ const playWnd = ref();
 
 const videoPlugins = reactive({
   szDeviceIdentify: "",
-  ip: "192.168.10.88",
+  ip: "",
   port: "80",
   username: "admin",
   password: "a1234567",
 });
 
 // 打开监控
-const open = async () => {
+const open = () => {
   dialogVisible.value = true;
-  await initPlugin();
+  if (formInline.ip) {
+    videoPlugins.ip = formInline.ip;
+  }
+  initPlugin();
+};
+
+const close = () => {
+  videoPlugins.ip = "";
+  videoPlugins.szDeviceIdentify = "";
+  videoPlugins.port = "80";
+  videoPlugins.username = "admin";
+  videoPlugins.password = "a1234567";
+  dialogVisible.value = false;
+  formInline.ip = "";
+  videoClose();
 };
 
 // 创建播放实例
-const initPlugin = async () => {
+const initPlugin = () => {
   // 初始化插件参数及插入插件
   window.WebVideoCtrl.I_InitPlugin(800, 600, {
     bWndFull: true, //是否支持单窗口双击全屏，默认支持 true:支持 false:不支持
@@ -110,6 +130,7 @@ const getChannelInfo = () => {
   window.WebVideoCtrl.I_GetDigitalChannelInfo(videoPlugins.szDeviceIdentify, {
     async: false,
     success: (xmlDoc: any) => {
+      //  nvr需要选择通道
       clickStartRealPlay();
     },
     error: (status: any, xmlDoc: any) => {
@@ -125,9 +146,7 @@ const getDevicePort = () => {
     return;
   }
 
-  videoPlugins.port = window.WebVideoCtrl.I_GetDevicePort(
-    videoPlugins.szDeviceIdentify
-  );
+  videoPlugins.port = window.WebVideoCtrl.I_GetDevicePort(videoPlugins.szDeviceIdentify);
   if (videoPlugins.port != null) {
     clickStartRealPlay();
     return true;
@@ -255,7 +274,6 @@ const videoChange = () => {
 // 关闭摄像头弹窗
 const videoClose = () => {
   isLogin.value = false;
-  console.log(isLogin.value);
   clickStopRealPlay();
 };
 </script>

@@ -13,3 +13,33 @@ export interface PointSetting {
    */
   xfType: string;
 }
+
+export interface BuildingForm {
+  /**
+   * 楼栋楼层树结构
+   */
+  buildingTree: any[];
+  /**
+   * 楼层列表
+   */
+  floorList: any[];
+  /**
+   * 楼层
+   */
+  floor: string;
+}
+
+export interface DeviceForm {
+  /**
+   * 设备类型列表
+   */
+  deviceTypeList: any[];
+  /**
+   * 设备类型
+   */
+  deviceType: string;
+  /**
+   * 设备图标
+   */
+  iconType: string;
+}

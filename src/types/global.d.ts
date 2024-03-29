@@ -1,7 +1,8 @@
 import type {
-  ComponentInternalInstance as ComponentInstance,
   PropType as VuePropType,
+  ComponentInternalInstance as ComponentInstance,
 } from "vue";
+import { LanguageEnum } from "@/enums/LanguageEnum";
 
 declare global {
   /** vue Instance */
@@ -52,6 +53,8 @@ declare global {
     /** 是否禁用上传 */
     isUploading: boolean;
 
+    updateSupport: number;
+
     /** 其他参数 */
     [key: string]: any;
   }
@@ -83,7 +86,6 @@ declare global {
     queryParams: D;
     rules: ElFormRules;
   }
-
   /**
    * 分页查询参数
    */
@@ -91,9 +93,79 @@ declare global {
     pageNum: number;
     pageSize: number;
   }
-  /**
-   *点位参数
-   */
+  declare interface LayoutSetting {
+    /**
+     * 是否显示顶部导航
+     */
+    topNav: boolean;
+
+    /**
+     * 是否显示多标签导航
+     */
+    tagsView: boolean;
+    /**
+     * 是否固定头部
+     */
+    fixedHeader: boolean;
+    /**
+     * 是否显示侧边栏Logo
+     */
+    sidebarLogo: boolean;
+    /**
+     * 是否显示动态标题
+     */
+    dynamicTitle: boolean;
+    /**
+     * 侧边栏主题 theme-dark | theme-light
+     */
+    sideTheme: string;
+    /**
+     * 主题模式
+     */
+    theme: string;
+  }
+
+  declare interface DefaultSettings extends LayoutSetting {
+    /**
+     * 网页标题
+     */
+    title: string;
+
+    /**
+     * 是否显示系统布局设置
+     */
+    showSettings: boolean;
+
+    /**
+     * 导航栏布局
+     */
+    layout: string;
+
+    /**
+     * 布局大小
+     */
+    size: "large" | "default" | "small";
+
+    /**
+     * 语言
+     */
+    language: LanguageEnum;
+
+    /**
+     * 是否启用动画效果
+     */
+    animationEnable: boolean;
+    /**
+     *  是否启用暗黑模式
+     *
+     * true:暗黑模式
+     * false: 明亮模式
+     */
+    dark: boolean;
+
+    errorLog: string;
+  }
+
   declare interface CadData {
     // 信息列表
     infoList: any[];
@@ -103,8 +175,8 @@ declare global {
     title: string;
   }
 
-  interface Window {
-    WebVideoCtrl: any;
-  }
+  declare let WebVideoCtrl: any;
+
+  declare let $: any;
 }
 export {};

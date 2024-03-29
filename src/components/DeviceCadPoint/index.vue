@@ -1,5 +1,5 @@
 <template>
-  <div class="h-100% w-100% p-2">
+  <div class="w-100% p-2">
     <el-row class="title">
       <el-col :span="6">
         <span>{{ props.title }}</span>
@@ -10,84 +10,134 @@
         </div>
       </el-col>
     </el-row>
-    <el-row class="mb20px" :gutter="20" justify="center">
-      <el-col v-for="info in props.infoList" :key="info.id" :span="5">
-        <el-card>
-          <el-space :size="26">
-            <svg-icon :icon-class="props.icon" size="45" :color="info.color" />
-            <el-space direction="vertical">
-              <div>{{ info.label }}</div>
-              <div class="font-600">{{ info.value }}</div>
+
+    <div class="mb20px">
+      <el-row :gutter="20" justify="center" v-if="!isParking">
+        <el-col v-for="info in props.infoList" :key="info.id" :span="5">
+          <el-card class="info-card">
+            <el-space :size="26">
+              <svg-icon
+                :icon-class="props.icon"
+                size="45"
+                :color="info.color"
+              />
+              <el-space direction="vertical">
+                <div>{{ info.label }}</div>
+                <div class="font-600">{{ info.value }}</div>
+              </el-space>
             </el-space>
-          </el-space>
-        </el-card>
-      </el-col>
-    </el-row>
+          </el-card>
+        </el-col>
+      </el-row>
+      <slot name="info" v-else></slot>
+    </div>
 
     <div class="box">
-      <div class="cad">
-        <div class="icon" :style="{ left: 680 + 'px', top: 290 + 'px' }">
-          <svg-icon :icon-class="props.icon" size="30" color="#409EFF" />
-        </div>
+      <div class="btn-list" v-if="!isParking">
+        <el-card shadow="hover">
+          <el-input
+            placeholder="请输入楼栋名称"
+            prefix-icon="Search"
+            clearable
+          />
+          <el-tree
+            ref="deptTreeRef"
+            node-key="id"
+            :data="buildingTree"
+            :props="{ label: 'areaName', children: 'children' }"
+            :expand-on-click-node="false"
+            :filter-node-method="filterNode"
+            highlight-current
+            default-expand-all
+            @node-click="handleNodeClick"
+          />
+        </el-card>
+      </div>
+
+      <div :class="isParking ? 'parking-cad ' : 'cad'">
+        <template v-if="!isParking">
+          <div
+            ref="iconRef"
+            class="icon"
+            :style="{ left: 680 + 'px', top: 290 + 'px' }"
+            @click="checkPoint"
+          >
+            <svg-icon :icon-class="props.icon" size="30" color="#409EFF" />
+          </div>
+          <el-popover
+            v-if="!isVideo"
+            ref="popoverRef"
+            :virtual-ref="iconRef"
+            trigger="click"
+            title="With title"
+            virtual-triggering
+            placement="top"
+          >
+            <span> Some content </span>
+          </el-popover>
+        </template>
         <el-image fit="fill" :src="getFloorImg" />
       </div>
-      <div class="btn-list">
-        <el-space v-infinite-scroll="load" class="btn" direction="vertical">
-          <el-button
-            v-for="i in floorList"
-            :key="i.id"
-            type="primary"
-            plain
-            style="width: 90px"
-          >
-            {{ i.name }}
-          </el-button>
-        </el-space>
-      </div>
+
+      <slot name="right" v-if="isParking"></slot>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-export interface Props {
-  foolValue?: number; //展示楼层数
+import { selectAreaTree } from "@/api/ibms/common/device/area";
+
+interface Props {
   infoList: any[]; //设备信息
   icon: string; //设备图标
   title: string; //标题
+  isParking?: boolean; //停车场
+  isVideo?: boolean; //监控
+}
+
+interface Tree {
+  areaName: string;
+  children?: Tree[];
 }
 
 const props = withDefaults(defineProps<Props>(), {
   foolValue: 7,
+  isParking: false,
+  isVideo: false,
 });
 
-const height = computed(() => props.foolValue * 40 + "px");
-// 楼层平面图
-const getFloorImg = computed(() => `/src/assets/images/${floorName.value}.png`);
+const emit = defineEmits(["checkPoint"]);
 
-// 楼层列表
-const floorList = ref<any[]>([]);
+// 楼层平面图
+const getFloorImg = computed(
+  () => new URL(`../../assets/images/ibms/floor/all.png`, import.meta.url).href
+);
+
 // 楼层
 const floorName = ref("one");
+const buildingTree = ref<Tree[]>([]);
+const iconRef = ref();
 
-// 加载楼层
-const load = () => {
-  console.log(111);
+const handleNodeClick = (data: Tree) => {
+  console.log(data);
 };
 
-// 获取楼层列表
-const initFloorList = () => {
-  for (let i = 0; i < 21; i++) {
-    floorList.value.push({
-      id: i,
-      name: `${i + 1}F`,
-      status: 0,
-    });
-  }
+const getAreaTree = async () => {
+  let res = await selectAreaTree();
+  buildingTree.value = res.data;
 };
 
-onMounted(() => {
-  initFloorList();
-});
+// 查看点位
+const checkPoint = () => {
+  emit("checkPoint");
+};
+
+const filterNode = (value: string, data: Tree) => {
+  if (!value) return true;
+  return data.areaName.includes(value);
+};
+
+getAreaTree();
 </script>
 
 <style lang="scss" scoped>
@@ -97,7 +147,7 @@ onMounted(() => {
   font-size: 28px;
   font-weight: 600;
 }
-.el-card {
+.info-card {
   height: 85px;
   width: 220px;
 }
@@ -106,7 +156,21 @@ onMounted(() => {
   width: 100%;
 }
 .cad {
-  width: 1600px;
+  width: calc(85%);
+  min-height: 800px;
+  position: relative;
+  .icon {
+    position: absolute;
+    cursor: pointer;
+  }
+  .el-image {
+    height: 100%;
+    width: 100%;
+    z-index: -99;
+  }
+}
+.parking-cad {
+  width: calc(80%);
   min-height: 800px;
   position: relative;
   .icon {
@@ -119,19 +183,9 @@ onMounted(() => {
   }
 }
 .btn-list {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 10%;
+  width: calc(15% - 10px);
+  margin-right: 10px;
   min-height: 800px;
-  .el-button {
-    width: 100%;
-  }
-  .btn {
-    height: v-bind(height);
-    overflow: auto;
-  }
 }
 
 ::-webkit-scrollbar {
