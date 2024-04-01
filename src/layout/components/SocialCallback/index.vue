@@ -17,9 +17,7 @@ const loading = ref(true);
 const code = route.query.code as string;
 const state = route.query.state as string;
 const source = route.query.source as string;
-const tenantId = localStorage.getItem("tenantId")
-  ? (localStorage.getItem("tenantId") as string)
-  : "000000";
+const tenantId = localStorage.getItem("tenantId") ? (localStorage.getItem("tenantId") as string) : "000000";
 
 const processResponse = async (res: any) => {
   if (res.code !== 200) {

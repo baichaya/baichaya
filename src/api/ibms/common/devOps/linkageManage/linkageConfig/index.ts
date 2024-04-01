@@ -12,9 +12,7 @@ import {
  * @returns {*}
  */
 
-export const listLinkageConfig = (
-  query?: LinkageConfigQuery
-): AxiosPromise<LinkageConfigVO[]> => {
+export const listLinkageConfig = (query?: LinkageConfigQuery): AxiosPromise<LinkageConfigVO[]> => {
   return request({
     url: "/linkageManage/linkageConfig/list",
     method: "get",
@@ -26,9 +24,7 @@ export const listLinkageConfig = (
  * 查询联动配置详细
  * @param id
  */
-export const getLinkageConfig = (
-  id: string | number
-): AxiosPromise<LinkageConfigVO> => {
+export const getLinkageConfig = (id: string | number): AxiosPromise<LinkageConfigVO> => {
   return request({
     url: "/linkageManage/linkageConfig/" + id,
     method: "get",
@@ -63,9 +59,7 @@ export const updateLinkageConfig = (data: LinkageConfigForm) => {
  * 删除联动配置
  * @param id
  */
-export const delLinkageConfig = (
-  id: string | number | Array<string | number>
-) => {
+export const delLinkageConfig = (id: string | number | Array<string | number>) => {
   return request({
     url: "/linkageManage/linkageConfig/" + id,
     method: "delete",

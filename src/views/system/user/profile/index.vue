@@ -3,7 +3,7 @@
     <el-row :gutter="20">
       <el-col :span="6" :xs="24">
         <el-card class="box-card">
-          <template v-slot:header>
+          <template #header>
             <div class="clearfix">
               <span>个人信息</span>
             </div>
@@ -45,7 +45,7 @@
       </el-col>
       <el-col :span="18" :xs="24">
         <el-card>
-          <template v-slot:header>
+          <template #header>
             <div class="clearfix">
               <span>基本资料</span>
             </div>

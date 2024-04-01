@@ -5,12 +5,7 @@
       :leave-active-class="proxy?.animate.searchAnimate.leave"
     >
       <div class="search" v-show="showSearch">
-        <el-form
-          :model="queryParams"
-          ref="queryFormRef"
-          :inline="true"
-          label-width="68px"
-        >
+        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
           <!--          <el-form-item label="车场id" prop="parkId">
             <el-input v-model="queryParams.parkId" placeholder="请输入车场id" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>-->
@@ -69,9 +64,7 @@
             <el-input v-model="queryParams.imagePath" placeholder="请输入图片路径地址" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>-->
           <el-form-item>
-            <el-button type="primary" icon="Search" @click="handleQuery"
-              >搜索</el-button
-            >
+            <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
             <el-button icon="Refresh" @click="resetQuery">重置</el-button>
           </el-form-item>
         </el-form>
@@ -82,12 +75,7 @@
       <template #header>
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
-            <el-button
-              type="primary"
-              plain
-              icon="Plus"
-              @click="handleAdd"
-              v-hasPermi="['ibms:carInOutRecord:add']"
+            <el-button type="primary" plain icon="Plus" @click="handleAdd" v-hasPermi="['ibms:carInOutRecord:add']"
               >新增</el-button
             >
           </el-col>
@@ -123,18 +111,11 @@
               >导出</el-button
             >
           </el-col>
-          <right-toolbar
-            v-model:showSearch="showSearch"
-            @queryTable="getList"
-          />
+          <right-toolbar v-model:showSearch="showSearch" @query-table="getList" />
         </el-row>
       </template>
 
-      <el-table
-        v-loading="loading"
-        :data="carInOutRecordList"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table v-loading="loading" :data="carInOutRecordList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column label="主键" align="center" prop="id" v-if="true" />
         <el-table-column label="车场id" align="center" prop="parkId" />
@@ -143,36 +124,18 @@
         <el-table-column label="车牌号码" align="center" prop="carCode" />
         <el-table-column label="进出场标识" align="center" prop="GUID" />
         <el-table-column label="进出标志" align="center" prop="inOrOut" />
-        <el-table-column
-          label="进场时间"
-          align="center"
-          prop="inTime"
-          width="180"
-        >
+        <el-table-column label="进场时间" align="center" prop="inTime" width="180">
           <template #default="scope">
-            <span>{{
-              parseTime(scope.row.inTime, "{y}-{m}-{d} {h}:{m}:{s}")
-            }}</span>
+            <span>{{ parseTime(scope.row.inTime, "{y}-{m}-{d} {h}:{m}:{s}") }}</span>
           </template>
         </el-table-column>
-        <el-table-column
-          label="出场时间"
-          align="center"
-          prop="outTime"
-          width="180"
-        >
+        <el-table-column label="出场时间" align="center" prop="outTime" width="180">
           <template #default="scope">
-            <span>{{
-              parseTime(scope.row.outTime, "{y}-{m}-{d} {h}:{m}:{s}")
-            }}</span>
+            <span>{{ parseTime(scope.row.outTime, "{y}-{m}-{d} {h}:{m}:{s}") }}</span>
           </template>
         </el-table-column>
         <el-table-column label="图片路径地址" align="center" prop="imagePath" />
-        <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
-        >
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
             <el-tooltip content="修改" placement="top">
               <el-button
@@ -205,18 +168,8 @@
       />
     </el-card>
     <!-- 添加或修改停车进出记录对话框 -->
-    <el-dialog
-      :title="dialog.title"
-      v-model="dialog.visible"
-      width="500px"
-      append-to-body
-    >
-      <el-form
-        ref="carInOutRecordFormRef"
-        :model="form"
-        :rules="rules"
-        label-width="80px"
-      >
+    <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
+      <el-form ref="carInOutRecordFormRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="车场id" prop="parkId">
           <el-input v-model="form.parkId" placeholder="请输入车场id" />
         </el-form-item>
@@ -259,9 +212,7 @@
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button :loading="buttonLoading" type="primary" @click="submitForm"
-            >确 定</el-button
-          >
+          <el-button :loading="buttonLoading" type="primary" @click="submitForm">确 定</el-button>
           <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
@@ -277,11 +228,7 @@ import {
   addCarInOutRecord,
   updateCarInOutRecord,
 } from "@/api/ibms/sys-parking/carInOutRecord";
-import {
-  CarInOutRecordVO,
-  CarInOutRecordQuery,
-  CarInOutRecordForm,
-} from "@/api/ibms/sys-parking/carInOutRecord/types";
+import { CarInOutRecordVO, CarInOutRecordQuery, CarInOutRecordForm } from "@/api/ibms/sys-parking/carInOutRecord/types";
 
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 
@@ -333,12 +280,8 @@ const data = reactive<PageData<CarInOutRecordForm, CarInOutRecordQuery>>({
   rules: {
     id: [{ required: true, message: "主键不能为空", trigger: "blur" }],
     parkId: [{ required: true, message: "车场id不能为空", trigger: "blur" }],
-    channelId: [
-      { required: true, message: "通道编号不能为空", trigger: "blur" },
-    ],
-    channelName: [
-      { required: true, message: "通道名称不能为空", trigger: "blur" },
-    ],
+    channelId: [{ required: true, message: "通道编号不能为空", trigger: "blur" }],
+    channelName: [{ required: true, message: "通道名称不能为空", trigger: "blur" }],
     carCode: [{ required: true, message: "车牌号码不能为空", trigger: "blur" }],
     /* GUID: [
       { required: true, message: "车辆本次进场出场标识不能为空", trigger: "blur" }
@@ -346,9 +289,7 @@ const data = reactive<PageData<CarInOutRecordForm, CarInOutRecordQuery>>({
     inOrOut: [{ required: true, message: "进出标志不能为空", trigger: "blur" }],
     inTime: [{ required: true, message: "进场时间不能为空", trigger: "blur" }],
     outTime: [{ required: true, message: "出场时间不能为空", trigger: "blur" }],
-    imagePath: [
-      { required: true, message: "图片路径地址不能为空", trigger: "blur" },
-    ],
+    imagePath: [{ required: true, message: "图片路径地址不能为空", trigger: "blur" }],
   },
 });
 
@@ -417,14 +358,10 @@ const submitForm = () => {
     if (valid) {
       buttonLoading.value = true;
       if (form.value.id) {
-        const res = await updateCarInOutRecord(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        const res = await updateCarInOutRecord(form.value).finally(() => (buttonLoading.value = false));
         proxy?.$modal.msgSuccess(res.msg);
       } else {
-        const res = await addCarInOutRecord(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        const res = await addCarInOutRecord(form.value).finally(() => (buttonLoading.value = false));
         proxy?.$modal.msgSuccess(res.msg);
       }
       dialog.visible = false;

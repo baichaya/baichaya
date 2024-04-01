@@ -39,8 +39,8 @@ const handleSetSize = (size: string) => {
 
 <style lang="scss" scoped>
 .size-icon--style {
+  padding-right: 7px;
   font-size: 18px;
   line-height: 50px;
-  padding-right: 7px;
 }
 </style>

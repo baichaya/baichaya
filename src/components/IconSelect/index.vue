@@ -1,40 +1,23 @@
 <template>
   <div class="relative" :style="{ width: width }">
-    <el-input
-      v-model="modelValue"
-      readonly
-      @click="visible = !visible"
-      placeholder="点击选择图标"
-    >
+    <el-input v-model="modelValue" readonly @click="visible = !visible" placeholder="点击选择图标">
       <template #prepend>
         <svg-icon :icon-class="modelValue" />
       </template>
     </el-input>
 
-    <el-popover
-      shadow="none"
-      :visible="visible"
-      placement="bottom-end"
-      trigger="click"
-      :width="450"
-    >
+    <el-popover shadow="none" :visible="visible" placement="bottom-end" trigger="click" :width="450">
       <template #reference>
         <div
           @click="visible = !visible"
           class="cursor-pointer text-[#999] absolute right-[10px] top-0 height-[32px] leading-[32px]"
         >
-          <i-ep-caret-top v-show="visible"></i-ep-caret-top>
-          <i-ep-caret-bottom v-show="!visible"></i-ep-caret-bottom>
+          <i-ep-caret-top v-show="visible" />
+          <i-ep-caret-bottom v-show="!visible" />
         </div>
       </template>
 
-      <el-input
-        class="p-2"
-        v-model="filterValue"
-        placeholder="搜索图标"
-        clearable
-        @input="filterIcons"
-      />
+      <el-input class="p-2" v-model="filterValue" placeholder="搜索图标" clearable @input="filterIcons" />
 
       <el-scrollbar height="w-[200px]">
         <ul class="icon-list">
@@ -45,14 +28,8 @@
             placement="bottom"
             effect="light"
           >
-            <li
-              :class="['icon-item', { active: modelValue == iconName }]"
-              @click="selectedIcon(iconName)"
-            >
-              <svg-icon
-                color="var(--el-text-color-regular)"
-                :icon-class="iconName"
-              />
+            <li :class="['icon-item', { active: modelValue == iconName }]" @click="selectedIcon(iconName)">
+              <svg-icon color="var(--el-text-color-regular)" :icon-class="iconName" />
             </li>
           </el-tooltip>
         </ul>
@@ -82,9 +59,7 @@ const filterValue = ref("");
  */
 const filterIcons = () => {
   if (filterValue.value) {
-    iconNames.value = icons.filter((iconName) =>
-      iconName.includes(filterValue.value)
-    );
+    iconNames.value = icons.filter((iconName) => iconName.includes(filterValue.value));
   } else {
     iconNames.value = icons;
   }
@@ -104,9 +79,11 @@ const selectedIcon = (iconName: string) => {
   max-height: calc(50vh - 100px) !important;
   overflow-y: auto;
 }
+
 .el-divider--horizontal {
   margin: 10px auto !important;
 }
+
 .icon-list {
   display: flex;
   flex-wrap: wrap;
@@ -114,25 +91,26 @@ const selectedIcon = (iconName: string) => {
   margin-top: 10px;
 
   .icon-item {
-    cursor: pointer;
-    width: 10%;
-    margin: 0 10px 10px 0;
-    padding: 5px;
     display: flex;
     flex-direction: column;
-    justify-items: center;
-    align-items: center;
+    place-items: center center;
+    width: 10%;
+    padding: 5px;
+    margin: 0 10px 10px 0;
+    cursor: pointer;
     border: 1px solid #ccc;
+
     &:hover {
-      border-color: var(--el-color-primary);
       color: var(--el-color-primary);
+      border-color: var(--el-color-primary);
       transition: all 0.2s;
       transform: scaleX(1.1);
     }
   }
+
   .active {
-    border-color: var(--el-color-primary);
     color: var(--el-color-primary);
+    border-color: var(--el-color-primary);
   }
 }
 </style>

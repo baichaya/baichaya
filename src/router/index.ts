@@ -104,8 +104,7 @@ export const constantRoutes: RouteOption[] = [
       {
         path: "setPoint",
         name: "SetPoint",
-        component: () =>
-          import("@/views/ibms/common/pointSetting/setPoint.vue"),
+        component: () => import("@/views/ibms/common/pointSetting/setPoint.vue"),
         meta: { title: "设备点位", icon: "" },
       },
     ],
@@ -119,8 +118,7 @@ export const constantRoutes: RouteOption[] = [
       {
         path: "playVideo",
         name: "PlayVideo",
-        component: () =>
-          import("@/views/ibms/sys-video/videoCad/playVideo.vue"),
+        component: () => import("@/views/ibms/sys-video/videoCad/playVideo.vue"),
         meta: { title: "视频监控", icon: "" },
       },
     ],

@@ -29,23 +29,13 @@
       的文件
     </div>
     <!-- 文件列表 -->
-    <transition-group
-      class="upload-file-list el-upload-list el-upload-list--text"
-      name="el-fade-in-linear"
-      tag="ul"
-    >
-      <li
-        :key="file.uid"
-        class="el-upload-list__item ele-upload-list__item-content"
-        v-for="(file, index) in fileList"
-      >
+    <transition-group class="upload-file-list el-upload-list el-upload-list--text" name="el-fade-in-linear" tag="ul">
+      <li :key="file.uid" class="el-upload-list__item ele-upload-list__item-content" v-for="(file, index) in fileList">
         <el-link :href="`${file.url}`" :underline="false" target="_blank">
           <span class="el-icon-document"> {{ getFileName(file.name) }} </span>
         </el-link>
         <div class="ele-upload-list__item-content-action">
-          <el-link :underline="false" @click="handleDelete(index)" type="danger"
-            >删除</el-link
-          >
+          <el-link :underline="false" @click="handleDelete(index)" type="danger">删除</el-link>
         </div>
       </li>
     </transition-group>
@@ -79,9 +69,7 @@ const uploadFileUrl = ref(baseUrl + "/resource/oss/upload"); // 上传文件服�
 const headers = ref(globalHeaders());
 
 const fileList = ref<any[]>([]);
-const showTip = computed(
-  () => props.isShowTip && (props.fileType || props.fileSize)
-);
+const showTip = computed(() => props.isShowTip && (props.fileType || props.fileSize));
 
 const fileUploadRef = ref<ElUploadInstance>();
 
@@ -127,9 +115,7 @@ const handleBeforeUpload = (file: any) => {
     const fileExt = fileName[fileName.length - 1];
     const isTypeOk = props.fileType.indexOf(fileExt) >= 0;
     if (!isTypeOk) {
-      proxy?.$modal.msgError(
-        `文件格式不正确, 请上传${props.fileType.join("/")}格式文件!`
-      );
+      proxy?.$modal.msgError(`文件格式不正确, 请上传${props.fileType.join("/")}格式文件!`);
       return false;
     }
   }
@@ -185,9 +171,7 @@ const handleDelete = (index: number) => {
 // 上传结束处理
 const uploadedSuccessfully = () => {
   if (number.value > 0 && uploadList.value.length === number.value) {
-    fileList.value = fileList.value
-      .filter((f) => f.url !== undefined)
-      .concat(uploadList.value);
+    fileList.value = fileList.value.filter((f) => f.url !== undefined).concat(uploadList.value);
     uploadList.value = [];
     number.value = 0;
     emit("update:modelValue", listToString(fileList.value));
@@ -224,16 +208,16 @@ const listToString = (list: any[], separator?: string) => {
 }
 
 .upload-file-list .el-upload-list__item {
-  border: 1px solid #e4e7ed;
-  line-height: 2;
-  margin-bottom: 10px;
   position: relative;
+  margin-bottom: 10px;
+  line-height: 2;
+  border: 1px solid #e4e7ed;
 }
 
 .upload-file-list .ele-upload-list__item-content {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   color: inherit;
 }
 

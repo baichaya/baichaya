@@ -1,42 +1,16 @@
 <template>
   <div class="register">
-    <el-form
-      ref="registerRef"
-      :model="registerForm"
-      :rules="registerRules"
-      class="register-form"
-    >
+    <el-form ref="registerRef" :model="registerForm" :rules="registerRules" class="register-form">
       <h3 class="title">RuoYi-Vue-Plus多租户管理系统</h3>
       <el-form-item prop="tenantId" v-if="tenantEnabled">
-        <el-select
-          v-model="registerForm.tenantId"
-          filterable
-          placeholder="请选择/输入公司名称"
-          style="width: 100%"
-        >
-          <el-option
-            v-for="item in tenantList"
-            :key="item.tenantId"
-            :label="item.companyName"
-            :value="item.tenantId"
-          >
-          </el-option>
-          <template #prefix
-            ><svg-icon icon-class="company" class="el-input__icon input-icon"
-          /></template>
+        <el-select v-model="registerForm.tenantId" filterable placeholder="请选择/输入公司名称" style="width: 100%">
+          <el-option v-for="item in tenantList" :key="item.tenantId" :label="item.companyName" :value="item.tenantId" />
+          <template #prefix><svg-icon icon-class="company" class="el-input__icon input-icon" /></template>
         </el-select>
       </el-form-item>
       <el-form-item prop="username">
-        <el-input
-          v-model="registerForm.username"
-          type="text"
-          size="large"
-          auto-complete="off"
-          placeholder="账号"
-        >
-          <template #prefix
-            ><svg-icon icon-class="user" class="el-input__icon input-icon"
-          /></template>
+        <el-input v-model="registerForm.username" type="text" size="large" auto-complete="off" placeholder="账号">
+          <template #prefix><svg-icon icon-class="user" class="el-input__icon input-icon" /></template>
         </el-input>
       </el-form-item>
       <el-form-item prop="password">
@@ -48,9 +22,7 @@
           placeholder="密码"
           @keyup.enter="handleRegister"
         >
-          <template #prefix
-            ><svg-icon icon-class="password" class="el-input__icon input-icon"
-          /></template>
+          <template #prefix><svg-icon icon-class="password" class="el-input__icon input-icon" /></template>
         </el-input>
       </el-form-item>
       <el-form-item prop="confirmPassword">
@@ -62,9 +34,7 @@
           placeholder="确认密码"
           @keyup.enter="handleRegister"
         >
-          <template #prefix
-            ><svg-icon icon-class="password" class="el-input__icon input-icon"
-          /></template>
+          <template #prefix><svg-icon icon-class="password" class="el-input__icon input-icon" /></template>
         </el-input>
       </el-form-item>
       <el-form-item prop="code" v-if="captchaEnabled">
@@ -76,29 +46,19 @@
           style="width: 63%"
           @keyup.enter="handleRegister"
         >
-          <template #prefix
-            ><svg-icon icon-class="validCode" class="el-input__icon input-icon"
-          /></template>
+          <template #prefix><svg-icon icon-class="validCode" class="el-input__icon input-icon" /></template>
         </el-input>
         <div class="register-code">
           <img :src="codeUrl" @click="getCode" class="register-code-img" />
         </div>
       </el-form-item>
       <el-form-item style="width: 100%">
-        <el-button
-          :loading="loading"
-          size="large"
-          type="primary"
-          style="width: 100%"
-          @click.prevent="handleRegister"
-        >
+        <el-button :loading="loading" size="large" type="primary" style="width: 100%" @click.prevent="handleRegister">
           <span v-if="!loading">注 册</span>
           <span v-else>注 册 中...</span>
         </el-button>
         <div style="float: right">
-          <router-link class="link-type" :to="'/login'"
-            >使用已有账户登录</router-link
-          >
+          <router-link class="link-type" :to="'/login'">使用已有账户登录</router-link>
         </div>
       </el-form-item>
     </el-form>
@@ -138,9 +98,7 @@ const equalToPassword = (rule: any, value: string, callback: any) => {
 };
 
 const registerRules: ElFormRules = {
-  tenantId: [
-    { required: true, trigger: "blur", message: "请输入您的租户编号" },
-  ],
+  tenantId: [{ required: true, trigger: "blur", message: "请输入您的租户编号" }],
   username: [
     { required: true, trigger: "blur", message: "请输入您的账号" },
     {
@@ -179,20 +137,14 @@ const handleRegister = () => {
       const [err] = await to(register(registerForm.value));
       if (!err) {
         const username = registerForm.value.username;
-        await ElMessageBox.alert(
-          "<font color='red'>恭喜你，您的账号 " +
-            username +
-            " 注册成功！</font>",
-          "系统提示",
-          {
-            dangerouslyUseHTMLString: true,
-            type: "success",
-          }
-        );
+        await ElMessageBox.alert("<font color='red'>恭喜你，您的账号 " + username + " 注册成功！</font>", "系统提示", {
+          dangerouslyUseHTMLString: true,
+          type: "success",
+        });
         await router.push("/login");
       } else {
         loading.value = false;
-        if (captchaEnabled) {
+        if (captchaEnabled.value) {
           getCode();
         }
       }
@@ -203,8 +155,7 @@ const handleRegister = () => {
 const getCode = async () => {
   const res = await getCodeImg();
   const { data } = res;
-  captchaEnabled.value =
-    data.captchaEnabled === undefined ? true : data.captchaEnabled;
+  captchaEnabled.value = data.captchaEnabled === undefined ? true : data.captchaEnabled;
   if (captchaEnabled.value) {
     codeUrl.value = "data:image/gif;base64," + data.img;
     registerForm.value.uuid = data.uuid;
@@ -213,8 +164,7 @@ const getCode = async () => {
 
 const initTenantList = async () => {
   const { data } = await getTenantList();
-  tenantEnabled.value =
-    data.tenantEnabled === undefined ? true : data.tenantEnabled;
+  tenantEnabled.value = data.tenantEnabled === undefined ? true : data.tenantEnabled;
   if (tenantEnabled.value) {
     tenantList.value = data.voList;
     if (tenantList.value != null && tenantList.value.length !== 0) {
@@ -232,24 +182,24 @@ onMounted(() => {
 <style lang="scss" scoped>
 .register {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   height: 100%;
   background-image: url("../assets/images/login-background.jpg");
   background-size: cover;
 }
 
 .title {
-  margin: 0 auto 30px auto;
-  text-align: center;
+  margin: 0 auto 30px;
   color: #707070;
+  text-align: center;
 }
 
 .register-form {
-  border-radius: 6px;
-  background: #ffffff;
   width: 400px;
-  padding: 25px 25px 5px 25px;
+  padding: 25px 25px 5px;
+  background: #fff;
+  border-radius: 6px;
 
   .el-input {
     height: 40px;
@@ -260,39 +210,39 @@ onMounted(() => {
   }
 
   .input-icon {
-    height: 39px;
     width: 14px;
+    height: 39px;
     margin-left: 0;
   }
 }
 
 .register-tip {
   font-size: 13px;
-  text-align: center;
   color: #bfbfbf;
+  text-align: center;
 }
 
 .register-code {
+  float: right;
   width: 33%;
   height: 40px;
-  float: right;
 
   img {
-    cursor: pointer;
     vertical-align: middle;
+    cursor: pointer;
   }
 }
 
 .el-register-footer {
-  height: 40px;
-  line-height: 40px;
   position: fixed;
   bottom: 0;
   width: 100%;
-  text-align: center;
-  color: #fff;
+  height: 40px;
   font-family: Arial, serif;
   font-size: 12px;
+  line-height: 40px;
+  color: #fff;
+  text-align: center;
   letter-spacing: 1px;
 }
 

@@ -35,6 +35,7 @@ module.exports = {
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
@@ -51,7 +52,7 @@ module.exports = {
     "vue/attribute-hyphenation": "off",
     "vue/require-default-prop": "off",
     "vue/require-explicit-emits": "off",
-    "no-unused-vars":"off",
+    "no-unused-vars": 0,
     "vue/html-self-closing": [
       "error",
       {

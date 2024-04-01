@@ -19,10 +19,10 @@
  */
 
 import { getToken } from "@/utils/auth";
-import useNoticeStore from "@/store/modules/notice";
+import { useNoticeStoreHook } from "@/store/modules/notice";
 import { ElNotification } from "element-plus";
 
-const { addNotice } = useNoticeStore();
+const { addNotice } = useNoticeStoreHook();
 
 let socketUrl: any = ""; // socket地址
 let websocket: any = null; // websocket 实例
@@ -39,11 +39,7 @@ export const initWebSocket = (url: any) => {
   socketUrl = url;
   // 初始化 websocket
   websocket = new WebSocket(
-    url +
-      "?Authorization=Bearer " +
-      getToken() +
-      "&clientid=" +
-      import.meta.env.VITE_APP_CLIENT_ID
+    url + "?Authorization=Bearer " + getToken() + "&clientid=" + import.meta.env.VITE_APP_CLIENT_ID
   );
   websocketonopen();
   websocketonmessage();

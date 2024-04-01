@@ -5,12 +5,7 @@
       :leave-active-class="proxy?.animate.searchAnimate.leave"
     >
       <div class="search" v-show="showSearch">
-        <el-form
-          :model="queryParams"
-          ref="queryFormRef"
-          :inline="true"
-          label-width="68px"
-        >
+        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
           <el-form-item label="报警主机的Id号" prop="deviceId">
             <el-input
               v-model="queryParams.deviceId"
@@ -38,10 +33,7 @@
               @keyup.enter="handleQuery"
             />
           </el-form-item>
-          <el-form-item
-            label="报警发生的子通道，如果子通道为0，这个空缺"
-            prop="subChannel"
-          >
+          <el-form-item label="报警发生的子通道，如果子通道为0，这个空缺" prop="subChannel">
             <el-input
               v-model="queryParams.subChannel"
               placeholder="请输入报警发生的子通道，如果子通道为0，这个空缺"
@@ -69,9 +61,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" icon="Search" @click="handleQuery"
-              >搜索</el-button
-            >
+            <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
             <el-button icon="Refresh" @click="resetQuery">重置</el-button>
           </el-form-item>
         </el-form>
@@ -123,52 +113,24 @@
               >导出</el-button
             >
           </el-col>
-          <right-toolbar
-            v-model:showSearch="showSearch"
-            @queryTable="getList"
-          />
+          <right-toolbar v-model:showSearch="showSearch" @query-table="getList" />
         </el-row>
       </template>
 
-      <el-table
-        v-loading="loading"
-        :data="intrusionInfoList"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table v-loading="loading" :data="intrusionInfoList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column label="id" align="center" prop="id" v-if="true" />
-        <el-table-column
-          label="报警主机的Id号"
-          align="center"
-          prop="deviceId"
-        />
+        <el-table-column label="报警主机的Id号" align="center" prop="deviceId" />
         <el-table-column label="报警发生时间" align="center" prop="alarmTime" />
         <el-table-column label="报警发生通道" align="center" prop="channel" />
-        <el-table-column
-          label="报警发生的子通道，如果子通道为0，这个空缺"
-          align="center"
-          prop="subChannel"
-        />
-        <el-table-column
-          label="发生报警事件的CID代码"
-          align="center"
-          prop="CID"
-        />
-        <el-table-column
-          label="添加时间"
-          align="center"
-          prop="addTime"
-          width="180"
-        >
+        <el-table-column label="报警发生的子通道，如果子通道为0，这个空缺" align="center" prop="subChannel" />
+        <el-table-column label="发生报警事件的CID代码" align="center" prop="CID" />
+        <el-table-column label="添加时间" align="center" prop="addTime" width="180">
           <template #default="scope">
             <span>{{ parseTime(scope.row.addTime, "{y}-{m}-{d}") }}</span>
           </template>
         </el-table-column>
-        <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
-        >
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
             <el-tooltip content="修改" placement="top">
               <el-button
@@ -201,23 +163,10 @@
       />
     </el-card>
     <!-- 添加或修改入侵报警-报警日志对话框 -->
-    <el-dialog
-      :title="dialog.title"
-      v-model="dialog.visible"
-      width="500px"
-      append-to-body
-    >
-      <el-form
-        ref="intrusionInfoFormRef"
-        :model="form"
-        :rules="rules"
-        label-width="80px"
-      >
+    <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
+      <el-form ref="intrusionInfoFormRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="报警主机的Id号" prop="deviceId">
-          <el-input
-            v-model="form.deviceId"
-            placeholder="请输入报警主机的Id号"
-          />
+          <el-input v-model="form.deviceId" placeholder="请输入报警主机的Id号" />
         </el-form-item>
         <el-form-item label="报警发生时间" prop="alarmTime">
           <el-input v-model="form.alarmTime" placeholder="请输入报警发生时间" />
@@ -225,20 +174,11 @@
         <el-form-item label="报警发生通道" prop="channel">
           <el-input v-model="form.channel" placeholder="请输入报警发生通道" />
         </el-form-item>
-        <el-form-item
-          label="报警发生的子通道，如果子通道为0，这个空缺"
-          prop="subChannel"
-        >
-          <el-input
-            v-model="form.subChannel"
-            placeholder="请输入报警发生的子通道，如果子通道为0，这个空缺"
-          />
+        <el-form-item label="报警发生的子通道，如果子通道为0，这个空缺" prop="subChannel">
+          <el-input v-model="form.subChannel" placeholder="请输入报警发生的子通道，如果子通道为0，这个空缺" />
         </el-form-item>
         <el-form-item label="发生报警事件的CID代码" prop="CID">
-          <el-input
-            v-model="form.CID"
-            placeholder="请输入发生报警事件的CID代码"
-          />
+          <el-input v-model="form.CID" placeholder="请输入发生报警事件的CID代码" />
         </el-form-item>
         <el-form-item label="添加时间" prop="addTime">
           <el-date-picker
@@ -252,9 +192,7 @@
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button :loading="buttonLoading" type="primary" @click="submitForm"
-            >确 定</el-button
-          >
+          <el-button :loading="buttonLoading" type="primary" @click="submitForm">确 定</el-button>
           <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
@@ -319,15 +257,9 @@ const data = reactive<PageData<IntrusionInfoForm, IntrusionInfoQuery>>({
   },
   rules: {
     id: [{ required: true, message: "id不能为空", trigger: "blur" }],
-    deviceId: [
-      { required: true, message: "报警主机的Id号不能为空", trigger: "blur" },
-    ],
-    alarmTime: [
-      { required: true, message: "报警发生时间不能为空", trigger: "blur" },
-    ],
-    channel: [
-      { required: true, message: "报警发生通道不能为空", trigger: "blur" },
-    ],
+    deviceId: [{ required: true, message: "报警主机的Id号不能为空", trigger: "blur" }],
+    alarmTime: [{ required: true, message: "报警发生时间不能为空", trigger: "blur" }],
+    channel: [{ required: true, message: "报警发生通道不能为空", trigger: "blur" }],
     subChannel: [
       {
         required: true,
@@ -411,14 +343,10 @@ const submitForm = () => {
     if (valid) {
       buttonLoading.value = true;
       if (form.value.id) {
-        const res = await updateIntrusionInfo(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        const res = await updateIntrusionInfo(form.value).finally(() => (buttonLoading.value = false));
         proxy?.$modal.msgSuccess(res.msg);
       } else {
-        const res = await addIntrusionInfo(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        const res = await addIntrusionInfo(form.value).finally(() => (buttonLoading.value = false));
         proxy?.$modal.msgSuccess(res.msg);
       }
       dialog.visible = false;

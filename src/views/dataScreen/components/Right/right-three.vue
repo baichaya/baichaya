@@ -20,20 +20,7 @@ const options = {
   },
   xAxis: {
     type: "category",
-    data: [
-      "00h",
-      "02h",
-      "04h",
-      "06h",
-      "08h",
-      "10h",
-      "12h",
-      "14h",
-      "16h",
-      "18h",
-      "20h",
-      "22h",
-    ],
+    data: ["00h", "02h", "04h", "06h", "08h", "10h", "12h", "14h", "16h", "18h", "20h", "22h"],
     splitLine: {
       show: true,
       lineStyle: {

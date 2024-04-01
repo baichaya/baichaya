@@ -22,10 +22,11 @@ module.exports = {
   rules: {
     "import-notation": "string", // 指定导入CSS文件的方式("string"|"url")
     "selector-class-pattern": null, // 选择器类名命名规则
+    "no-duplicate-selectors": null, // 禁用对重复选择器的检查
     "custom-property-pattern": null, // 自定义属性命名规则
     "keyframes-name-pattern": null, // 动画帧节点样式命名规则
     "no-descending-specificity": null, // 允许无降序特异性
-    "no-empty-source": null, // 允许空样式
+    "no-empty-source": null,
     // 允许 global 、export 、deep伪类
     "selector-pseudo-class-no-unknown": [
       true,
@@ -37,14 +38,7 @@ module.exports = {
     "property-no-unknown": [
       true,
       {
-        ignoreProperties: [],
-      },
-    ],
-    // 允许未知规则
-    "at-rule-no-unknown": [
-      true,
-      {
-        ignoreAtRules: ["apply", "use"],
+        ignoreProperties: ["menuBg", "menuText", "menuActiveText"],
       },
     ],
   },

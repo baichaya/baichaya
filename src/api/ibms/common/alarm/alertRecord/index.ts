@@ -1,10 +1,6 @@
 import request from "@/utils/request";
 import { AxiosPromise } from "axios";
-import {
-  AlertRecordVO,
-  AlertRecordForm,
-  AlertRecordQuery,
-} from "@/api/ibms/common/alarm/alertRecord/types";
+import { AlertRecordVO, AlertRecordForm, AlertRecordQuery } from "@/api/ibms/common/alarm/alertRecord/types";
 
 /**
  * 查询告警记录列表
@@ -12,9 +8,7 @@ import {
  * @returns {*}
  */
 
-export const listAlertRecord = (
-  query?: AlertRecordQuery
-): AxiosPromise<AlertRecordVO[]> => {
+export const listAlertRecord = (query?: AlertRecordQuery): AxiosPromise<AlertRecordVO[]> => {
   return request({
     url: "/ibms/alertRecord/list",
     method: "get",
@@ -26,9 +20,7 @@ export const listAlertRecord = (
  * 查询告警记录详细
  * @param id
  */
-export const getAlertRecord = (
-  id: string | number
-): AxiosPromise<AlertRecordVO> => {
+export const getAlertRecord = (id: string | number): AxiosPromise<AlertRecordVO> => {
   return request({
     url: "/ibms/alertRecord/" + id,
     method: "get",
@@ -63,9 +55,7 @@ export const updateAlertRecord = (data: AlertRecordForm) => {
  * 删除告警记录
  * @param id
  */
-export const delAlertRecord = (
-  id: string | number | Array<string | number>
-) => {
+export const delAlertRecord = (id: string | number | Array<string | number>) => {
   return request({
     url: "/ibms/alertRecord/" + id,
     method: "delete",

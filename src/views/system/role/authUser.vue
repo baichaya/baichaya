@@ -25,9 +25,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" icon="Search" @click="handleQuery"
-              >搜索</el-button
-            >
+            <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
             <el-button icon="Refresh" @click="resetQuery">重置</el-button>
           </el-form-item>
         </el-form>
@@ -37,12 +35,7 @@
       <template #header>
         <el-row :gutter="10">
           <el-col :span="1.5">
-            <el-button
-              type="primary"
-              plain
-              icon="Plus"
-              @click="openSelectUser"
-              v-hasPermi="['system:role:add']"
+            <el-button type="primary" plain icon="Plus" @click="openSelectUser" v-hasPermi="['system:role:add']"
               >添加用户</el-button
             >
           </el-col>
@@ -59,63 +52,28 @@
             </el-button>
           </el-col>
           <el-col :span="1.5">
-            <el-button type="warning" plain icon="Close" @click="handleClose"
-              >关闭</el-button
-            >
+            <el-button type="warning" plain icon="Close" @click="handleClose">关闭</el-button>
           </el-col>
-          <right-toolbar
-            v-model:showSearch="showSearch"
-            @queryTable="getList"
-            :search="true"
-          ></right-toolbar>
+          <right-toolbar v-model:showSearch="showSearch" @query-table="getList" :search="true" />
         </el-row>
       </template>
-      <el-table
-        v-loading="loading"
-        :data="userList"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column
-          label="用户名称"
-          prop="userName"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="用户昵称"
-          prop="nickName"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="邮箱"
-          prop="email"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="手机"
-          prop="phonenumber"
-          :show-overflow-tooltip="true"
-        />
+        <el-table-column label="用户名称" prop="userName" :show-overflow-tooltip="true" />
+        <el-table-column label="用户昵称" prop="nickName" :show-overflow-tooltip="true" />
+        <el-table-column label="邮箱" prop="email" :show-overflow-tooltip="true" />
+        <el-table-column label="手机" prop="phonenumber" :show-overflow-tooltip="true" />
         <el-table-column label="状态" align="center" prop="status">
           <template #default="scope">
             <dict-tag :options="sys_normal_disable" :value="scope.row.status" />
           </template>
         </el-table-column>
-        <el-table-column
-          label="创建时间"
-          align="center"
-          prop="createTime"
-          width="180"
-        >
+        <el-table-column label="创建时间" align="center" prop="createTime" width="180">
           <template #default="scope">
             <span>{{ scope.row.createTime }}</span>
           </template>
         </el-table-column>
-        <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
-        >
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
             <el-tooltip content="取消授权" placement="top">
               <el-button
@@ -124,8 +82,7 @@
                 icon="CircleClose"
                 @click="cancelAuthUser(scope.row)"
                 v-hasPermi="['system:role:remove']"
-              >
-              </el-button>
+              />
             </el-tooltip>
           </template>
         </el-table-column>
@@ -138,30 +95,20 @@
         v-model:limit="queryParams.pageSize"
         @pagination="getList"
       />
-      <select-user
-        ref="selectRef"
-        :roleId="queryParams.roleId"
-        @ok="handleQuery"
-      />
+      <select-user ref="selectRef" :roleId="queryParams.roleId" @ok="handleQuery" />
     </el-card>
   </div>
 </template>
 
 <script setup name="AuthUser" lang="ts">
-import {
-  allocatedUserList,
-  authUserCancel,
-  authUserCancelAll,
-} from "@/api/system/role";
+import { allocatedUserList, authUserCancel, authUserCancelAll } from "@/api/system/role";
 import { UserQuery } from "@/api/system/user/types";
 import { UserVO } from "@/api/system/user/types";
 import SelectUser from "./selectUser.vue";
 
 const route = useRoute();
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
-const { sys_normal_disable } = toRefs<any>(
-  proxy?.useDict("sys_normal_disable")
-);
+const { sys_normal_disable } = toRefs<any>(proxy?.useDict("sys_normal_disable"));
 
 const userList = ref<UserVO[]>([]);
 const loading = ref(true);

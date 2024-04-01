@@ -6,12 +6,7 @@
     >
       <div class="mb-[10px]" v-show="showSearch">
         <el-card shadow="hover">
-          <el-form
-            ref="queryFormRef"
-            :model="queryParams"
-            :inline="true"
-            label-width="68px"
-          >
+          <el-form ref="queryFormRef" :model="queryParams" :inline="true" label-width="68px">
             <el-form-item label="菜单名称" prop="menuName">
               <el-input
                 v-model="queryParams.menuName"
@@ -22,11 +17,7 @@
               />
             </el-form-item>
             <el-form-item label="状态" prop="status">
-              <el-select
-                v-model="queryParams.status"
-                placeholder="菜单状态"
-                clearable
-              >
+              <el-select v-model="queryParams.status" placeholder="菜单状态" clearable>
                 <el-option
                   v-for="dict in sys_normal_disable"
                   :key="dict.value"
@@ -36,9 +27,7 @@
               </el-select>
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" icon="Search" @click="handleQuery"
-                >搜索</el-button
-              >
+              <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
               <el-button icon="Refresh" @click="resetQuery">重置</el-button>
             </el-form-item>
           </el-form>
@@ -50,28 +39,14 @@
       <template #header>
         <el-row :gutter="10">
           <el-col :span="1.5">
-            <el-button
-              type="primary"
-              plain
-              icon="Plus"
-              @click="handleAdd()"
-              v-hasPermi="['system:menu:add']"
+            <el-button type="primary" plain icon="Plus" @click="handleAdd()" v-hasPermi="['system:menu:add']"
               >新增
             </el-button>
           </el-col>
           <el-col :span="1.5">
-            <el-button
-              type="info"
-              plain
-              icon="Sort"
-              @click="handleToggleExpandAll"
-              >展开/折叠</el-button
-            >
+            <el-button type="info" plain icon="Sort" @click="handleToggleExpandAll">展开/折叠</el-button>
           </el-col>
-          <right-toolbar
-            v-model:showSearch="showSearch"
-            @queryTable="getList"
-          ></right-toolbar>
+          <right-toolbar v-model:showSearch="showSearch" @query-table="getList" />
         </el-row>
       </template>
 
@@ -83,32 +58,15 @@
         ref="menuTableRef"
         :default-expand-all="isExpandAll"
       >
-        <el-table-column
-          prop="menuName"
-          label="菜单名称"
-          :show-overflow-tooltip="true"
-          width="160"
-        ></el-table-column>
+        <el-table-column prop="menuName" label="菜单名称" :show-overflow-tooltip="true" width="160" />
         <el-table-column prop="icon" label="图标" align="center" width="100">
           <template #default="scope">
             <svg-icon :icon-class="scope.row.icon" />
           </template>
         </el-table-column>
-        <el-table-column
-          prop="orderNum"
-          label="排序"
-          width="60"
-        ></el-table-column>
-        <el-table-column
-          prop="perms"
-          label="权限标识"
-          :show-overflow-tooltip="true"
-        ></el-table-column>
-        <el-table-column
-          prop="component"
-          label="组件路径"
-          :show-overflow-tooltip="true"
-        ></el-table-column>
+        <el-table-column prop="orderNum" label="排序" width="60" />
+        <el-table-column prop="perms" label="权限标识" :show-overflow-tooltip="true" />
+        <el-table-column prop="component" label="组件路径" :show-overflow-tooltip="true" />
         <el-table-column prop="status" label="状态" width="80">
           <template #default="scope">
             <dict-tag :options="sys_normal_disable" :value="scope.row.status" />
@@ -153,19 +111,8 @@
       </el-table>
     </el-card>
 
-    <el-dialog
-      :title="dialog.title"
-      v-model="dialog.visible"
-      destroy-on-close
-      append-to-bod
-      width="750px"
-    >
-      <el-form
-        ref="menuFormRef"
-        :model="form"
-        :rules="rules"
-        label-width="100px"
-      >
+    <el-dialog :title="dialog.title" v-model="dialog.visible" destroy-on-close append-to-bod width="750px">
+      <el-form ref="menuFormRef" :model="form" :rules="rules" label-width="100px">
         <el-row>
           <el-col :span="24">
             <el-form-item label="上级菜单">
@@ -205,21 +152,14 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="显示排序" prop="orderNum">
-              <el-input-number
-                v-model="form.orderNum"
-                controls-position="right"
-                :min="0"
-              />
+              <el-input-number v-model="form.orderNum" controls-position="right" :min="0" />
             </el-form-item>
           </el-col>
           <el-col :span="12" v-if="form.menuType !== 'F'">
             <el-form-item>
               <template #label>
                 <span>
-                  <el-tooltip
-                    content="选择是外链则路由地址需要以`http(s)://`开头"
-                    placement="top"
-                  >
+                  <el-tooltip content="选择是外链则路由地址需要以`http(s)://`开头" placement="top">
                     <el-icon>
                       <question-filled />
                     </el-icon> </el-tooltip
@@ -254,10 +194,7 @@
             <el-form-item prop="component">
               <template #label>
                 <span>
-                  <el-tooltip
-                    content="访问的组件路径，如：`system/user/index`，默认在`views`目录下"
-                    placement="top"
-                  >
+                  <el-tooltip content="访问的组件路径，如：`system/user/index`，默认在`views`目录下" placement="top">
                     <el-icon>
                       <question-filled />
                     </el-icon>
@@ -270,11 +207,7 @@
           </el-col>
           <el-col :span="12" v-if="form.menuType !== 'M'">
             <el-form-item>
-              <el-input
-                v-model="form.perms"
-                placeholder="请输入权限标识"
-                maxlength="100"
-              />
+              <el-input v-model="form.perms" placeholder="请输入权限标识" maxlength="100" />
               <template #label>
                 <span>
                   <el-tooltip
@@ -292,17 +225,10 @@
           </el-col>
           <el-col :span="12" v-if="form.menuType === 'C'">
             <el-form-item>
-              <el-input
-                v-model="form.queryParam"
-                placeholder="请输入路由参数"
-                maxlength="255"
-              />
+              <el-input v-model="form.queryParam" placeholder="请输入路由参数" maxlength="255" />
               <template #label>
                 <span>
-                  <el-tooltip
-                    content='访问路由的默认传递参数，如：`{"id": 1, "name": "ry"}`'
-                    placement="top"
-                  >
+                  <el-tooltip content='访问路由的默认传递参数，如：`{"id": 1, "name": "ry"}`' placement="top">
                     <el-icon>
                       <question-filled />
                     </el-icon>
@@ -337,10 +263,7 @@
             <el-form-item>
               <template #label>
                 <span>
-                  <el-tooltip
-                    content="选择隐藏则路由将不会出现在侧边栏，但仍然可以访问"
-                    placement="top"
-                  >
+                  <el-tooltip content="选择隐藏则路由将不会出现在侧边栏，但仍然可以访问" placement="top">
                     <el-icon>
                       <question-filled />
                     </el-icon>
@@ -349,10 +272,7 @@
                 </span>
               </template>
               <el-radio-group v-model="form.visible">
-                <el-radio
-                  v-for="dict in sys_show_hide"
-                  :key="dict.value"
-                  :label="dict.value"
+                <el-radio v-for="dict in sys_show_hide" :key="dict.value" :label="dict.value"
                   >{{ dict.label }}
                 </el-radio>
               </el-radio-group>
@@ -362,10 +282,7 @@
             <el-form-item>
               <template #label>
                 <span>
-                  <el-tooltip
-                    content="选择停用则路由将不会出现在侧边栏，也不能被访问"
-                    placement="top"
-                  >
+                  <el-tooltip content="选择停用则路由将不会出现在侧边栏，也不能被访问" placement="top">
                     <el-icon>
                       <question-filled />
                     </el-icon>
@@ -374,11 +291,7 @@
                 </span>
               </template>
               <el-radio-group v-model="form.status">
-                <el-radio
-                  v-for="dict in sys_normal_disable"
-                  :key="dict.value"
-                  :label="dict.value"
-                >
+                <el-radio v-for="dict in sys_normal_disable" :key="dict.value" :label="dict.value">
                   {{ dict.label }}
                 </el-radio>
               </el-radio-group>
@@ -397,13 +310,7 @@
 </template>
 
 <script setup name="Menu" lang="ts">
-import {
-  addMenu,
-  delMenu,
-  getMenu,
-  listMenu,
-  updateMenu,
-} from "@/api/system/menu";
+import { addMenu, delMenu, getMenu, listMenu, updateMenu } from "@/api/system/menu";
 import { MenuForm, MenuQuery, MenuVO } from "@/api/system/menu/types";
 import { MenuTypeEnum } from "@/enums/MenuTypeEnum";
 
@@ -414,9 +321,7 @@ interface MenuOptionsType {
 }
 
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
-const { sys_show_hide, sys_normal_disable } = toRefs<any>(
-  proxy?.useDict("sys_show_hide", "sys_normal_disable")
-);
+const { sys_show_hide, sys_normal_disable } = toRefs<any>(proxy?.useDict("sys_show_hide", "sys_normal_disable"));
 
 const menuList = ref<MenuVO[]>([]);
 const loading = ref(true);
@@ -451,20 +356,15 @@ const data = reactive<PageData<MenuForm, MenuQuery>>({
     status: undefined,
   },
   rules: {
-    menuName: [
-      { required: true, message: "菜单名称不能为空", trigger: "blur" },
-    ],
-    orderNum: [
-      { required: true, message: "菜单顺序不能为空", trigger: "blur" },
-    ],
+    menuName: [{ required: true, message: "菜单名称不能为空", trigger: "blur" }],
+    orderNum: [{ required: true, message: "菜单顺序不能为空", trigger: "blur" }],
     path: [{ required: true, message: "路由地址不能为空", trigger: "blur" }],
   },
 });
 
 const menuTableRef = ref<ElTableInstance>();
 
-const { queryParams, form, rules } =
-  toRefs<PageData<MenuForm, MenuQuery>>(data);
+const { queryParams, form, rules } = toRefs<PageData<MenuForm, MenuQuery>>(data);
 /** 查询菜单列表 */
 const getList = async () => {
   loading.value = true;
@@ -507,9 +407,7 @@ const resetQuery = () => {
 const handleAdd = (row?: MenuVO) => {
   reset();
   getTreeselect();
-  row && row.menuId
-    ? (form.value.parentId = row.menuId)
-    : (form.value.parentId = 0);
+  row && row.menuId ? (form.value.parentId = row.menuId) : (form.value.parentId = 0);
   dialog.visible = true;
   dialog.title = "添加菜单";
 };
@@ -522,8 +420,7 @@ const handleToggleExpandAll = () => {
 const toggleExpandAll = (data: MenuVO[], status: boolean) => {
   data.forEach((item: MenuVO) => {
     menuTableRef.value?.toggleRowExpansion(item, status);
-    if (item.children && item.children.length > 0)
-      toggleExpandAll(item.children, status);
+    if (item.children && item.children.length > 0) toggleExpandAll(item.children, status);
   });
 };
 /** 修改按钮操作 */
@@ -541,9 +438,7 @@ const handleUpdate = async (row: MenuVO) => {
 const submitForm = () => {
   menuFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
-      form.value.menuId
-        ? await updateMenu(form.value)
-        : await addMenu(form.value);
+      form.value.menuId ? await updateMenu(form.value) : await addMenu(form.value);
       proxy?.$modal.msgSuccess("操作成功");
       dialog.visible = false;
       await getList();
@@ -552,9 +447,7 @@ const submitForm = () => {
 };
 /** 删除按钮操作 */
 const handleDelete = async (row: MenuVO) => {
-  await proxy?.$modal.confirm(
-    '是否确认删除名称为"' + row.menuName + '"的数据项?'
-  );
+  await proxy?.$modal.confirm('是否确认删除名称为"' + row.menuName + '"的数据项?');
   await delMenu(row.menuId);
   await getList();
   proxy?.$modal.msgSuccess("删除成功");

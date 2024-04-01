@@ -28,13 +28,7 @@ import "./permission";
 
 import { useDict } from "@/utils/dict";
 import { getConfigKey, updateConfigByKey } from "@/api/system/config";
-import {
-  parseTime,
-  addDateRange,
-  handleTree,
-  selectDictLabel,
-  selectDictLabels,
-} from "@/utils/ruoyi";
+import { parseTime, addDateRange, handleTree, selectDictLabel, selectDictLabels } from "@/utils/ruoyi";
 
 // 国际化
 import i18n from "@/lang/index";
@@ -46,6 +40,11 @@ import "vue3-draggable-resizable/dist/Vue3DraggableResizable.css";
 
 // datav
 import DataVVue3 from "@kjgl77/datav-vue3";
+
+// v3-drag-zoom 组件
+import V3DragZoom from "v3-drag-zoom";
+// v3-drag-zoom 全局样式（必须导入，否则无法正常使用）
+import "v3-drag-zoom/dist/style.css";
 
 const app = createApp(App);
 // 全局方法挂载
@@ -67,6 +66,7 @@ app.use(i18n);
 app.use(plugins);
 app.use(Vue3DraggableResizable);
 app.use(DataVVue3);
+app.use(V3DragZoom);
 // 自定义指令
 directive(app);
 

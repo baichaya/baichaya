@@ -1,10 +1,6 @@
 <template>
   <div id="tags-view-container" class="tags-view-container">
-    <scroll-pane
-      ref="scrollPaneRef"
-      class="tags-view-wrapper"
-      @scroll="handleScroll"
-    >
+    <scroll-pane ref="scrollPaneRef" class="tags-view-wrapper" @scroll="handleScroll">
       <router-link
         v-for="tag in visitedViews"
         :key="tag.path"
@@ -22,36 +18,19 @@
       >
         {{ tag.title }}
         <span v-if="!isAffix(tag)" @click.prevent.stop="closeSelectedTag(tag)">
-          <close
-            class="el-icon-close"
-            style="width: 1em; height: 1em; vertical-align: middle"
-          />
+          <close class="el-icon-close" style="width: 1em; height: 1em; vertical-align: middle" />
         </span>
       </router-link>
     </scroll-pane>
-    <ul
-      v-show="visible"
-      :style="{ left: left + 'px', top: top + 'px' }"
-      class="contextmenu"
-    >
-      <li @click="refreshSelectedTag(selectedTag)">
-        <refresh-right style="width: 1em; height: 1em" /> 刷新页面
-      </li>
+    <ul v-show="visible" :style="{ left: left + 'px', top: top + 'px' }" class="contextmenu">
+      <li @click="refreshSelectedTag(selectedTag)"><refresh-right style="width: 1em; height: 1em" /> 刷新页面</li>
       <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)">
         <close style="width: 1em; height: 1em" /> 关闭当前
       </li>
-      <li @click="closeOthersTags">
-        <circle-close style="width: 1em; height: 1em" /> 关闭其他
-      </li>
-      <li v-if="!isFirstView()" @click="closeLeftTags">
-        <back style="width: 1em; height: 1em" /> 关闭左侧
-      </li>
-      <li v-if="!isLastView()" @click="closeRightTags">
-        <right style="width: 1em; height: 1em" /> 关闭右侧
-      </li>
-      <li @click="closeAllTags(selectedTag)">
-        <circle-close style="width: 1em; height: 1em" /> 全部关闭
-      </li>
+      <li @click="closeOthersTags"><circle-close style="width: 1em; height: 1em" /> 关闭其他</li>
+      <li v-if="!isFirstView()" @click="closeLeftTags"><back style="width: 1em; height: 1em" /> 关闭左侧</li>
+      <li v-if="!isLastView()" @click="closeRightTags"><right style="width: 1em; height: 1em" /> 关闭右侧</li>
+      <li @click="closeAllTags(selectedTag)"><circle-close style="width: 1em; height: 1em" /> 全部关闭</li>
     </ul>
   </div>
 </template>
@@ -106,20 +85,14 @@ const isAffix = (tag: RouteLocationNormalized) => {
 };
 const isFirstView = () => {
   try {
-    return (
-      selectedTag.value.fullPath === "/index" ||
-      selectedTag.value.fullPath === visitedViews.value[1].fullPath
-    );
+    return selectedTag.value.fullPath === "/index" || selectedTag.value.fullPath === visitedViews.value[1].fullPath;
   } catch (err) {
     return false;
   }
 };
 const isLastView = () => {
   try {
-    return (
-      selectedTag.value.fullPath ===
-      visitedViews.value[visitedViews.value.length - 1].fullPath
-    );
+    return selectedTag.value.fullPath === visitedViews.value[visitedViews.value.length - 1].fullPath;
   } catch (err) {
     return false;
   }
@@ -201,30 +174,18 @@ const closeSelectedTag = (view: RouteLocationNormalized) => {
   });
 };
 const closeRightTags = () => {
-  proxy?.$tab
-    .closeRightPage(selectedTag.value)
-    .then((visitedViews: RouteLocationNormalized[]) => {
-      if (
-        !visitedViews.find(
-          (i: RouteLocationNormalized) => i.fullPath === route.fullPath
-        )
-      ) {
-        toLastView(visitedViews);
-      }
-    });
+  proxy?.$tab.closeRightPage(selectedTag.value).then((visitedViews: RouteLocationNormalized[]) => {
+    if (!visitedViews.find((i: RouteLocationNormalized) => i.fullPath === route.fullPath)) {
+      toLastView(visitedViews);
+    }
+  });
 };
 const closeLeftTags = () => {
-  proxy?.$tab
-    .closeLeftPage(selectedTag.value)
-    .then((visitedViews: RouteLocationNormalized[]) => {
-      if (
-        !visitedViews.find(
-          (i: RouteLocationNormalized) => i.fullPath === route.fullPath
-        )
-      ) {
-        toLastView(visitedViews);
-      }
-    });
+  proxy?.$tab.closeLeftPage(selectedTag.value).then((visitedViews: RouteLocationNormalized[]) => {
+    if (!visitedViews.find((i: RouteLocationNormalized) => i.fullPath === route.fullPath)) {
+      toLastView(visitedViews);
+    }
+  });
 };
 const closeOthersTags = () => {
   router.push(selectedTag.value).catch(() => {});
@@ -240,10 +201,7 @@ const closeAllTags = (view: RouteLocationNormalized) => {
     toLastView(visitedViews, view);
   });
 };
-const toLastView = (
-  visitedViews: RouteLocationNormalized[],
-  view?: RouteLocationNormalized
-) => {
+const toLastView = (visitedViews: RouteLocationNormalized[], view?: RouteLocationNormalized) => {
   const latestView = visitedViews.slice(-1)[0];
   if (latestView) {
     router.push(latestView.fullPath as string);
@@ -290,66 +248,77 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .tags-view-container {
-  height: 34px;
   width: 100%;
+  height: 34px;
   background-color: var(--el-bg-color);
   border: 1px solid var(--el-border-color-light);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 1px 3px 0 rgb(0 0 0 / 12%),
+    0 0 3px 0 rgb(0 0 0 / 4%);
+
   .tags-view-wrapper {
     .tags-view-item {
-      display: inline-block;
       position: relative;
-      cursor: pointer;
+      display: inline-block;
       height: 26px;
+      padding: 0 8px;
+      margin-top: 4px;
+      margin-left: 5px;
+      font-size: 12px;
       line-height: 23px;
+      color: #495060;
+      cursor: pointer;
       background-color: var(--el-bg-color);
       border: 1px solid var(--el-border-color-light);
-      color: #495060;
-      padding: 0 8px;
-      font-size: 12px;
-      margin-left: 5px;
-      margin-top: 4px;
+
       &:hover {
         color: var(--el-color-primary);
       }
+
       &:first-of-type {
         margin-left: 15px;
       }
+
       &:last-of-type {
         margin-right: 15px;
       }
+
       &.active {
-        background-color: #42b983;
         color: #fff;
+        background-color: #42b983;
         border-color: #42b983;
+
         &::before {
-          content: "";
-          background: #fff;
+          position: relative;
           display: inline-block;
           width: 8px;
           height: 8px;
-          border-radius: 50%;
-          position: relative;
           margin-right: 5px;
+          content: "";
+          background: #fff;
+          border-radius: 50%;
         }
       }
     }
   }
+
   .contextmenu {
-    margin: 0;
-    background: var(--el-bg-color);
-    z-index: 3000;
     position: absolute;
-    list-style-type: none;
+    z-index: 3000;
     padding: 5px 0;
-    border-radius: 4px;
+    margin: 0;
     font-size: 12px;
     font-weight: 400;
-    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.3);
+    list-style-type: none;
+    background: var(--el-bg-color);
+    border-radius: 4px;
+    box-shadow: 2px 2px 3px 0 rgb(0 0 0 / 30%);
+
     li {
-      margin: 0;
       padding: 7px 16px;
+      margin: 0;
       cursor: pointer;
+
       &:hover {
         background: #eee;
       }
@@ -365,21 +334,23 @@ onMounted(() => {
     .el-icon-close {
       width: 16px;
       height: 16px;
+      text-align: center;
       vertical-align: 2px;
       border-radius: 50%;
-      text-align: center;
       transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
       transform-origin: 100% 50%;
-      &:before {
-        transform: scale(0.6);
+
+      &::before {
         display: inline-block;
         vertical-align: -3px;
+        transform: scale(0.6);
       }
+
       &:hover {
-        background-color: #b4bccc;
-        color: #fff;
         width: 12px !important;
         height: 12px !important;
+        color: #fff;
+        background-color: #b4bccc;
       }
     }
   }

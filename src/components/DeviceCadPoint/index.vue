@@ -16,11 +16,7 @@
         <el-col v-for="info in props.infoList" :key="info.id" :span="5">
           <el-card class="info-card">
             <el-space :size="26">
-              <svg-icon
-                :icon-class="props.icon"
-                size="45"
-                :color="info.color"
-              />
+              <svg-icon :icon-class="props.icon" size="45" :color="info.color" />
               <el-space direction="vertical">
                 <div>{{ info.label }}</div>
                 <div class="font-600">{{ info.value }}</div>
@@ -35,11 +31,7 @@
     <div class="box">
       <div class="btn-list" v-if="!isParking">
         <el-card shadow="hover">
-          <el-input
-            placeholder="请输入楼栋名称"
-            prefix-icon="Search"
-            clearable
-          />
+          <el-input placeholder="请输入楼栋名称" prefix-icon="Search" clearable />
           <el-tree
             ref="deptTreeRef"
             node-key="id"
@@ -56,12 +48,7 @@
 
       <div :class="isParking ? 'parking-cad ' : 'cad'">
         <template v-if="!isParking">
-          <div
-            ref="iconRef"
-            class="icon"
-            :style="{ left: 680 + 'px', top: 290 + 'px' }"
-            @click="checkPoint"
-          >
+          <div ref="iconRef" class="icon" :style="{ left: 680 + 'px', top: 290 + 'px' }" @click="checkPoint">
             <svg-icon :icon-class="props.icon" size="30" color="#409EFF" />
           </div>
           <el-popover
@@ -109,9 +96,7 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits(["checkPoint"]);
 
 // 楼层平面图
-const getFloorImg = computed(
-  () => new URL(`../../assets/images/ibms/floor/all.png`, import.meta.url).href
-);
+const getFloorImg = computed(() => new URL(`../../assets/images/ibms/floor/all.png`, import.meta.url).href);
 
 // 楼层
 const floorName = ref("one");
@@ -147,45 +132,54 @@ getAreaTree();
   font-size: 28px;
   font-weight: 600;
 }
+
 .info-card {
-  height: 85px;
   width: 220px;
+  height: 85px;
 }
+
 .box {
   display: flex;
   width: 100%;
 }
+
 .cad {
+  position: relative;
   width: calc(85%);
   min-height: 800px;
-  position: relative;
+
   .icon {
     position: absolute;
     cursor: pointer;
   }
+
   .el-image {
-    height: 100%;
-    width: 100%;
     z-index: -99;
+    width: 100%;
+    height: 100%;
   }
 }
+
 .parking-cad {
+  position: relative;
   width: calc(80%);
   min-height: 800px;
-  position: relative;
+
   .icon {
     position: absolute;
   }
+
   .el-image {
-    height: 100%;
-    width: 100%;
     z-index: -1;
+    width: 100%;
+    height: 100%;
   }
 }
+
 .btn-list {
   width: calc(15% - 10px);
-  margin-right: 10px;
   min-height: 800px;
+  margin-right: 10px;
 }
 
 ::-webkit-scrollbar {

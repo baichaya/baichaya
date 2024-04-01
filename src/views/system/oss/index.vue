@@ -6,12 +6,7 @@
     >
       <div class="mb-[10px]" v-show="showSearch">
         <el-card shadow="hover">
-          <el-form
-            :model="queryParams"
-            ref="queryFormRef"
-            :inline="true"
-            label-width="68px"
-          >
+          <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
             <el-form-item label="文件名" prop="fileName">
               <el-input
                 v-model="queryParams.fileName"
@@ -47,11 +42,8 @@
                 range-separator="-"
                 start-placeholder="开始日期"
                 end-placeholder="结束日期"
-                :default-time="[
-                  new Date(2000, 1, 1, 0, 0, 0),
-                  new Date(2000, 1, 1, 23, 59, 59),
-                ]"
-              ></el-date-picker>
+                :default-time="[new Date(2000, 1, 1, 0, 0, 0), new Date(2000, 1, 1, 23, 59, 59)]"
+              />
             </el-form-item>
             <el-form-item label="服务商" prop="service">
               <el-input
@@ -63,9 +55,7 @@
               />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" icon="search" @click="handleQuery"
-                >搜索</el-button
-              >
+              <el-button type="primary" icon="search" @click="handleQuery">搜索</el-button>
               <el-button icon="Refresh" @click="resetQuery">重置</el-button>
             </el-form-item>
           </el-form>
@@ -77,22 +67,12 @@
       <template #header>
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
-            <el-button
-              type="primary"
-              plain
-              icon="Upload"
-              @click="handleFile"
-              v-hasPermi="['system:oss:upload']"
+            <el-button type="primary" plain icon="Upload" @click="handleFile" v-hasPermi="['system:oss:upload']"
               >上传文件</el-button
             >
           </el-col>
           <el-col :span="1.5">
-            <el-button
-              type="primary"
-              plain
-              icon="Upload"
-              @click="handleImage"
-              v-hasPermi="['system:oss:upload']"
+            <el-button type="primary" plain icon="Upload" @click="handleImage" v-hasPermi="['system:oss:upload']"
               >上传图片</el-button
             >
           </el-col>
@@ -118,19 +98,11 @@
             >
           </el-col>
           <el-col :span="1.5">
-            <el-button
-              type="info"
-              plain
-              icon="Operation"
-              @click="handleOssConfig"
-              v-hasPermi="['system:oss:list']"
+            <el-button type="info" plain icon="Operation" @click="handleOssConfig" v-hasPermi="['system:oss:list']"
               >配置管理</el-button
             >
           </el-col>
-          <right-toolbar
-            v-model:showSearch="showSearch"
-            @queryTable="getList"
-          ></right-toolbar>
+          <right-toolbar v-model:showSearch="showSearch" @query-table="getList" />
         </el-row>
       </template>
 
@@ -143,57 +115,30 @@
         v-if="showTable"
       >
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column
-          label="对象存储主键"
-          align="center"
-          prop="ossId"
-          v-if="false"
-        />
+        <el-table-column label="对象存储主键" align="center" prop="ossId" v-if="false" />
         <el-table-column label="文件名" align="center" prop="fileName" />
         <el-table-column label="原名" align="center" prop="originalName" />
         <el-table-column label="文件后缀" align="center" prop="fileSuffix" />
         <el-table-column label="文件展示" align="center" prop="url">
           <template #default="scope">
             <ImagePreview
-              v-if="
-                previewListResource && checkFileSuffix(scope.row.fileSuffix)
-              "
+              v-if="previewListResource && checkFileSuffix(scope.row.fileSuffix)"
               :width="100"
               :height="100"
               :src="scope.row.url"
               :preview-src-list="[scope.row.url]"
             />
-            <span
-              v-text="scope.row.url"
-              v-if="
-                !checkFileSuffix(scope.row.fileSuffix) || !previewListResource
-              "
-            />
+            <span v-text="scope.row.url" v-if="!checkFileSuffix(scope.row.fileSuffix) || !previewListResource"></span>
           </template>
         </el-table-column>
-        <el-table-column
-          label="创建时间"
-          align="center"
-          prop="createTime"
-          width="180"
-          sortable="custom"
-        >
+        <el-table-column label="创建时间" align="center" prop="createTime" width="180" sortable="custom">
           <template #default="scope">
             <span>{{ parseTime(scope.row.createTime, "{y}-{m}-{d}") }}</span>
           </template>
         </el-table-column>
         <el-table-column label="上传人" align="center" prop="createByName" />
-        <el-table-column
-          label="服务商"
-          align="center"
-          prop="service"
-          sortable="custom"
-        />
-        <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
-        >
+        <el-table-column label="服务商" align="center" prop="service" sortable="custom" />
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
             <el-tooltip content="下载" placement="top">
               <el-button
@@ -202,7 +147,7 @@
                 icon="Download"
                 @click="handleDownload(scope.row)"
                 v-hasPermi="['system:oss:download']"
-              ></el-button>
+              />
             </el-tooltip>
             <el-tooltip content="删除" placement="top">
               <el-button
@@ -211,7 +156,7 @@
                 icon="Delete"
                 @click="handleDelete(scope.row)"
                 v-hasPermi="['system:oss:remove']"
-              ></el-button>
+              />
             </el-tooltip>
           </template>
         </el-table-column>
@@ -226,12 +171,7 @@
       />
     </el-card>
     <!-- 添加或修改OSS对象存储对话框 -->
-    <el-dialog
-      :title="dialog.title"
-      v-model="dialog.visible"
-      width="500px"
-      append-to-body
-    >
+    <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
       <el-form ref="ossFormRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="文件名">
           <fileUpload v-model="form.file" v-if="type === 0" />
@@ -240,9 +180,7 @@
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button :loading="buttonLoading" type="primary" @click="submitForm"
-            >确 定</el-button
-          >
+          <el-button :loading="buttonLoading" type="primary" @click="submitForm">确 定</el-button>
           <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
@@ -310,15 +248,8 @@ const { queryParams, form, rules } = toRefs(data);
 const getList = async () => {
   loading.value = true;
   const res = await proxy?.getConfigKey("sys.oss.previewListResource");
-  previewListResource.value =
-    res?.data === undefined ? true : res.data === "true";
-  const response = await listOss(
-    proxy?.addDateRange(
-      queryParams.value,
-      dateRangeCreateTime.value,
-      "CreateTime"
-    )
-  );
+  previewListResource.value = res?.data === undefined ? true : res.data === "true";
+  const response = await listOss(proxy?.addDateRange(queryParams.value, dateRangeCreateTime.value, "CreateTime"));
   ossList.value = response.rows;
   total.value = response.total;
   loading.value = false;
@@ -383,12 +314,8 @@ const handleHeaderCLick = (column: any) => {
   handleOrderChange(column.property, column.multiOrder);
 };
 const handleOrderChange = (prop: string, order: string) => {
-  let orderByArr = queryParams.value.orderByColumn
-    ? queryParams.value.orderByColumn.split(",")
-    : [];
-  let isAscArr = queryParams.value.isAsc
-    ? queryParams.value.isAsc.split(",")
-    : [];
+  let orderByArr = queryParams.value.orderByColumn ? queryParams.value.orderByColumn.split(",") : [];
+  let isAscArr = queryParams.value.isAsc ? queryParams.value.isAsc.split(",") : [];
   let propIndex = orderByArr.indexOf(prop);
   if (propIndex !== -1) {
     if (order) {
@@ -451,9 +378,7 @@ const handlePreviewListResource = async (preview: boolean) => {
 /** 删除按钮操作 */
 const handleDelete = async (row?: OssVO) => {
   const ossIds = row?.ossId || ids.value;
-  await proxy?.$modal.confirm(
-    '是否确认删除OSS对象存储编号为"' + ossIds + '"的数据项?'
-  );
+  await proxy?.$modal.confirm('是否确认删除OSS对象存储编号为"' + ossIds + '"的数据项?');
   loading.value = true;
   await delOss(ossIds).finally(() => (loading.value = false));
   await getList();

@@ -49,24 +49,20 @@ const realSrcList = computed(() => {
   return srcList;
 });
 
-const realWidth = computed(() =>
-  typeof props.width == "string" ? props.width : `${props.width}px`
-);
+const realWidth = computed(() => (typeof props.width == "string" ? props.width : `${props.width}px`));
 
-const realHeight = computed(() =>
-  typeof props.height == "string" ? props.height : `${props.height}px`
-);
+const realHeight = computed(() => (typeof props.height == "string" ? props.height : `${props.height}px`));
 </script>
 
 <style lang="scss" scoped>
 .el-image {
-  border-radius: 5px;
   background-color: #ebeef5;
+  border-radius: 5px;
   box-shadow: 0 0 5px 1px #ccc;
 
   :deep(.el-image__inner) {
-    transition: all 0.3s;
     cursor: pointer;
+    transition: all 0.3s;
 
     &:hover {
       transform: scale(1.2);
@@ -75,12 +71,12 @@ const realHeight = computed(() =>
 
   :deep(.image-slot) {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     width: 100%;
     height: 100%;
-    color: #909399;
     font-size: 30px;
+    color: #909399;
   }
 }
 </style>

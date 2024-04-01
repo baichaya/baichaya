@@ -49,6 +49,7 @@ const formInline = reactive({
   display: flex;
   flex-direction: column;
   align-items: center;
+
   .outer-ring {
     position: relative;
     width: 150px;
@@ -60,85 +61,99 @@ const formInline = reactive({
       0 1px 0 #c3c3c3,
       0 2px 0 #c9c9c9,
       0 2px 3px #333;
+
     i {
       font-size: 20px;
       cursor: pointer;
+
       &:hover {
         color: #00b176;
       }
     }
+
     .caret-up {
       position: absolute;
       top: 6px;
       left: 75px;
       margin-left: -10px;
     }
+
     .caret-down {
       position: absolute;
       bottom: 6px;
       left: 75px;
       margin-left: -10px;
     }
+
     .caret-left {
       position: absolute;
-      left: 6px;
       top: 75px;
+      left: 6px;
       margin-top: -10px;
     }
+
     .caret-right {
       position: absolute;
-      right: 6px;
       top: 75px;
+      right: 6px;
       margin-top: -10px;
     }
+
     .ob-caret-left {
-      transform: rotate(45deg);
       position: absolute;
       top: 24px;
       left: 24px;
+      transform: rotate(45deg);
     }
+
     .ob-caret-up {
-      transform: rotate(45deg);
       position: absolute;
       top: 24px;
       right: 24px;
+      transform: rotate(45deg);
     }
+
     .ob-caret-right {
-      transform: rotate(45deg);
       position: absolute;
-      bottom: 24px;
       right: 24px;
-    }
-    .ob-caret-down {
+      bottom: 24px;
       transform: rotate(45deg);
+    }
+
+    .ob-caret-down {
       position: absolute;
       bottom: 24px;
       left: 24px;
+      transform: rotate(45deg);
     }
+
     .inner-ring {
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
       width: 80px;
       height: 80px;
-      border-radius: 50%;
       background-color: #fff;
       border: 1px solid #ddd;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+
       .plus {
         position: absolute;
         top: 10px;
         left: 40px;
         margin-left: -10px;
       }
+
       .line {
-        height: 1px;
-        width: 100%;
-        background-color: #ddd;
         position: absolute;
         top: 39px;
         left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: #ddd;
       }
+
       .minus {
         position: absolute;
         bottom: 10px;

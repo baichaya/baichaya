@@ -12,9 +12,7 @@ import {
  * @returns {*}
  */
 
-export const listLinkageTrigger = (
-  query?: LinkageTriggerQuery
-): AxiosPromise<LinkageTriggerVO[]> => {
+export const listLinkageTrigger = (query?: LinkageTriggerQuery): AxiosPromise<LinkageTriggerVO[]> => {
   return request({
     url: "/linkageManage/linkageTrigger/list",
     method: "get",
@@ -26,9 +24,7 @@ export const listLinkageTrigger = (
  * 查询触发器详细
  * @param id
  */
-export const getLinkageTrigger = (
-  id: string | number
-): AxiosPromise<LinkageTriggerVO> => {
+export const getLinkageTrigger = (id: string | number): AxiosPromise<LinkageTriggerVO> => {
   return request({
     url: "/linkageManage/linkageTrigger/" + id,
     method: "get",
@@ -63,9 +59,7 @@ export const updateLinkageTrigger = (data: LinkageTriggerForm) => {
  * 删除触发器
  * @param id
  */
-export const delLinkageTrigger = (
-  id: string | number | Array<string | number>
-) => {
+export const delLinkageTrigger = (id: string | number | Array<string | number>) => {
   return request({
     url: "/linkageManage/linkageTrigger/" + id,
     method: "delete",

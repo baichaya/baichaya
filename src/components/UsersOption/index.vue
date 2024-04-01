@@ -1,21 +1,10 @@
 <template>
-  <el-dialog
-    v-model="dialogVisible"
-    title="角色分配"
-    width="56%"
-    append-to-body
-    draggable
-  >
+  <el-dialog v-model="dialogVisible" title="角色分配" width="56%" append-to-body draggable>
     <el-row :gutter="20">
       <!-- 部门树 -->
       <el-col :lg="6" :xs="24" style="">
         <el-card shadow="hover">
-          <el-input
-            v-model="deptName"
-            placeholder="请输入部门名称"
-            prefix-icon="Search"
-            clearable
-          />
+          <el-input v-model="deptName" placeholder="请输入部门名称" prefix-icon="Search" clearable />
           <el-tree
             class="mt-2"
             ref="deptTreeRef"
@@ -37,12 +26,7 @@
         >
           <div class="mb-[10px]" v-show="showSearch">
             <el-card shadow="hover">
-              <el-form
-                ref="queryFormRef"
-                :model="queryParams"
-                :inline="true"
-                label-width="68px"
-              >
+              <el-form ref="queryFormRef" :model="queryParams" :inline="true" label-width="68px">
                 <el-form-item label="用户名称" prop="userName">
                   <el-input
                     v-model="queryParams.userName"
@@ -63,12 +47,7 @@
                 </el-form-item>
 
                 <el-form-item label="状态" prop="status">
-                  <el-select
-                    v-model="queryParams.status"
-                    placeholder="用户状态"
-                    clearable
-                    style="width: 240px"
-                  >
+                  <el-select v-model="queryParams.status" placeholder="用户状态" clearable style="width: 240px">
                     <el-option
                       v-for="dict in sys_normal_disable"
                       :key="dict.value"
@@ -85,12 +64,10 @@
                     range-separator="-"
                     start-placeholder="开始日期"
                     end-placeholder="结束日期"
-                  ></el-date-picker>
+                  />
                 </el-form-item>
                 <el-form-item>
-                  <el-button type="primary" @click="handleQuery" icon="Search"
-                    >搜索</el-button
-                  >
+                  <el-button type="primary" @click="handleQuery" icon="Search">搜索</el-button>
                   <el-button @click="resetQuery" icon="Refresh">重置</el-button>
                 </el-form-item>
               </el-form>
@@ -99,19 +76,9 @@
         </transition>
 
         <el-card shadow="hover">
-          <el-table
-            v-loading="loading"
-            :data="userList"
-            @selection-change="handleSelectionChange"
-          >
+          <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
             <el-table-column type="selection" width="50" align="center" />
-            <el-table-column
-              label="用户编号"
-              align="center"
-              key="userId"
-              prop="userId"
-              v-if="columns[0].visible"
-            />
+            <el-table-column label="用户编号" align="center" key="userId" prop="userId" v-if="columns[0].visible" />
             <el-table-column
               label="用户名称"
               align="center"
@@ -144,19 +111,8 @@
               v-if="columns[4].visible"
               width="120"
             />
-            <el-table-column
-              label="状态"
-              align="center"
-              prop="status"
-              v-if="columns[5].visible"
-            />
-            <el-table-column
-              label="创建时间"
-              align="center"
-              prop="createTime"
-              v-if="columns[6].visible"
-              width="160"
-            >
+            <el-table-column label="状态" align="center" prop="status" v-if="columns[5].visible" />
+            <el-table-column label="创建时间" align="center" prop="createTime" v-if="columns[6].visible" width="160">
               <template #default="scope">
                 <span>{{ scope.row.createTime }}</span>
               </template>
@@ -188,9 +144,7 @@ import { UserForm, UserQuery, UserVO } from "@/api/system/user/types";
 import { DeptVO } from "@/api/system/dept/types";
 
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
-const { sys_normal_disable } = toRefs<any>(
-  proxy?.useDict("sys_normal_disable")
-);
+const { sys_normal_disable } = toRefs<any>(proxy?.useDict("sys_normal_disable"));
 
 const userList = ref<UserVO[]>();
 const loading = ref(true);
@@ -252,9 +206,7 @@ const data = reactive<PageData<UserForm, UserQuery>>({
         trigger: "blur",
       },
     ],
-    nickName: [
-      { required: true, message: "用户昵称不能为空", trigger: "blur" },
-    ],
+    nickName: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
     password: [
       { required: true, message: "用户密码不能为空", trigger: "blur" },
       {
@@ -309,9 +261,7 @@ const getTreeSelect = async () => {
 /** 查询用户列表 */
 const getList = async () => {
   loading.value = true;
-  const res = await api.listUser(
-    proxy?.addDateRange(queryParams.value, dateRange.value)
-  );
+  const res = await api.listUser(proxy?.addDateRange(queryParams.value, dateRange.value));
   loading.value = false;
   userList.value = res.rows;
   total.value = res.total;
@@ -375,5 +325,3 @@ defineExpose({
   open,
 });
 </script>
-
-<style scoped></style>

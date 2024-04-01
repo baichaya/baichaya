@@ -5,7 +5,7 @@
     :key="item.path"
     :iframe-id="'iframe' + index"
     :src="iframeUrl(item.meta ? item.meta.link : '', item.query)"
-  ></inner-link>
+  />
 </template>
 
 <script setup lang="ts">

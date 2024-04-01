@@ -1,10 +1,6 @@
 import request from "@/utils/request";
 import { AxiosPromise } from "axios";
-import {
-  IntrusionSectorInfoVO,
-  IntrusionSectorInfoForm,
-  IntrusionSectorInfoQuery,
-} from "./types";
+import { IntrusionSectorInfoVO, IntrusionSectorInfoForm, IntrusionSectorInfoQuery } from "./types";
 
 /**
  * 查询入侵报警_防区资料列表
@@ -12,9 +8,7 @@ import {
  * @returns {*}
  */
 
-export const listIntrusionSectorInfo = (
-  query?: IntrusionSectorInfoQuery
-): AxiosPromise<IntrusionSectorInfoVO[]> => {
+export const listIntrusionSectorInfo = (query?: IntrusionSectorInfoQuery): AxiosPromise<IntrusionSectorInfoVO[]> => {
   return request({
     url: "/intrusionAlarm/intrusionSectorInfo/list",
     method: "get",
@@ -26,9 +20,7 @@ export const listIntrusionSectorInfo = (
  * 查询入侵报警_防区资料详细
  * @param id
  */
-export const getIntrusionSectorInfo = (
-  id: string | number
-): AxiosPromise<IntrusionSectorInfoVO> => {
+export const getIntrusionSectorInfo = (id: string | number): AxiosPromise<IntrusionSectorInfoVO> => {
   return request({
     url: "/intrusionAlarm/intrusionSectorInfo/" + id,
     method: "get",
@@ -63,9 +55,7 @@ export const updateIntrusionSectorInfo = (data: IntrusionSectorInfoForm) => {
  * 删除入侵报警_防区资料
  * @param id
  */
-export const delIntrusionSectorInfo = (
-  id: string | number | Array<string | number>
-) => {
+export const delIntrusionSectorInfo = (id: string | number | Array<string | number>) => {
   return request({
     url: "/intrusionAlarm/intrusionSectorInfo/" + id,
     method: "delete",

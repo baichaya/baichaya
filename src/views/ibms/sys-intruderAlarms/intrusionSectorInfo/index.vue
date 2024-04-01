@@ -5,12 +5,7 @@
       :leave-active-class="proxy?.animate.searchAnimate.leave"
     >
       <div class="search" v-show="showSearch">
-        <el-form
-          :model="queryParams"
-          ref="queryFormRef"
-          :inline="true"
-          label-width="68px"
-        >
+        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
           <el-form-item label="设备id(DevId)" prop="deviceId">
             <el-input
               v-model="queryParams.deviceId"
@@ -57,9 +52,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" icon="Search" @click="handleQuery"
-              >搜索</el-button
-            >
+            <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
             <el-button icon="Refresh" @click="resetQuery">重置</el-button>
           </el-form-item>
         </el-form>
@@ -111,38 +104,19 @@
               >导出</el-button
             >
           </el-col>
-          <right-toolbar
-            v-model:showSearch="showSearch"
-            @queryTable="getList"
-          />
+          <right-toolbar v-model:showSearch="showSearch" @query-table="getList" />
         </el-row>
       </template>
 
-      <el-table
-        v-loading="loading"
-        :data="intrusionSectorInfoList"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table v-loading="loading" :data="intrusionSectorInfoList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column label="序号" align="center" prop="id" v-if="true" />
         <el-table-column label="设备id(DevId)" align="center" prop="deviceId" />
         <el-table-column label="防区号(Sector)" align="center" prop="sector" />
-        <el-table-column
-          label="位置(Position)"
-          align="center"
-          prop="position"
-        />
-        <el-table-column
-          label="设备名称(DevName)"
-          align="center"
-          prop="deviceName"
-        />
+        <el-table-column label="位置(Position)" align="center" prop="position" />
+        <el-table-column label="设备名称(DevName)" align="center" prop="deviceName" />
         <el-table-column label="(SubSect)" align="center" prop="subSector" />
-        <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
-        >
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
             <el-tooltip content="修改" placement="top">
               <el-button
@@ -175,18 +149,8 @@
       />
     </el-card>
     <!-- 添加或修改入侵报警_防区资料对话框 -->
-    <el-dialog
-      :title="dialog.title"
-      v-model="dialog.visible"
-      width="500px"
-      append-to-body
-    >
-      <el-form
-        ref="intrusionSectorInfoFormRef"
-        :model="form"
-        :rules="rules"
-        label-width="80px"
-      >
+    <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
+      <el-form ref="intrusionSectorInfoFormRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="设备id(DevId)" prop="deviceId">
           <el-input v-model="form.deviceId" placeholder="请输入设备id(DevId)" />
         </el-form-item>
@@ -194,16 +158,10 @@
           <el-input v-model="form.sector" placeholder="请输入防区号(Sector)" />
         </el-form-item>
         <el-form-item label="位置(Position)" prop="position">
-          <el-input
-            v-model="form.position"
-            placeholder="请输入位置(Position)"
-          />
+          <el-input v-model="form.position" placeholder="请输入位置(Position)" />
         </el-form-item>
         <el-form-item label="设备名称(DevName)" prop="deviceName">
-          <el-input
-            v-model="form.deviceName"
-            placeholder="请输入设备名称(DevName)"
-          />
+          <el-input v-model="form.deviceName" placeholder="请输入设备名称(DevName)" />
         </el-form-item>
         <el-form-item label="(SubSect)" prop="subSector">
           <el-input v-model="form.subSector" placeholder="请输入(SubSect)" />
@@ -211,9 +169,7 @@
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button :loading="buttonLoading" type="primary" @click="submitForm"
-            >确 定</el-button
-          >
+          <el-button :loading="buttonLoading" type="primary" @click="submitForm">确 定</el-button>
           <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
@@ -262,9 +218,7 @@ const initFormData: IntrusionSectorInfoForm = {
   deviceName: undefined,
   subSector: undefined,
 };
-const data = reactive<
-  PageData<IntrusionSectorInfoForm, IntrusionSectorInfoQuery>
->({
+const data = reactive<PageData<IntrusionSectorInfoForm, IntrusionSectorInfoQuery>>({
   form: { ...initFormData },
   queryParams: {
     pageNum: 1,
@@ -278,21 +232,11 @@ const data = reactive<
   },
   rules: {
     id: [{ required: true, message: "序号不能为空", trigger: "blur" }],
-    deviceId: [
-      { required: true, message: "设备id(DevId)不能为空", trigger: "blur" },
-    ],
-    sector: [
-      { required: true, message: "防区号(Sector)不能为空", trigger: "blur" },
-    ],
-    position: [
-      { required: true, message: "位置(Position)不能为空", trigger: "blur" },
-    ],
-    deviceName: [
-      { required: true, message: "设备名称(DevName)不能为空", trigger: "blur" },
-    ],
-    subSector: [
-      { required: true, message: "(SubSect)不能为空", trigger: "blur" },
-    ],
+    deviceId: [{ required: true, message: "设备id(DevId)不能为空", trigger: "blur" }],
+    sector: [{ required: true, message: "防区号(Sector)不能为空", trigger: "blur" }],
+    position: [{ required: true, message: "位置(Position)不能为空", trigger: "blur" }],
+    deviceName: [{ required: true, message: "设备名称(DevName)不能为空", trigger: "blur" }],
+    subSector: [{ required: true, message: "(SubSect)不能为空", trigger: "blur" }],
   },
 });
 
@@ -361,14 +305,10 @@ const submitForm = () => {
     if (valid) {
       buttonLoading.value = true;
       if (form.value.id) {
-        const res = await updateIntrusionSectorInfo(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        const res = await updateIntrusionSectorInfo(form.value).finally(() => (buttonLoading.value = false));
         proxy?.$modal.msgSuccess(res.msg);
       } else {
-        const res = await addIntrusionSectorInfo(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        const res = await addIntrusionSectorInfo(form.value).finally(() => (buttonLoading.value = false));
         proxy?.$modal.msgSuccess(res.msg);
       }
       dialog.visible = false;

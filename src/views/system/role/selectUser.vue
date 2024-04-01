@@ -1,20 +1,9 @@
 <template>
   <el-row>
-    <el-dialog
-      title="选择用户"
-      v-model="visible"
-      width="800px"
-      top="5vh"
-      append-to-body
-    >
+    <el-dialog title="选择用户" v-model="visible" width="800px" top="5vh" append-to-body>
       <el-form :model="queryParams" ref="queryFormRef" :inline="true">
         <el-form-item label="用户名称" prop="userName">
-          <el-input
-            v-model="queryParams.userName"
-            placeholder="请输入用户名称"
-            clearable
-            @keyup.enter="handleQuery"
-          />
+          <el-input v-model="queryParams.userName" placeholder="请输入用户名称" clearable @keyup.enter="handleQuery" />
         </el-form-item>
         <el-form-item label="手机号码" prop="phonenumber">
           <el-input
@@ -25,9 +14,7 @@
           />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" icon="Search" @click="handleQuery"
-            >搜索</el-button
-          >
+          <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
           <el-button icon="Refresh" @click="resetQuery">重置</el-button>
         </el-form-item>
       </el-form>
@@ -39,41 +26,17 @@
           @selection-change="handleSelectionChange"
           height="260px"
         >
-          <el-table-column type="selection" width="55"></el-table-column>
-          <el-table-column
-            label="用户名称"
-            prop="userName"
-            :show-overflow-tooltip="true"
-          />
-          <el-table-column
-            label="用户昵称"
-            prop="nickName"
-            :show-overflow-tooltip="true"
-          />
-          <el-table-column
-            label="邮箱"
-            prop="email"
-            :show-overflow-tooltip="true"
-          />
-          <el-table-column
-            label="手机"
-            prop="phonenumber"
-            :show-overflow-tooltip="true"
-          />
+          <el-table-column type="selection" width="55" />
+          <el-table-column label="用户名称" prop="userName" :show-overflow-tooltip="true" />
+          <el-table-column label="用户昵称" prop="nickName" :show-overflow-tooltip="true" />
+          <el-table-column label="邮箱" prop="email" :show-overflow-tooltip="true" />
+          <el-table-column label="手机" prop="phonenumber" :show-overflow-tooltip="true" />
           <el-table-column label="状态" align="center" prop="status">
             <template #default="scope">
-              <dict-tag
-                :options="sys_normal_disable"
-                :value="scope.row.status"
-              />
+              <dict-tag :options="sys_normal_disable" :value="scope.row.status" />
             </template>
           </el-table-column>
-          <el-table-column
-            label="创建时间"
-            align="center"
-            prop="createTime"
-            width="180"
-          >
+          <el-table-column label="创建时间" align="center" prop="createTime" width="180">
             <template #default="scope">
               <span>{{ parseTime(scope.row.createTime) }}</span>
             </template>
@@ -109,9 +72,7 @@ const props = defineProps({
 });
 
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
-const { sys_normal_disable } = toRefs<any>(
-  proxy?.useDict("sys_normal_disable")
-);
+const { sys_normal_disable } = toRefs<any>(proxy?.useDict("sys_normal_disable"));
 
 const userList = ref<UserVO[]>([]);
 const visible = ref(false);

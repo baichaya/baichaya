@@ -1,11 +1,6 @@
 <template>
   <div class="login">
-    <el-form
-      ref="loginRef"
-      :model="loginForm"
-      :rules="loginRules"
-      class="login-form"
-    >
+    <el-form ref="loginRef" :model="loginForm" :rules="loginRules" class="login-form">
       <div class="logo">
         <el-image style="height: 60px" :src="Logo" fit="fill" />
       </div>
@@ -17,16 +12,8 @@
         </el-select>
       </el-form-item> -->
       <el-form-item prop="username">
-        <el-input
-          v-model="loginForm.username"
-          type="text"
-          size="large"
-          auto-complete="off"
-          placeholder="账号"
-        >
-          <template #prefix
-            ><svg-icon icon-class="user" class="el-input__icon input-icon"
-          /></template>
+        <el-input v-model="loginForm.username" type="text" size="large" auto-complete="off" placeholder="账号">
+          <template #prefix><svg-icon icon-class="user" class="el-input__icon input-icon" /></template>
         </el-input>
       </el-form-item>
       <el-form-item prop="password">
@@ -38,9 +25,7 @@
           placeholder="密码"
           @keyup.enter="handleLogin"
         >
-          <template #prefix
-            ><svg-icon icon-class="password" class="el-input__icon input-icon"
-          /></template>
+          <template #prefix><svg-icon icon-class="password" class="el-input__icon input-icon" /></template>
         </el-input>
       </el-form-item>
       <el-form-item prop="code" v-if="captchaEnabled">
@@ -52,19 +37,13 @@
           style="width: 63%"
           @keyup.enter="handleLogin"
         >
-          <template #prefix
-            ><svg-icon icon-class="validCode" class="el-input__icon input-icon"
-          /></template>
+          <template #prefix><svg-icon icon-class="validCode" class="el-input__icon input-icon" /></template>
         </el-input>
         <div class="login-code">
           <img :src="codeUrl" @click="getCode" class="login-code-img" />
         </div>
       </el-form-item>
-      <el-checkbox
-        v-model="loginForm.rememberMe"
-        style="margin: 0px 0px 25px 0px"
-        >记住密码</el-checkbox
-      >
+      <el-checkbox v-model="loginForm.rememberMe" style="margin: 0 0 25px">记住密码</el-checkbox>
       <el-form-item style="float: right" v-if="thirdParty">
         <el-button circle title="微信登录" @click="doSocialLogin('wechat')">
           <svg-icon icon-class="wechat" />
@@ -80,20 +59,12 @@
         </el-button>
       </el-form-item>
       <el-form-item style="width: 100%">
-        <el-button
-          :loading="loading"
-          size="large"
-          type="primary"
-          style="width: 100%"
-          @click.prevent="handleLogin"
-        >
+        <el-button :loading="loading" size="large" type="primary" style="width: 100%" @click.prevent="handleLogin">
           <span v-if="!loading">登 录</span>
           <span v-else>登 录 中...</span>
         </el-button>
         <div style="float: right" v-if="register">
-          <router-link class="link-type" :to="'/register'"
-            >立即注册</router-link
-          >
+          <router-link class="link-type" :to="'/register'">立即注册</router-link>
         </div>
       </el-form-item>
     </el-form>
@@ -132,9 +103,7 @@ const loginForm = ref<LoginData>({
 } as LoginData);
 
 const loginRules: ElFormRules = {
-  tenantId: [
-    { required: true, trigger: "blur", message: "请输入您的租户编号" },
-  ],
+  tenantId: [{ required: true, trigger: "blur", message: "请输入您的租户编号" }],
   username: [{ required: true, trigger: "blur", message: "请输入您的账号" }],
   password: [{ required: true, trigger: "blur", message: "请输入您的密码" }],
   code: [{ required: true, trigger: "change", message: "请输入验证码" }],
@@ -208,8 +177,7 @@ const handleLogin = () => {
 const getCode = async () => {
   const res = await getCodeImg();
   const { data } = res;
-  captchaEnabled.value =
-    data.captchaEnabled === undefined ? true : data.captchaEnabled;
+  captchaEnabled.value = data.captchaEnabled === undefined ? true : data.captchaEnabled;
   if (captchaEnabled.value) {
     codeUrl.value = "data:image/gif;base64," + data.img;
     loginForm.value.uuid = data.uuid;
@@ -224,8 +192,7 @@ const getLoginData = () => {
   loginForm.value = {
     tenantId: tenantId === null ? String(loginForm.value.tenantId) : tenantId,
     username: username === null ? String(loginForm.value.username) : username,
-    password:
-      password === null ? String(loginForm.value.password) : String(password),
+    password: password === null ? String(loginForm.value.password) : String(password),
     rememberMe: rememberMe === null ? false : Boolean(rememberMe),
   } as LoginData;
 };
@@ -235,8 +202,7 @@ const getLoginData = () => {
  */
 const initTenantList = async () => {
   const { data } = await getTenantList();
-  tenantEnabled.value =
-    data.tenantEnabled === undefined ? true : data.tenantEnabled;
+  tenantEnabled.value = data.tenantEnabled === undefined ? true : data.tenantEnabled;
   if (tenantEnabled.value) {
     tenantList.value = data.voList;
     if (tenantList.value != null && tenantList.value.length !== 0) {
@@ -278,13 +244,14 @@ onMounted(() => {
 <style lang="scss" scoped>
 .login {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   height: 100%;
   background-image: url("@/assets/images/bg.jpg");
-  background-size: cover;
   background-position: center center;
+  background-size: cover;
 }
+
 .logo {
   display: flex;
   justify-content: center;
@@ -292,16 +259,16 @@ onMounted(() => {
 }
 
 .title {
-  margin: 0px auto 30px auto;
-  text-align: center;
+  margin: 0 auto 30px;
   color: #c38e71;
+  text-align: center;
 }
 
 .login-form {
-  border-radius: 6px;
-  background-color: rgba(#fff, 0.8);
   width: 400px;
-  padding: 25px 25px 5px 25px;
+  padding: 25px 25px 5px;
+  background-color: rgba(#fff, 0.8);
+  border-radius: 6px;
 
   .el-input {
     height: 40px;
@@ -312,39 +279,39 @@ onMounted(() => {
   }
 
   .input-icon {
-    height: 39px;
     width: 14px;
-    margin-left: 0px;
+    height: 39px;
+    margin-left: 0;
   }
 }
 
 .login-tip {
   font-size: 13px;
-  text-align: center;
   color: #bfbfbf;
+  text-align: center;
 }
 
 .login-code {
+  float: right;
   width: 33%;
   height: 40px;
-  float: right;
 
   img {
-    cursor: pointer;
     vertical-align: middle;
+    cursor: pointer;
   }
 }
 
 .el-login-footer {
-  height: 40px;
-  line-height: 40px;
   position: fixed;
   bottom: 0;
   width: 100%;
-  text-align: center;
-  color: #fff;
+  height: 40px;
   font-family: Arial, serif;
   font-size: 12px;
+  line-height: 40px;
+  color: #fff;
+  text-align: center;
   letter-spacing: 1px;
 }
 

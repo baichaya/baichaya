@@ -24,6 +24,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
       host: "0.0.0.0",
       port: Number(env.VITE_APP_PORT),
       open: true,
+      hmr: true,
       proxy: {
         [env.VITE_APP_BASE_API]: {
           target: env.VITE_APP_TARGET_URL,

@@ -5,12 +5,7 @@
       :leave-active-class="proxy?.animate.searchAnimate.leave"
     >
       <div class="search" v-show="showSearch">
-        <el-form
-          :model="queryParams"
-          ref="queryFormRef"
-          :inline="true"
-          label-width="68px"
-        >
+        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
           <el-form-item label="能耗仪表编号" prop="energyCode">
             <el-input
               v-model="queryParams.energyCode"
@@ -57,9 +52,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" icon="Search" @click="handleQuery"
-              >搜索</el-button
-            >
+            <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
             <el-button icon="Refresh" @click="resetQuery">重置</el-button>
           </el-form-item>
         </el-form>
@@ -70,12 +63,7 @@
       <template #header>
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
-            <el-button
-              type="primary"
-              plain
-              icon="Plus"
-              @click="handleAdd"
-              v-hasPermi="['ibms:energy:add']"
+            <el-button type="primary" plain icon="Plus" @click="handleAdd" v-hasPermi="['ibms:energy:add']"
               >新增</el-button
             >
           </el-col>
@@ -102,62 +90,24 @@
             >
           </el-col>
           <el-col :span="1.5">
-            <el-button
-              type="warning"
-              plain
-              icon="Download"
-              @click="handleExport"
-              v-hasPermi="['ibms:energy:export']"
-            >
+            <el-button type="warning" plain icon="Download" @click="handleExport" v-hasPermi="['ibms:energy:export']">
               导出
             </el-button>
           </el-col>
-          <right-toolbar
-            v-model:showSearch="showSearch"
-            @query-table="getList"
-          />
+          <right-toolbar v-model:showSearch="showSearch" @query-table="getList" />
         </el-row>
       </template>
 
-      <el-table
-        v-loading="loading"
-        :data="energyList"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table v-loading="loading" :data="energyList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column
-          label="能耗仪表表ID"
-          align="center"
-          prop="id"
-          v-if="true"
-        />
-        <el-table-column
-          label="能耗仪表编号"
-          align="center"
-          prop="energyCode"
-        />
-        <el-table-column
-          label="能耗仪表名称"
-          align="center"
-          prop="energyName"
-        />
-        <el-table-column
-          label="能耗仪表类型 1-电表；2-水表；3-空调表"
-          align="center"
-          prop="energyDeviceType"
-        />
-        <el-table-column
-          label="能耗仪表状态 4-开启；5-关闭"
-          align="center"
-          prop="energyFlag"
-        />
+        <el-table-column label="能耗仪表表ID" align="center" prop="id" v-if="true" />
+        <el-table-column label="能耗仪表编号" align="center" prop="energyCode" />
+        <el-table-column label="能耗仪表名称" align="center" prop="energyName" />
+        <el-table-column label="能耗仪表类型 1-电表；2-水表；3-空调表" align="center" prop="energyDeviceType" />
+        <el-table-column label="能耗仪表状态 4-开启；5-关闭" align="center" prop="energyFlag" />
         <el-table-column label="关联建筑ID" align="center" prop="buildingId" />
         <el-table-column label="创建时间" align="center" prop="timeEnd" />
-        <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
-        >
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
             <el-tooltip content="修改" placement="top">
               <el-button
@@ -190,35 +140,16 @@
       />
     </el-card>
     <!-- 添加或修改能耗设备信息对话框 -->
-    <el-dialog
-      :title="dialog.title"
-      v-model="dialog.visible"
-      width="500px"
-      append-to-body
-    >
-      <el-form
-        ref="energyFormRef"
-        :model="form"
-        :rules="rules"
-        label-width="80px"
-      >
+    <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
+      <el-form ref="energyFormRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="能耗仪表编号" prop="energyCode">
-          <el-input
-            v-model="form.energyCode"
-            placeholder="请输入能耗仪表编号"
-          />
+          <el-input v-model="form.energyCode" placeholder="请输入能耗仪表编号" />
         </el-form-item>
         <el-form-item label="能耗仪表名称" prop="energyName">
-          <el-input
-            v-model="form.energyName"
-            placeholder="请输入能耗仪表名称"
-          />
+          <el-input v-model="form.energyName" placeholder="请输入能耗仪表名称" />
         </el-form-item>
         <el-form-item label="能耗仪表状态 4-开启；5-关闭" prop="energyFlag">
-          <el-input
-            v-model="form.energyFlag"
-            placeholder="请输入能耗仪表状态 4-开启；5-关闭"
-          />
+          <el-input v-model="form.energyFlag" placeholder="请输入能耗仪表状态 4-开启；5-关闭" />
         </el-form-item>
         <el-form-item label="关联建筑ID" prop="buildingId">
           <el-input v-model="form.buildingId" placeholder="请输入关联建筑ID" />
@@ -229,13 +160,7 @@
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button
-            :loading="buttonLoading"
-            type="primary"
-            @click="submitForm"
-          >
-            确 定
-          </el-button>
+          <el-button :loading="buttonLoading" type="primary" @click="submitForm"> 确 定 </el-button>
           <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
@@ -244,18 +169,8 @@
 </template>
 
 <script setup name="Energy" lang="ts">
-import {
-  listEnergy,
-  getEnergy,
-  delEnergy,
-  addEnergy,
-  updateEnergy,
-} from "@/api/ibms/sys-EMS/energy";
-import {
-  EnergyVO,
-  EnergyQuery,
-  EnergyForm,
-} from "@/api/ibms/sys-EMS/energy/types";
+import { listEnergy, getEnergy, delEnergy, addEnergy, updateEnergy } from "@/api/ibms/sys-EMS/energy";
+import { EnergyVO, EnergyQuery, EnergyForm } from "@/api/ibms/sys-EMS/energy/types";
 
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 
@@ -300,12 +215,8 @@ const data = reactive<PageData<EnergyForm, EnergyQuery>>({
   },
   rules: {
     id: [{ required: true, message: "能耗仪表表ID不能为空", trigger: "blur" }],
-    energyCode: [
-      { required: true, message: "能耗仪表编号不能为空", trigger: "blur" },
-    ],
-    energyName: [
-      { required: true, message: "能耗仪表名称不能为空", trigger: "blur" },
-    ],
+    energyCode: [{ required: true, message: "能耗仪表编号不能为空", trigger: "blur" }],
+    energyName: [{ required: true, message: "能耗仪表名称不能为空", trigger: "blur" }],
     energyDeviceType: [
       {
         required: true,
@@ -320,9 +231,7 @@ const data = reactive<PageData<EnergyForm, EnergyQuery>>({
         trigger: "blur",
       },
     ],
-    buildingId: [
-      { required: true, message: "关联建筑ID不能为空", trigger: "blur" },
-    ],
+    buildingId: [{ required: true, message: "关联建筑ID不能为空", trigger: "blur" }],
     timeEnd: [{ required: true, message: "创建时间不能为空", trigger: "blur" }],
   },
 });
@@ -392,14 +301,10 @@ const submitForm = () => {
     if (valid) {
       buttonLoading.value = true;
       if (form.value.id) {
-        const res = await updateEnergy(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        const res = await updateEnergy(form.value).finally(() => (buttonLoading.value = false));
         proxy?.$modal.msgSuccess(res.msg);
       } else {
-        const res = await addEnergy(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        const res = await addEnergy(form.value).finally(() => (buttonLoading.value = false));
         proxy?.$modal.msgSuccess(res.msg);
       }
       dialog.visible = false;

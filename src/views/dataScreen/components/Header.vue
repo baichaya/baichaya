@@ -14,9 +14,7 @@ const title = ref("智能数据可视化信息平台");
       </div>
     </div>
     <div class="home">
-      <dv-button @click="$router.push('/')" border="Border5" color="#10e5fa">
-        首页
-      </dv-button>
+      <dv-button @click="$router.push('/')" border="Border5" color="#10e5fa"> 首页 </dv-button>
     </div>
     <div class="timers">
       {{ formatted }}
@@ -26,20 +24,20 @@ const title = ref("智能数据可视化信息平台");
 
 <style scoped lang="scss">
 .title_wrap {
-  height: 60px;
-  background-image: url("@/assets/images/top.png");
-  background-size: cover;
-  background-position: center center;
   position: relative;
+  height: 60px;
   margin-bottom: 4px;
+  background-image: url("@/assets/images/top.png");
+  background-position: center center;
+  background-size: cover;
 
   .guang {
     position: absolute;
     bottom: -26px;
-    background-image: url("@/assets/images/guang.png");
-    background-position: 80px center;
     width: 100%;
     height: 56px;
+    background-image: url("@/assets/images/guang.png");
+    background-position: 80px center;
   }
 
   .zuojuxing,
@@ -59,45 +57,42 @@ const title = ref("智能数据可视化信息平台");
     right: 11%;
     transform: rotate(180deg);
   }
+
   .home {
     position: absolute;
-    left: 0;
     top: 15px;
+    left: 0;
     font-size: 18px;
   }
 
   .timers {
     position: absolute;
-    right: 0;
     top: 30px;
-    font-size: 22px;
-    font-weight: 600;
+    right: 0;
     display: flex;
     align-items: center;
+    font-size: 22px;
+    font-weight: 600;
     color: #fff;
   }
 }
+
 .title {
   position: relative;
+  height: 60px;
+  line-height: 46px;
+  color: transparent;
   // width: 500px;
   text-align: center;
   background-size: cover;
-  color: transparent;
-  height: 60px;
-  line-height: 46px;
 
   .title-text {
+    width: 100%;
     font-size: 38px;
     font-weight: 900;
     letter-spacing: 6px;
-    width: 100%;
-    background: linear-gradient(
-      92deg,
-      #0072ff 0%,
-      #00eaff 48.8525390625%,
-      #01aaff 100%
-    );
-    -webkit-background-clip: text;
+    background: linear-gradient(92deg, #0072ff 0%, #00eaff 48.8525%, #01aaff 100%);
+    background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 }

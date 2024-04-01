@@ -1,24 +1,11 @@
 <template>
-  <el-drawer
-    v-model="showSettings"
-    :with-header="false"
-    direction="rtl"
-    size="300px"
-    close-on-click-modal
-  >
+  <el-drawer v-model="showSettings" :with-header="false" direction="rtl" size="300px" close-on-click-modal>
     <h3 class="drawer-title">主题风格设置</h3>
 
     <div class="setting-drawer-block-checbox">
-      <div
-        class="setting-drawer-block-checbox-item"
-        @click="handleTheme(SideThemeEnum.DARK)"
-      >
+      <div class="setting-drawer-block-checbox-item" @click="handleTheme(SideThemeEnum.DARK)">
         <img src="@/assets/images/dark.svg" alt="dark" />
-        <div
-          v-if="sideTheme === 'theme-dark'"
-          class="setting-drawer-block-checbox-selectIcon"
-          style="display: block"
-        >
+        <div v-if="sideTheme === 'theme-dark'" class="setting-drawer-block-checbox-selectIcon" style="display: block">
           <i aria-label="图标: check" class="anticon anticon-check">
             <svg
               viewBox="64 64 896 896"
@@ -37,16 +24,9 @@
           </i>
         </div>
       </div>
-      <div
-        class="setting-drawer-block-checbox-item"
-        @click="handleTheme(SideThemeEnum.LIGHT)"
-      >
+      <div class="setting-drawer-block-checbox-item" @click="handleTheme(SideThemeEnum.LIGHT)">
         <img src="@/assets/images/light.svg" alt="light" />
-        <div
-          v-if="sideTheme === 'theme-light'"
-          class="setting-drawer-block-checbox-selectIcon"
-          style="display: block"
-        >
+        <div v-if="sideTheme === 'theme-light'" class="setting-drawer-block-checbox-selectIcon" style="display: block">
           <i aria-label="图标: check" class="anticon anticon-check">
             <svg
               viewBox="64 64 896 896"
@@ -69,21 +49,13 @@
     <div class="drawer-item">
       <span>主题颜色</span>
       <span class="comp-style">
-        <el-color-picker
-          v-model="theme"
-          :predefine="predefineColors"
-          @change="themeChange"
-        />
+        <el-color-picker v-model="theme" :predefine="predefineColors" @change="themeChange" />
       </span>
     </div>
     <div class="drawer-item">
       <span>深色模式</span>
       <span class="comp-style">
-        <el-switch
-          v-model="isDark"
-          class="drawer-switch"
-          @change="toggleDark"
-        />
+        <el-switch v-model="isDark" class="drawer-switch" @change="toggleDark" />
       </span>
     </div>
 
@@ -94,11 +66,7 @@
     <div class="drawer-item">
       <span>开启 TopNav</span>
       <span class="comp-style">
-        <el-switch
-          v-model="settingsStore.topNav"
-          class="drawer-switch"
-          @change="topNavChange"
-        />
+        <el-switch v-model="settingsStore.topNav" class="drawer-switch" @change="topNavChange" />
       </span>
     </div>
 
@@ -126,19 +94,13 @@
     <div class="drawer-item">
       <span>动态标题</span>
       <span class="comp-style">
-        <el-switch
-          v-model="settingsStore.dynamicTitle"
-          class="drawer-switch"
-          @change="dynamicTitleChange"
-        />
+        <el-switch v-model="settingsStore.dynamicTitle" class="drawer-switch" @change="dynamicTitleChange" />
       </span>
     </div>
 
     <el-divider />
 
-    <el-button type="primary" plain icon="DocumentAdd" @click="saveSetting"
-      >保存配置</el-button
-    >
+    <el-button type="primary" plain icon="DocumentAdd" @click="saveSetting">保存配置</el-button>
     <el-button plain icon="Refresh" @click="resetSetting">重置配置</el-button>
   </el-drawer>
 </template>
@@ -161,16 +123,7 @@ const showSettings = ref(false);
 const theme = ref(settingsStore.theme);
 const sideTheme = ref(settingsStore.sideTheme);
 const storeSettings = computed(() => settingsStore);
-const predefineColors = ref([
-  "#409EFF",
-  "#ff4500",
-  "#ff8c00",
-  "#ffd700",
-  "#90ee90",
-  "#00ced1",
-  "#1e90ff",
-  "#c71585",
-]);
+const predefineColors = ref(["#409EFF", "#ff4500", "#ff8c00", "#ffd700", "#90ee90", "#00ced1", "#1e90ff", "#c71585"]);
 
 // 是否暗黑模式
 const isDark = useDark({
@@ -244,25 +197,27 @@ defineExpose({
 <style lang="scss" scoped>
 .setting-drawer-title {
   margin-bottom: 12px;
-  color: rgba(0, 0, 0, 0.85);
-  line-height: 22px;
   font-weight: bold;
+  line-height: 22px;
+  color: rgb(0 0 0 / 85%);
+
   .drawer-title {
     font-size: 14px;
   }
 }
+
 .setting-drawer-block-checbox {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
+  justify-content: flex-start;
   margin-top: 10px;
   margin-bottom: 20px;
 
   .setting-drawer-block-checbox-item {
     position: relative;
     margin-right: 16px;
-    border-radius: 2px;
     cursor: pointer;
+    border-radius: 2px;
 
     img {
       width: 48px;
@@ -284,9 +239,9 @@ defineExpose({
       height: 100%;
       padding-top: 15px;
       padding-left: 24px;
-      color: #1890ff;
-      font-weight: 700;
       font-size: 14px;
+      font-weight: 700;
+      color: #1890ff;
     }
   }
 }
@@ -297,7 +252,7 @@ defineExpose({
 
   .comp-style {
     float: right;
-    margin: -3px 8px 0px 0px;
+    margin: -3px 8px 0 0;
   }
 }
 </style>

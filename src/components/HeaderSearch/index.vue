@@ -1,10 +1,6 @@
 <template>
   <div :class="{ show: show }" class="header-search">
-    <svg-icon
-      class-name="search-icon"
-      icon-class="search"
-      @click.stop="click"
-    />
+    <svg-icon class-name="search-icon" icon-class="search" @click.stop="click" />
     <el-select
       ref="headerSearchSelectRef"
       v-model="search"
@@ -99,11 +95,7 @@ const initFuse = (list: Router) => {
 };
 // Filter out the routes that can be displayed in the sidebar
 // And generate the internationalized title
-const generateRoutes = (
-  routes: RouteOption[],
-  basePath = "",
-  prefixTitle: string[] = []
-) => {
+const generateRoutes = (routes: RouteOption[], basePath = "", prefixTitle: string[] = []) => {
   let res: Router = [];
   routes.forEach((r) => {
     // skip hidden router
@@ -172,29 +164,29 @@ watch(searchPool, (list) => {
   font-size: 0 !important;
 
   .search-icon {
-    cursor: pointer;
     font-size: 18px;
     vertical-align: middle;
+    cursor: pointer;
   }
 
   .header-search-select {
-    font-size: 18px;
-    transition: width 0.2s;
+    display: inline-block;
     width: 0;
     overflow: hidden;
+    font-size: 18px;
+    vertical-align: middle;
     background: transparent;
     border-radius: 0;
-    display: inline-block;
-    vertical-align: middle;
+    transition: width 0.2s;
 
     :deep(.el-input__inner) {
-      border-radius: 0;
-      border: 0;
-      padding-left: 0;
       padding-right: 0;
-      box-shadow: none !important;
-      border-bottom: 1px solid #d9d9d9;
+      padding-left: 0;
       vertical-align: middle;
+      border: 0;
+      border-bottom: 1px solid #d9d9d9;
+      border-radius: 0;
+      box-shadow: none !important;
     }
   }
 

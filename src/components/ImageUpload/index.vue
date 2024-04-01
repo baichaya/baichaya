@@ -33,16 +33,8 @@
       的文件
     </div>
 
-    <el-dialog
-      v-model="dialogVisible"
-      title="预览"
-      width="800px"
-      append-to-body
-    >
-      <img
-        :src="dialogImageUrl"
-        style="display: block; max-width: 100%; margin: 0 auto"
-      />
+    <el-dialog v-model="dialogVisible" title="预览" width="800px" append-to-body>
+      <img :src="dialogImageUrl" style="display: block; max-width: 100%; margin: 0 auto" />
     </el-dialog>
   </div>
 </template>
@@ -81,9 +73,7 @@ const uploadImgUrl = ref(baseUrl + "/resource/oss/upload"); // 上传的图片�
 const headers = ref(globalHeaders());
 
 const fileList = ref<any[]>([]);
-const showTip = computed(
-  () => props.isShowTip && (props.fileType || props.fileSize)
-);
+const showTip = computed(() => props.isShowTip && (props.fileType || props.fileSize));
 
 const imageUploadRef = ref<ElUploadInstance>();
 
@@ -136,9 +126,7 @@ const handleBeforeUpload = (file: any) => {
     isImg = file.type.indexOf("image") > -1;
   }
   if (!isImg) {
-    proxy?.$modal.msgError(
-      `文件格式不正确, 请上传${props.fileType.join("/")}图片格式文件!`
-    );
+    proxy?.$modal.msgError(`文件格式不正确, 请上传${props.fileType.join("/")}图片格式文件!`);
     return false;
   }
   if (props.fileSize) {
@@ -191,9 +179,7 @@ const handleDelete = (file: UploadFile): boolean => {
 // 上传结束处理
 const uploadedSuccessfully = () => {
   if (number.value > 0 && uploadList.value.length === number.value) {
-    fileList.value = fileList.value
-      .filter((f) => f.url !== undefined)
-      .concat(uploadList.value);
+    fileList.value = fileList.value.filter((f) => f.url !== undefined).concat(uploadList.value);
     uploadList.value = [];
     number.value = 0;
     emit("update:modelValue", listToString(fileList.value));

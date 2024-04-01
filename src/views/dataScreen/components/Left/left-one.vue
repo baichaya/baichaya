@@ -5,16 +5,9 @@
         <el-col v-for="i in item" :key="i.title" :span="9" class="mb-10px">
           <el-space>
             <div>
-              <dv-decoration-9
-                class="relative"
-                style="width: 75px; height: 75px"
-              >
+              <dv-decoration-9 class="relative" style="width: 75px; height: 75px">
                 <div class="icon">
-                  <svg-icon
-                    :icon-class="i.icon"
-                    size="25px"
-                    :color="i.config.style.fill"
-                  />
+                  <svg-icon :icon-class="i.icon" size="25px" :color="i.config.style.fill" />
                 </div>
               </dv-decoration-9>
             </div>
@@ -81,14 +74,16 @@ const item = reactive([
 <style lang="scss" scoped>
 .icon {
   position: absolute;
-  left: 32%;
   top: 35%;
+  left: 32%;
 }
+
 .title {
   font-size: 14px;
   color: #fff;
   text-align: center;
 }
+
 .value {
   font-size: 18px;
   font-weight: bold;

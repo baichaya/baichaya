@@ -5,12 +5,7 @@
       :leave-active-class="proxy?.animate.searchAnimate.leave"
     >
       <div class="search" v-show="showSearch">
-        <el-form
-          :model="queryParams"
-          ref="queryFormRef"
-          :inline="true"
-          label-width="68px"
-        >
+        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
           <el-form-item label="分组名称" prop="groupName">
             <el-input
               v-model="queryParams.groupName"
@@ -21,9 +16,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" icon="Search" @click="handleQuery"
-              >搜索</el-button
-            >
+            <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
             <el-button icon="Refresh" @click="resetQuery">重置</el-button>
           </el-form-item>
         </el-form>
@@ -34,12 +27,7 @@
       <template #header>
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
-            <el-button
-              type="primary"
-              plain
-              icon="Plus"
-              @click="handleAdd"
-              v-hasPermi="['deviceConfig:deviceGroup:add']"
+            <el-button type="primary" plain icon="Plus" @click="handleAdd" v-hasPermi="['deviceConfig:deviceGroup:add']"
               >新增</el-button
             >
           </el-col>
@@ -75,26 +63,15 @@
               >导出</el-button
             >
           </el-col>
-          <right-toolbar
-            v-model:showSearch="showSearch"
-            @queryTable="getList"
-          ></right-toolbar>
+          <right-toolbar v-model:showSearch="showSearch" @query-table="getList" />
         </el-row>
       </template>
 
-      <el-table
-        v-loading="loading"
-        :data="deviceGroupList"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table v-loading="loading" :data="deviceGroupList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column label="id" align="center" prop="id" v-if="true" />
         <el-table-column label="分组名称" align="center" prop="groupName" />
-        <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
-        >
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
             <el-tooltip content="修改" placement="top">
               <el-button
@@ -103,7 +80,7 @@
                 icon="Edit"
                 @click="handleUpdate(scope.row)"
                 v-hasPermi="['deviceConfig:deviceGroup:edit']"
-              ></el-button>
+              />
             </el-tooltip>
             <el-tooltip content="删除" placement="top">
               <el-button
@@ -112,7 +89,7 @@
                 icon="Delete"
                 @click="handleDelete(scope.row)"
                 v-hasPermi="['deviceConfig:deviceGroup:remove']"
-              ></el-button>
+              />
             </el-tooltip>
           </template>
         </el-table-column>
@@ -127,27 +104,15 @@
       />
     </el-card>
     <!-- 添加或修改设备分组对话框 -->
-    <el-dialog
-      :title="dialog.title"
-      v-model="dialog.visible"
-      width="500px"
-      append-to-body
-    >
-      <el-form
-        ref="deviceGroupFormRef"
-        :model="form"
-        :rules="rules"
-        label-width="80px"
-      >
+    <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
+      <el-form ref="deviceGroupFormRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="分组名称" prop="groupName">
           <el-input v-model="form.groupName" placeholder="请输入分组名称" />
         </el-form-item>
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button :loading="buttonLoading" type="primary" @click="submitForm"
-            >确 定</el-button
-          >
+          <el-button :loading="buttonLoading" type="primary" @click="submitForm">确 定</el-button>
           <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
@@ -202,9 +167,7 @@ const data = reactive<PageData<DeviceGroupForm, DeviceGroupQuery>>({
   },
   rules: {
     id: [{ required: true, message: "id不能为空", trigger: "blur" }],
-    groupName: [
-      { required: true, message: "分组名称不能为空", trigger: "blur" },
-    ],
+    groupName: [{ required: true, message: "分组名称不能为空", trigger: "blur" }],
   },
 });
 
@@ -273,14 +236,10 @@ const submitForm = () => {
     if (valid) {
       buttonLoading.value = true;
       if (form.value.id) {
-        const res = await updateDeviceGroup(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        const res = await updateDeviceGroup(form.value).finally(() => (buttonLoading.value = false));
         proxy?.$modal.msgSuccess(res.msg);
       } else {
-        const res = await addDeviceGroup(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        const res = await addDeviceGroup(form.value).finally(() => (buttonLoading.value = false));
         proxy?.$modal.msgSuccess(res.msg);
       }
       dialog.visible = false;

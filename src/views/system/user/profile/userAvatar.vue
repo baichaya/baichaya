@@ -1,14 +1,7 @@
 <template>
   <div class="user-info-head" @click="editCropper()">
     <img :src="options.img" title="点击上传头像" class="img-circle img-lg" />
-    <el-dialog
-      :title="title"
-      v-model="open"
-      width="800px"
-      append-to-body
-      @opened="modalOpened"
-      @close="closeDialog"
-    >
+    <el-dialog :title="title" v-model="open" width="800px" append-to-body @opened="modalOpened" @close="closeDialog">
       <el-row>
         <el-col :xs="24" :md="12" :style="{ height: '350px' }">
           <vue-cropper
@@ -20,7 +13,7 @@
             :autoCropHeight="options.autoCropHeight"
             :fixedBox="options.fixedBox"
             :outputType="options.outputType"
-            @realTime="realTime"
+            @real-time="realTime"
             v-if="visible"
           />
         </el-col>
@@ -33,12 +26,7 @@
       <br />
       <el-row>
         <el-col :lg="2" :md="2">
-          <el-upload
-            action="#"
-            :http-request="requestUpload"
-            :show-file-list="false"
-            :before-upload="beforeUpload"
-          >
+          <el-upload action="#" :http-request="requestUpload" :show-file-list="false" :before-upload="beforeUpload">
             <el-button>
               选择
               <el-icon class="el-icon--right">
@@ -48,16 +36,16 @@
           </el-upload>
         </el-col>
         <el-col :lg="{ span: 1, offset: 2 }" :md="2">
-          <el-button icon="Plus" @click="changeScale(1)"></el-button>
+          <el-button icon="Plus" @click="changeScale(1)" />
         </el-col>
         <el-col :lg="{ span: 1, offset: 1 }" :md="2">
-          <el-button icon="Minus" @click="changeScale(-1)"></el-button>
+          <el-button icon="Minus" @click="changeScale(-1)" />
         </el-col>
         <el-col :lg="{ span: 1, offset: 1 }" :md="2">
-          <el-button icon="RefreshLeft" @click="rotateLeft()"></el-button>
+          <el-button icon="RefreshLeft" @click="rotateLeft()" />
         </el-col>
         <el-col :lg="{ span: 1, offset: 1 }" :md="2">
-          <el-button icon="RefreshRight" @click="rotateRight()"></el-button>
+          <el-button icon="RefreshRight" @click="rotateRight()" />
         </el-col>
         <el-col :lg="{ span: 2, offset: 6 }" :md="2">
           <el-button type="primary" @click="uploadImg()">提 交</el-button>
@@ -132,9 +120,7 @@ const changeScale = (num: number) => {
 /** 上传预处理 */
 const beforeUpload = (file: any) => {
   if (file.type.indexOf("image/") == -1) {
-    proxy?.$modal.msgError(
-      "文件格式错误，请上传图片类型,如：JPG，PNG后缀的文件。"
-    );
+    proxy?.$modal.msgError("文件格式错误，请上传图片类型,如：JPG，PNG后缀的文件。");
   } else {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -175,21 +161,18 @@ const closeDialog = () => {
   height: 120px;
 }
 
-.user-info-head:hover:after {
-  content: "+";
+.user-info-head:hover::after {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  color: #eee;
-  background: rgba(0, 0, 0, 0.5);
+  inset: 0;
   font-size: 24px;
   font-style: normal;
+  line-height: 110px;
+  color: #eee;
+  cursor: pointer;
+  content: "+";
+  background: rgb(0 0 0 / 50%);
+  border-radius: 50%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  cursor: pointer;
-  line-height: 110px;
-  border-radius: 50%;
 }
 </style>

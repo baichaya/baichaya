@@ -27,8 +27,7 @@ const getFormData = () => {
  * formConfig：{ formTemplate：表单模板，formData：表单数据，hiddenField：需要隐藏的字段字符串集合，disabledField：需要禁用的自读字符串集合}
  */
 const initForm = (formConf) => {
-  const { formTemplate, formData, hiddenField, disabledField } =
-    toRaw(formConf);
+  const { formTemplate, formData, hiddenField, disabledField } = toRaw(formConf);
   if (formTemplate) {
     vFormRef.value.setFormJson(formTemplate);
     if (formData) {

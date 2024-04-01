@@ -6,7 +6,7 @@
           <el-tree ref="ref1" :data="data" :props="defaultProps" @node-click="handleNodeClick" />
         </el-aside>
         <el-main>
-          <div style="font-size: 17px; line-height: 17px; margin-bottom: 5px">
+          <div style="margin-bottom: 5px; font-size: 17px; line-height: 17px">
             分屏:
             <el-space>
               <i-ep-full-screen class="btn" :class="{ active: slipt == 1 }" @click="slipt = 1" />
@@ -106,6 +106,7 @@ const slipt = ref(1);
   color: #409eff;
   cursor: pointer;
 }
+
 .btn.active {
   color: #409eff;
 }

@@ -1,10 +1,6 @@
 import request from "@/utils/request";
 import { AxiosPromise } from "axios";
-import {
-  AreaVO,
-  AreaForm,
-  AreaQuery,
-} from "@/api/ibms/common/device/area/types";
+import { AreaVO, AreaForm, AreaQuery } from "@/api/ibms/common/device/area/types";
 
 /**
  * 查询区域列表
@@ -19,15 +15,15 @@ export const listArea = (query?: AreaQuery): AxiosPromise<AreaVO[]> => {
     params: query,
   });
 };
+
 /**
- * 查询区域列表
+ * 获取区域数，包括楼栋楼层
  * @param query
  * @returns {*}
  */
-
-export const selectAreaTree = (query?: AreaQuery): AxiosPromise<AreaVO[]> => {
+export const getAreaTree = (query?: AreaQuery): AxiosPromise<AreaVO[]> => {
   return request({
-    url: "/ibms/area/selectAreaTree",
+    url: "/ibms/area/getAreaTree",
     method: "get",
     params: query,
   });

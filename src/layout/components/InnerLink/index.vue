@@ -1,10 +1,6 @@
 <template>
   <div :style="'height:' + height">
-    <iframe
-      :id="iframeId"
-      style="width: 100%; height: 100%; border: 0"
-      :src="src"
-    ></iframe>
+    <iframe :id="iframeId" style="width: 100%; height: 100%; border: 0" :src="src"></iframe>
   </div>
 </template>
 

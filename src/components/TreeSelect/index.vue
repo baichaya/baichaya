@@ -22,7 +22,7 @@
           :default-expanded-keys="defaultExpandedKey"
           :filter-node-method="filterNode"
           @node-click="handleNodeClick"
-        ></el-tree>
+        />
       </el-option>
     </el-select>
   </div>
@@ -128,12 +128,12 @@ watch(valueId, () => {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/variables.module.scss";
+@import "@/assets/styles/variables.module";
 
 .el-scrollbar .el-scrollbar__view .el-select-dropdown__item {
+  height: auto;
   padding: 0;
   background-color: #fff;
-  height: auto;
 }
 
 .el-select-dropdown__item.selected {
@@ -141,16 +141,16 @@ watch(valueId, () => {
 }
 
 ul li .el-tree .el-tree-node__content {
+  box-sizing: border-box;
   height: auto;
   padding: 0 20px;
-  box-sizing: border-box;
 }
 
 :deep(.el-tree-node__content:hover),
 :deep(.el-tree-node__content:active),
 :deep(.is-current > div:first-child),
 :deep(.el-tree-node__content:focus) {
-  background-color: mix(#fff, $--color-primary, 90%);
   color: $--color-primary;
+  background-color: color.mix(#fff, $--color-primary, 90%);
 }
 </style>

@@ -3,11 +3,7 @@
     <router-view v-slot="{ Component, route }">
       <transition :enter-active-class="animante" mode="out-in">
         <keep-alive :include="tagsViewStore.cachedViews">
-          <component
-            :is="Component"
-            v-if="!route.meta.link"
-            :key="route.path"
-          />
+          <component :is="Component" v-if="!route.meta.link" :key="route.path" />
           <span v-else>{{ route.path }}</span>
         </keep-alive>
       </transition>
@@ -45,10 +41,11 @@ watch(
 
 <style lang="scss" scoped>
 .app-main {
+  position: relative;
+  width: 100%;
+
   /* 50= navbar  50  */
   min-height: calc(100vh - 50px);
-  width: 100%;
-  position: relative;
   overflow: hidden;
 }
 

@@ -5,12 +5,7 @@
       :leave-active-class="proxy?.animate.searchAnimate.leave"
     >
       <div class="search" v-show="showSearch">
-        <el-form
-          :model="queryParams"
-          ref="queryFormRef"
-          :inline="true"
-          label-width="68px"
-        >
+        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
           <el-form-item label="报警主机的Id号" prop="deviceId">
             <el-input
               v-model="queryParams.deviceId"
@@ -29,10 +24,7 @@
               @keyup.enter="handleQuery"
             />
           </el-form-item>
-          <el-form-item
-            label="状态改变发生的通道，如果是整机的状态改变，这个参数是空"
-            prop="channel"
-          >
+          <el-form-item label="状态改变发生的通道，如果是整机的状态改变，这个参数是空" prop="channel">
             <el-input
               v-model="queryParams.channel"
               placeholder="请输入状态改变发生的通道，如果是整机的状态改变，这个参数是空"
@@ -51,9 +43,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" icon="Search" @click="handleQuery"
-              >搜索</el-button
-            >
+            <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
             <el-button icon="Refresh" @click="resetQuery">重置</el-button>
           </el-form-item>
         </el-form>
@@ -105,55 +95,23 @@
               >导出</el-button
             >
           </el-col>
-          <right-toolbar
-            v-model:showSearch="showSearch"
-            @queryTable="getList"
-          />
+          <right-toolbar v-model:showSearch="showSearch" @query-table="getList" />
         </el-row>
       </template>
 
-      <el-table
-        v-loading="loading"
-        :data="instrusionDeviceStatusList"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table v-loading="loading" :data="instrusionDeviceStatusList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column label="id" align="center" prop="id" v-if="true" />
-        <el-table-column
-          label="报警主机的Id号"
-          align="center"
-          prop="deviceId"
-        />
-        <el-table-column
-          label="状态改变发生的时间"
-          align="center"
-          prop="statusTime"
-        />
-        <el-table-column
-          label="状态改变发生的通道，如果是整机的状态改变，这个参数是空"
-          align="center"
-          prop="channel"
-        />
-        <el-table-column
-          label="状态变化代码"
-          align="center"
-          prop="statusType"
-        />
-        <el-table-column
-          label="添加时间"
-          align="center"
-          prop="addTime"
-          width="180"
-        >
+        <el-table-column label="报警主机的Id号" align="center" prop="deviceId" />
+        <el-table-column label="状态改变发生的时间" align="center" prop="statusTime" />
+        <el-table-column label="状态改变发生的通道，如果是整机的状态改变，这个参数是空" align="center" prop="channel" />
+        <el-table-column label="状态变化代码" align="center" prop="statusType" />
+        <el-table-column label="添加时间" align="center" prop="addTime" width="180">
           <template #default="scope">
             <span>{{ parseTime(scope.row.addTime, "{y}-{m}-{d}") }}</span>
           </template>
         </el-table-column>
-        <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
-        >
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
             <el-tooltip content="修改" placement="top">
               <el-button
@@ -186,38 +144,16 @@
       />
     </el-card>
     <!-- 添加或修改设备或通道的状态变化日志对话框 -->
-    <el-dialog
-      :title="dialog.title"
-      v-model="dialog.visible"
-      width="500px"
-      append-to-body
-    >
-      <el-form
-        ref="instrusionDeviceStatusFormRef"
-        :model="form"
-        :rules="rules"
-        label-width="80px"
-      >
+    <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
+      <el-form ref="instrusionDeviceStatusFormRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="报警主机的Id号" prop="deviceId">
-          <el-input
-            v-model="form.deviceId"
-            placeholder="请输入报警主机的Id号"
-          />
+          <el-input v-model="form.deviceId" placeholder="请输入报警主机的Id号" />
         </el-form-item>
         <el-form-item label="状态改变发生的时间" prop="statusTime">
-          <el-input
-            v-model="form.statusTime"
-            placeholder="请输入状态改变发生的时间"
-          />
+          <el-input v-model="form.statusTime" placeholder="请输入状态改变发生的时间" />
         </el-form-item>
-        <el-form-item
-          label="状态改变发生的通道，如果是整机的状态改变，这个参数是空"
-          prop="channel"
-        >
-          <el-input
-            v-model="form.channel"
-            placeholder="请输入状态改变发生的通道，如果是整机的状态改变，这个参数是空"
-          />
+        <el-form-item label="状态改变发生的通道，如果是整机的状态改变，这个参数是空" prop="channel">
+          <el-input v-model="form.channel" placeholder="请输入状态改变发生的通道，如果是整机的状态改变，这个参数是空" />
         </el-form-item>
         <el-form-item label="添加时间" prop="addTime">
           <el-date-picker
@@ -231,9 +167,7 @@
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button :loading="buttonLoading" type="primary" @click="submitForm"
-            >确 定</el-button
-          >
+          <el-button :loading="buttonLoading" type="primary" @click="submitForm">确 定</el-button>
           <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
@@ -282,9 +216,7 @@ const initFormData: InstrusionDeviceStatusForm = {
   statusType: undefined,
   addTime: undefined,
 };
-const data = reactive<
-  PageData<InstrusionDeviceStatusForm, InstrusionDeviceStatusQuery>
->({
+const data = reactive<PageData<InstrusionDeviceStatusForm, InstrusionDeviceStatusQuery>>({
   form: { ...initFormData },
   queryParams: {
     pageNum: 1,
@@ -298,9 +230,7 @@ const data = reactive<
   },
   rules: {
     id: [{ required: true, message: "id不能为空", trigger: "blur" }],
-    deviceId: [
-      { required: true, message: "报警主机的Id号不能为空", trigger: "blur" },
-    ],
+    deviceId: [{ required: true, message: "报警主机的Id号不能为空", trigger: "blur" }],
     statusTime: [
       {
         required: true,
@@ -311,14 +241,11 @@ const data = reactive<
     channel: [
       {
         required: true,
-        message:
-          "状态改变发生的通道，如果是整机的状态改变，这个参数是空不能为空",
+        message: "状态改变发生的通道，如果是整机的状态改变，这个参数是空不能为空",
         trigger: "blur",
       },
     ],
-    statusType: [
-      { required: true, message: "状态变化代码不能为空", trigger: "change" },
-    ],
+    statusType: [{ required: true, message: "状态变化代码不能为空", trigger: "change" }],
     addTime: [{ required: true, message: "添加时间不能为空", trigger: "blur" }],
   },
 });
@@ -388,14 +315,10 @@ const submitForm = () => {
     if (valid) {
       buttonLoading.value = true;
       if (form.value.id) {
-        const res = await updateInstrusionDeviceStatus(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        const res = await updateInstrusionDeviceStatus(form.value).finally(() => (buttonLoading.value = false));
         proxy?.$modal.msgSuccess(res.msg);
       } else {
-        const res = await addInstrusionDeviceStatus(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        const res = await addInstrusionDeviceStatus(form.value).finally(() => (buttonLoading.value = false));
         proxy?.$modal.msgSuccess(res.msg);
       }
       dialog.visible = false;
@@ -408,9 +331,7 @@ const submitForm = () => {
 const handleDelete = async (row?: InstrusionDeviceStatusVO) => {
   const _ids = row?.id || ids.value;
   await proxy?.$modal
-    .confirm(
-      '是否确认删除设备或通道的状态变化日志编号为"' + _ids + '"的数据项？'
-    )
+    .confirm('是否确认删除设备或通道的状态变化日志编号为"' + _ids + '"的数据项？')
     .finally(() => (loading.value = false));
   const res = await delInstrusionDeviceStatus(_ids);
   proxy?.$modal.msgSuccess(res.msg);

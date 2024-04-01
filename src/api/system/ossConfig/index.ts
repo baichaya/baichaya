@@ -3,9 +3,7 @@ import { OssConfigForm, OssConfigQuery, OssConfigVO } from "./types";
 import { AxiosPromise } from "axios";
 
 // 查询对象存储配置列表
-export function listOssConfig(
-  query: OssConfigQuery
-): AxiosPromise<OssConfigVO[]> {
+export function listOssConfig(query: OssConfigQuery): AxiosPromise<OssConfigVO[]> {
   return request({
     url: "/resource/oss/config/list",
     method: "get",
@@ -14,9 +12,7 @@ export function listOssConfig(
 }
 
 // 查询对象存储配置详细
-export function getOssConfig(
-  ossConfigId: string | number
-): AxiosPromise<OssConfigVO> {
+export function getOssConfig(ossConfigId: string | number): AxiosPromise<OssConfigVO> {
   return request({
     url: "/resource/oss/config/" + ossConfigId,
     method: "get",
@@ -42,9 +38,7 @@ export function updateOssConfig(data: OssConfigForm) {
 }
 
 // 删除对象存储配置
-export function delOssConfig(
-  ossConfigId: string | number | Array<string | number>
-) {
+export function delOssConfig(ossConfigId: string | number | Array<string | number>) {
   return request({
     url: "/resource/oss/config/" + ossConfigId,
     method: "delete",
@@ -52,11 +46,7 @@ export function delOssConfig(
 }
 
 // 对象存储状态修改
-export function changeOssConfigStatus(
-  ossConfigId: string | number,
-  status: string,
-  configKey: string
-) {
+export function changeOssConfigStatus(ossConfigId: string | number, status: string, configKey: string) {
   const data = {
     ossConfigId,
     status,

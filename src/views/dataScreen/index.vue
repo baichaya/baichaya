@@ -31,12 +31,12 @@ onBeforeUnmount(() => {
 
 <style lang="scss" scoped>
 .content_wrap {
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
   padding: 16px;
-  box-sizing: border-box;
   background-image: url("@/assets/images/pageBg.png");
-  background-size: cover;
   background-position: center center;
+  background-size: cover;
 }
 </style>

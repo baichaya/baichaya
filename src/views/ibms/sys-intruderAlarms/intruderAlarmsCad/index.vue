@@ -4,12 +4,7 @@
       <template #option>
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
           <el-form-item label="区域">
-            <el-select
-              v-model="formInline.region"
-              placeholder="请选择区域"
-              clearable
-              filterable
-            >
+            <el-select v-model="formInline.region" placeholder="请选择区域" clearable filterable>
               <el-option label="Zone one" value="shanghai" />
               <el-option label="Zone two" value="beijing" />
             </el-select>
@@ -58,5 +53,3 @@ const data = reactive<CadData>({
   title: "周界报警",
 });
 </script>
-
-<style scoped></style>

@@ -5,12 +5,7 @@
       :leave-active-class="proxy?.animate.searchAnimate.leave"
     >
       <div class="search" v-show="showSearch">
-        <el-form
-          :model="queryParams"
-          ref="queryFormRef"
-          :inline="true"
-          label-width="68px"
-        >
+        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
           <el-form-item label="描述" prop="des">
             <el-input
               v-model="queryParams.des"
@@ -21,9 +16,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" icon="Search" @click="handleQuery"
-              >搜索</el-button
-            >
+            <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
             <el-button icon="Refresh" @click="resetQuery">重置</el-button>
           </el-form-item>
         </el-form>
@@ -75,31 +68,15 @@
               >导出</el-button
             >
           </el-col>
-          <right-toolbar
-            v-model:showSearch="showSearch"
-            @query-table="getList"
-          />
+          <right-toolbar v-model:showSearch="showSearch" @query-table="getList" />
         </el-row>
       </template>
 
-      <el-table
-        v-loading="loading"
-        :data="intrusionStatusCodeList"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table v-loading="loading" :data="intrusionStatusCodeList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column
-          label="状态码"
-          align="center"
-          prop="statusCode"
-          v-if="true"
-        />
+        <el-table-column label="状态码" align="center" prop="statusCode" v-if="true" />
         <el-table-column label="描述" align="center" prop="des" />
-        <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
-        >
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
             <el-tooltip content="修改" placement="top">
               <el-button
@@ -132,27 +109,15 @@
       />
     </el-card>
     <!-- 添加或修改设备或通道的状态变化码对话框 -->
-    <el-dialog
-      :title="dialog.title"
-      v-model="dialog.visible"
-      width="500px"
-      append-to-body
-    >
-      <el-form
-        ref="intrusionStatusCodeFormRef"
-        :model="form"
-        :rules="rules"
-        label-width="80px"
-      >
+    <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
+      <el-form ref="intrusionStatusCodeFormRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="描述" prop="des">
           <el-input v-model="form.des" placeholder="请输入描述" />
         </el-form-item>
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button :loading="buttonLoading" type="primary" @click="submitForm"
-            >确 定</el-button
-          >
+          <el-button :loading="buttonLoading" type="primary" @click="submitForm">确 定</el-button>
           <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
@@ -197,9 +162,7 @@ const initFormData: IntrusionStatusCodeForm = {
   statusCode: undefined,
   des: undefined,
 };
-const data = reactive<
-  PageData<IntrusionStatusCodeForm, IntrusionStatusCodeQuery>
->({
+const data = reactive<PageData<IntrusionStatusCodeForm, IntrusionStatusCodeQuery>>({
   form: { ...initFormData },
   queryParams: {
     pageNum: 1,
@@ -208,9 +171,7 @@ const data = reactive<
     params: {},
   },
   rules: {
-    statusCode: [
-      { required: true, message: "状态码不能为空", trigger: "blur" },
-    ],
+    statusCode: [{ required: true, message: "状态码不能为空", trigger: "blur" }],
     des: [{ required: true, message: "描述不能为空", trigger: "blur" }],
   },
 });
@@ -280,14 +241,10 @@ const submitForm = () => {
     if (valid) {
       buttonLoading.value = true;
       if (form.value.statusCode) {
-        const res = await updateIntrusionStatusCode(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        const res = await updateIntrusionStatusCode(form.value).finally(() => (buttonLoading.value = false));
         proxy?.$modal.msgSuccess(res.msg);
       } else {
-        const res = await addIntrusionStatusCode(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        const res = await addIntrusionStatusCode(form.value).finally(() => (buttonLoading.value = false));
         proxy?.$modal.msgSuccess(res.msg);
       }
       dialog.visible = false;
@@ -300,9 +257,7 @@ const submitForm = () => {
 const handleDelete = async (row?: IntrusionStatusCodeVO) => {
   const _statusCodes = row?.statusCode || ids.value;
   await proxy?.$modal
-    .confirm(
-      '是否确认删除设备或通道的状态变化码编号为"' + _statusCodes + '"的数据项？'
-    )
+    .confirm('是否确认删除设备或通道的状态变化码编号为"' + _statusCodes + '"的数据项？')
     .finally(() => (loading.value = false));
   const res = await delIntrusionStatusCode(_statusCodes);
   proxy?.$modal.msgSuccess(res.msg);

@@ -24,10 +24,7 @@ export default {
       const isBlob = blobValidate(res.data);
       if (isBlob) {
         const blob = new Blob([res.data], { type: "application/octet-stream" });
-        FileSaver.saveAs(
-          blob,
-          decodeURIComponent(res.headers["download-filename"] as string)
-        );
+        FileSaver.saveAs(blob, decodeURIComponent(res.headers["download-filename"] as string));
       } else {
         this.printErrMsg(res.data);
       }

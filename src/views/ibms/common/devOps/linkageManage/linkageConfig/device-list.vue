@@ -85,5 +85,3 @@ defineExpose({
   open,
 });
 </script>
-
-<style scoped></style>

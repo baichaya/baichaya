@@ -38,5 +38,3 @@ const data = reactive<CadData>({
   title: "电梯",
 });
 </script>
-
-<style scoped></style>

@@ -6,16 +6,8 @@
       class="hamburger-container"
       @toggle-click="toggleSideBar"
     />
-    <breadcrumb
-      id="breadcrumb-container"
-      class="breadcrumb-container"
-      v-if="!settingsStore.topNav"
-    />
-    <top-nav
-      id="topmenu-container"
-      class="topmenu-container"
-      v-if="settingsStore.topNav"
-    />
+    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" v-if="!settingsStore.topNav" />
+    <top-nav id="topmenu-container" class="topmenu-container" v-if="settingsStore.topNav" />
 
     <div class="right-menu flex align-center">
       <template v-if="appStore.device !== 'mobile'">
@@ -29,15 +21,8 @@
           @change="dynamicTenantEvent"
           @clear="dynamicClearEvent"
         >
-          <el-option
-            v-for="item in tenantList"
-            :key="item.tenantId"
-            :label="item.companyName"
-            :value="item.tenantId"
-          />
-          <template #prefix
-            ><svg-icon icon-class="company" class="el-input__icon input-icon"
-          /></template>
+          <el-option v-for="item in tenantList" :key="item.tenantId" :label="item.companyName" :value="item.tenantId" />
+          <template #prefix><svg-icon icon-class="company" class="el-input__icon input-icon" /></template>
         </el-select>
 
         <!-- <header-search id="header-search" class="right-menu-item" /> -->
@@ -55,19 +40,9 @@
           </div>
         </el-tooltip>
         <!-- 消息 -->
-        <el-tooltip
-          :content="$t('navbar.message')"
-          effect="dark"
-          placement="bottom"
-        >
+        <el-tooltip :content="$t('navbar.message')" effect="dark" placement="bottom">
           <div>
-            <el-popover
-              placement="bottom"
-              trigger="click"
-              transition="el-zoom-in-top"
-              :width="300"
-              :persistent="false"
-            >
+            <el-popover placement="bottom" trigger="click" transition="el-zoom-in-top" :width="300" :persistent="false">
               <template #reference>
                 <el-badge :value="newNotice > 0 ? newNotice : ''" :max="99">
                   <svg-icon icon-class="message" />
@@ -87,11 +62,7 @@
           <ruo-yi-doc id="ruoyi-doc" class="right-menu-item hover-effect" />
         </el-tooltip> -->
 
-        <el-tooltip
-          :content="$t('navbar.full')"
-          effect="dark"
-          placement="bottom"
-        >
+        <el-tooltip :content="$t('navbar.full')" effect="dark" placement="bottom">
           <screenfull id="screenfull" class="right-menu-item hover-effect" />
         </el-tooltip>
 
@@ -99,20 +70,12 @@
           <lang-select id="lang-select" class="right-menu-item hover-effect" />
         </el-tooltip> -->
 
-        <el-tooltip
-          :content="$t('navbar.layoutSize')"
-          effect="dark"
-          placement="bottom"
-        >
+        <el-tooltip :content="$t('navbar.layoutSize')" effect="dark" placement="bottom">
           <size-select id="size-select" class="right-menu-item hover-effect" />
         </el-tooltip>
       </template>
       <div class="avatar-container">
-        <el-dropdown
-          @command="handleCommand"
-          class="right-menu-item hover-effect"
-          trigger="click"
-        >
+        <el-dropdown @command="handleCommand" class="right-menu-item hover-effect" trigger="click">
           <div class="avatar-wrapper">
             <img :src="userStore.avatar" class="user-avatar" />
             <el-icon><caret-bottom /></el-icon>
@@ -120,14 +83,9 @@
           <template #dropdown>
             <el-dropdown-menu>
               <router-link to="/user/profile" v-if="!dynamic">
-                <el-dropdown-item>{{
-                  $t("navbar.personalCenter")
-                }}</el-dropdown-item>
+                <el-dropdown-item>{{ $t("navbar.personalCenter") }}</el-dropdown-item>
               </router-link>
-              <el-dropdown-item
-                command="setLayout"
-                v-if="settingsStore.showSettings"
-              >
+              <el-dropdown-item command="setLayout" v-if="settingsStore.showSettings">
                 <span>{{ $t("navbar.layoutSetting") }}</span>
               </el-dropdown-item>
               <el-dropdown-item divided command="logout">
@@ -195,8 +153,7 @@ const dynamicClearEvent = async () => {
 /** 租户列表 */
 const initTenantList = async () => {
   const { data } = await getTenantList();
-  tenantEnabled.value =
-    data.tenantEnabled === undefined ? true : data.tenantEnabled;
+  tenantEnabled.value = data.tenantEnabled === undefined ? true : data.tenantEnabled;
   if (tenantEnabled.value) {
     tenantList.value = data.voList;
   }
@@ -269,22 +226,22 @@ watch(
 }
 
 .navbar {
+  position: relative;
   height: 50px;
   overflow: hidden;
-  position: relative;
   //background: #fff;
-  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+  box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
 
   .hamburger-container {
-    line-height: 46px;
-    height: 100%;
     float: left;
+    height: 100%;
+    line-height: 46px;
     cursor: pointer;
     transition: background 0.3s;
     -webkit-tap-highlight-color: transparent;
 
     &:hover {
-      background: rgba(0, 0, 0, 0.025);
+      background: rgb(0 0 0 / 2.5%);
     }
   }
 
@@ -303,10 +260,10 @@ watch(
   }
 
   .right-menu {
+    display: flex;
     float: right;
     height: 100%;
     line-height: 50px;
-    display: flex;
 
     &:focus {
       outline: none;
@@ -314,8 +271,8 @@ watch(
 
     .right-menu-item {
       display: inline-block;
-      padding: 0 8px;
       height: 100%;
+      padding: 0 8px;
       font-size: 18px;
       color: #5a5e66;
       vertical-align: text-bottom;
@@ -325,7 +282,7 @@ watch(
         transition: background 0.3s;
 
         &:hover {
-          background: rgba(0, 0, 0, 0.025);
+          background: rgb(0 0 0 / 2.5%);
         }
       }
     }
@@ -334,23 +291,23 @@ watch(
       margin-right: 40px;
 
       .avatar-wrapper {
-        margin-top: 5px;
         position: relative;
+        margin-top: 5px;
 
         .user-avatar {
-          cursor: pointer;
           width: 40px;
           height: 40px;
-          border-radius: 10px;
           margin-top: 10px;
+          cursor: pointer;
+          border-radius: 10px;
         }
 
         i {
-          cursor: pointer;
           position: absolute;
-          right: -20px;
           top: 25px;
+          right: -20px;
           font-size: 12px;
+          cursor: pointer;
         }
       }
     }

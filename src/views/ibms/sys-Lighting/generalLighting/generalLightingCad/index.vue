@@ -38,5 +38,3 @@ const data = reactive<CadData>({
   title: "普通照明",
 });
 </script>
-
-<style scoped></style>

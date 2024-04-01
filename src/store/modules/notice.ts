@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import store from "..";
 
 interface NoticeItem {
   title?: string;
@@ -22,7 +23,7 @@ export const useNoticeStore = defineStore("notice", () => {
 
   //实现全部已读
   const readAll = () => {
-    state.notices.forEach((item) => {
+    state.notices.forEach((item: any) => {
       item.read = true;
     });
   };
@@ -40,3 +41,7 @@ export const useNoticeStore = defineStore("notice", () => {
 });
 
 export default useNoticeStore;
+
+export function useNoticeStoreHook() {
+  return useNoticeStore(store);
+}

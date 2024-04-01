@@ -5,12 +5,7 @@
       :leave-active-class="proxy?.animate.searchAnimate.leave"
     >
       <div class="search" v-show="showSearch">
-        <el-form
-          :model="queryParams"
-          ref="queryFormRef"
-          :inline="true"
-          label-width="68px"
-        >
+        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
           <el-form-item label="工单编号" prop="workOrderId">
             <el-input
               v-model="queryParams.workOrderId"
@@ -33,9 +28,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" icon="Search" @click="handleQuery"
-              >搜索</el-button
-            >
+            <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
             <el-button icon="Refresh" @click="resetQuery">重置</el-button>
           </el-form-item>
         </el-form>
@@ -72,65 +65,35 @@
               >导出</el-button
             >
           </el-col>
-          <right-toolbar
-            v-model:showSearch="showSearch"
-            @queryTable="getList"
-          />
+          <right-toolbar v-model:showSearch="showSearch" @query-table="getList" />
         </el-row>
       </template>
 
-      <el-table
-        v-loading="loading"
-        :data="orderHistoryList"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table v-loading="loading" :data="orderHistoryList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column label="id" align="center" prop="id" v-if="true" />
         <el-table-column label="工单编号" align="center" prop="workOrderId" />
         <el-table-column label="操作员" align="center" prop="operatorName" />
-        <el-table-column
-          label="图片"
-          align="center"
-          prop="pictureUrl"
-          width="100"
-        >
+        <el-table-column label="图片" align="center" prop="pictureUrl" width="100">
           <template #default="scope">
-            <image-preview
-              :src="scope.row.pictureUrl"
-              :width="50"
-              :height="50"
-            />
+            <image-preview :src="scope.row.pictureUrl" :width="50" :height="50" />
           </template>
         </el-table-column>
-        <el-table-column
-          label="操作日期"
-          align="center"
-          prop="createTime"
-          width="180"
-        >
+        <el-table-column label="操作日期" align="center" prop="createTime" width="180">
           <template #default="scope">
             <span>{{ parseTime(scope.row.createTime, "{y}-{m}-{d}") }}</span>
           </template>
         </el-table-column>
 
         <el-table-column label="备注" align="center" prop="operationComment" />
-        <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
-        >
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
             <!-- <el-tooltip content="修改" placement="top">
               <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['workOrders:orderHistory:edit']"></el-button>
             </el-tooltip> -->
 
             <el-tooltip content="工单详情" placement="top">
-              <el-button
-                link
-                type="primary"
-                icon="View"
-                @click="handleGetWorkOrder(scope.row)"
-              />
+              <el-button link type="primary" icon="View" @click="handleGetWorkOrder(scope.row)" />
             </el-tooltip>
             <el-tooltip content="删除" placement="top">
               <el-button
@@ -154,23 +117,10 @@
       />
     </el-card>
     <!-- 添加或修改处理历史对话框 -->
-    <el-dialog
-      :title="dialog.title"
-      v-model="dialog.visible"
-      width="500px"
-      append-to-body
-    >
-      <el-form
-        ref="orderHistoryFormRef"
-        :model="form"
-        :rules="rules"
-        label-width="80px"
-      >
+    <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
+      <el-form ref="orderHistoryFormRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="操作注释" prop="operationComment">
-          <el-input
-            v-model="form.operationComment"
-            placeholder="请输入操作注释"
-          />
+          <el-input v-model="form.operationComment" placeholder="请输入操作注释" />
         </el-form-item>
         <el-form-item label="图片" prop="pictureUrl">
           <image-upload v-model="form.pictureUrl" />
@@ -178,48 +128,24 @@
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button :loading="buttonLoading" type="primary" @click="submitForm"
-            >确 定</el-button
-          >
+          <el-button :loading="buttonLoading" type="primary" @click="submitForm">确 定</el-button>
           <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
     </el-dialog>
 
     <!-- 工单详情对话框 -->
-    <el-dialog
-      :title="dialog.title"
-      v-model="dialog.visible1"
-      width="500px"
-      append-to-body
-    >
-      <el-form
-        ref="workOrderFormRef"
-        :model="form"
-        :rules="rules"
-        label-width="80px"
-      >
+    <el-dialog :title="dialog.title" v-model="dialog.visible1" width="500px" append-to-body>
+      <el-form ref="workOrderFormRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="工单名称">
-          <el-input
-            disabled="true"
-            v-model="form.workOrderName"
-            placeholder="请输入工单名称"
-          />
+          <el-input disabled="true" v-model="form.workOrderName" placeholder="请输入工单名称" />
         </el-form-item>
 
         <el-form-item label="创建人">
-          <el-input
-            disabled="true"
-            v-model="form.workOrderCreateName"
-            placeholder="创建人"
-          />
+          <el-input disabled="true" v-model="form.workOrderCreateName" placeholder="创建人" />
         </el-form-item>
         <el-form-item label="优先级">
-          <el-select
-            disabled="true"
-            v-model="form.workOrderPriority"
-            placeholder="请选择优先级"
-          >
+          <el-select disabled="true" v-model="form.workOrderPriority" placeholder="请选择优先级">
             <el-option
               v-for="dict in work_order_priority"
               :key="dict.value"
@@ -229,11 +155,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="工单类型">
-          <el-select
-            disabled="true"
-            v-model="form.workOrderDetailType"
-            placeholder="请选择工单类型"
-          >
+          <el-select disabled="true" v-model="form.workOrderDetailType" placeholder="请选择工单类型">
             <el-option
               v-for="dict in work_order_detail_type"
               :key="dict.value"
@@ -244,11 +166,7 @@
         </el-form-item>
 
         <el-form-item label="状态">
-          <el-select
-            disabled="true"
-            v-model="form.workOrderStatus"
-            placeholder="请选择状态"
-          >
+          <el-select disabled="true" v-model="form.workOrderStatus" placeholder="请选择状态">
             <el-option
               v-for="dict in work_order_status"
               :key="dict.value"
@@ -258,27 +176,12 @@
           </el-select>
         </el-form-item>
         <el-form-item label="工单描述">
-          <el-input
-            disabled="true"
-            v-model="form.workOrderDescription"
-            placeholder="请输入工单描述"
-          />
+          <el-input disabled="true" v-model="form.workOrderDescription" placeholder="请输入工单描述" />
         </el-form-item>
 
         <el-form-item label="处理人">
-          <el-select
-            v-model="userIds"
-            multiple
-            placeholder="处理人"
-            style="width: 240px"
-            disabled="true"
-          >
-            <el-option
-              v-for="item in userNames"
-              :key="item.userId"
-              :label="item.userName"
-              :value="item.userId"
-            />
+          <el-select v-model="userIds" multiple placeholder="处理人" style="width: 240px" disabled="true">
+            <el-option v-for="item in userNames" :key="item.userId" :label="item.userName" :value="item.userId" />
           </el-select>
         </el-form-item>
       </el-form>
@@ -306,11 +209,7 @@ import {
   addWorkOrder,
   updateWorkOrder,
 } from "@/api/ibms/common/devOps/workOrders/workOrder";
-import {
-  WorkOrderVO,
-  WorkOrderQuery,
-  WorkOrderForm,
-} from "@/api/ibms/common/devOps/workOrders/workOrder/types";
+import { WorkOrderVO, WorkOrderQuery, WorkOrderForm } from "@/api/ibms/common/devOps/workOrders/workOrder/types";
 
 interface FormDialog extends DialogOption {
   visible1: boolean;
@@ -320,9 +219,7 @@ const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 const { work_order_priority, work_order_status } = toRefs<any>(
   proxy?.useDict("work_order_priority", "work_order_status")
 );
-const { work_order_detail_type } = toRefs<any>(
-  proxy?.useDict("work_order_detail_type")
-);
+const { work_order_detail_type } = toRefs<any>(proxy?.useDict("work_order_detail_type"));
 const orderHistoryList = ref<OrderHistoryVO[]>([]);
 const buttonLoading = ref(false);
 const loading = ref(true);
@@ -361,9 +258,7 @@ const data = reactive<PageData<OrderHistoryForm, OrderHistoryQuery>>({
     params: {},
   },
   rules: {
-    operationComment: [
-      { required: true, message: "操作注释不能为空", trigger: "blur" },
-    ],
+    operationComment: [{ required: true, message: "操作注释不能为空", trigger: "blur" }],
   },
 });
 
@@ -451,13 +346,9 @@ const submitForm = () => {
     if (valid) {
       buttonLoading.value = true;
       if (form.value.id) {
-        await updateOrderHistory(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        await updateOrderHistory(form.value).finally(() => (buttonLoading.value = false));
       } else {
-        await addOrderHistory(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        await addOrderHistory(form.value).finally(() => (buttonLoading.value = false));
       }
       proxy?.$modal.msgSuccess("修改成功");
       dialog.visible = false;

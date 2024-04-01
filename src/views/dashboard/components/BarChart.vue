@@ -141,9 +141,7 @@ const options = {
 const chart = ref<any>("");
 onMounted(() => {
   // 图表初始化
-  chart.value = markRaw(
-    echarts.init(document.getElementById(props.id) as HTMLDivElement)
-  );
+  chart.value = markRaw(echarts.init(document.getElementById(props.id) as HTMLDivElement));
 
   chart.value.setOption(options);
 

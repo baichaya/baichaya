@@ -1,7 +1,7 @@
 <template>
   <dv-border-box-13 :class="props.cardClass">
     <div class="box">
-      <dv-decoration-7 style="height: 45px; width: 130px">
+      <dv-decoration-7 style="width: 130px; height: 45px">
         <span class="cad-title">{{ props.title }}</span>
       </dv-decoration-7>
     </div>
@@ -39,24 +39,20 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .box {
-  width: 100%;
   display: flex;
   justify-content: center;
+  width: 100%;
 }
+
 .cad-title {
   font-size: 16px;
   font-weight: 900;
   letter-spacing: 6px;
-  background: linear-gradient(
-    92deg,
-    #0072ff 0%,
-    #00eaff 48.8525390625%,
-    #01aaff 100%
-  );
+  background: linear-gradient(92deg, #0072ff 0%, #00eaff 48.8525%, #01aaff 100%);
   background-clip: text;
-  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 .content {
   height: calc(100% - 45px);
   // background-color: rgba(#e9e6e6, 0.4);

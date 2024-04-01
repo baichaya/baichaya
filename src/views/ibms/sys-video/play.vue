@@ -282,6 +282,10 @@ const videoClose = () => {
 .video_box {
   width: 100%;
   height: 100%;
+
+  :deep(.el-dialog__body) {
+    padding: 0 !important;
+  }
 }
 
 .plugin {
@@ -293,11 +297,5 @@ const videoClose = () => {
   width: 800px;
   height: 600px;
   margin: 5;
-}
-
-.video_box {
-  ::deep(.el-dialog__body) {
-    padding: 0 !important;
-  }
 }
 </style>

@@ -12,9 +12,7 @@ export const listDept = (query?: DeptQuery) => {
 };
 
 // 查询部门列表（排除节点）
-export const listDeptExcludeChild = (
-  deptId: string | number
-): AxiosPromise<DeptVO[]> => {
+export const listDeptExcludeChild = (deptId: string | number): AxiosPromise<DeptVO[]> => {
   return request({
     url: "/system/dept/list/exclude/" + deptId,
     method: "get",

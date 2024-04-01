@@ -95,10 +95,7 @@ export const usePermissionStore = defineStore("permission", () => {
       return true;
     });
   };
-  const filterChildren = (
-    childrenMap: RouteRecordRaw[],
-    lastRouter?: RouteRecordRaw
-  ): RouteRecordRaw[] => {
+  const filterChildren = (childrenMap: RouteRecordRaw[], lastRouter?: RouteRecordRaw): RouteRecordRaw[] => {
     let children: RouteRecordRaw[] = [];
     childrenMap.forEach((el) => {
       if (el.children && el.children.length) {

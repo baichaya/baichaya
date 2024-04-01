@@ -1,11 +1,6 @@
 <template>
-  <el-scrollbar
-    ref="scrollContainerRef"
-    :vertical="false"
-    class="scroll-container"
-    @wheel.prevent="handleScroll"
-  >
-    <slot />
+  <el-scrollbar ref="scrollContainerRef" :vertical="false" class="scroll-container" @wheel.prevent="handleScroll">
+    <slot></slot>
   </el-scrollbar>
 </template>
 
@@ -58,32 +53,23 @@ const moveToTarget = (currentTag: RouteLocationNormalized) => {
     $scrollWrapper.scrollLeft = $scrollWrapper.scrollWidth - $containerWidth;
   } else {
     const tagListDom: any = document.getElementsByClassName("tags-view-item");
-    const currentIndex = visitedViews.value.findIndex(
-      (item) => item === currentTag
-    );
+    const currentIndex = visitedViews.value.findIndex((item) => item === currentTag);
     let prevTag = null;
     let nextTag = null;
 
     for (const k in tagListDom) {
       if (k !== "length" && Object.hasOwnProperty.call(tagListDom, k)) {
-        if (
-          tagListDom[k].dataset.path ===
-          visitedViews.value[currentIndex - 1].path
-        ) {
+        if (tagListDom[k].dataset.path === visitedViews.value[currentIndex - 1].path) {
           prevTag = tagListDom[k];
         }
-        if (
-          tagListDom[k].dataset.path ===
-          visitedViews.value[currentIndex + 1].path
-        ) {
+        if (tagListDom[k].dataset.path === visitedViews.value[currentIndex + 1].path) {
           nextTag = tagListDom[k];
         }
       }
     }
 
     // the tag's offsetLeft after of nextTag
-    const afterNextTagOffsetLeft =
-      nextTag.offsetLeft + nextTag.offsetWidth + tagAndTagSpacing.value;
+    const afterNextTagOffsetLeft = nextTag.offsetLeft + nextTag.offsetWidth + tagAndTagSpacing.value;
 
     // the tag's offsetLeft before of prevTag
     const beforePrevTagOffsetLeft = prevTag.offsetLeft - tagAndTagSpacing.value;
@@ -102,13 +88,15 @@ defineExpose({
 
 <style lang="scss" scoped>
 .scroll-container {
-  white-space: nowrap;
   position: relative;
-  overflow: hidden;
   width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+
   :deep(.el-scrollbar__bar) {
-    bottom: 0px;
+    bottom: 0;
   }
+
   :deep(.el-scrollbar__wrap) {
     height: 49px;
   }

@@ -18,11 +18,7 @@
           :disable-transitions="true"
           :key="item.value + ''"
           :index="index"
-          :type="
-            item.elTagType === 'primary' || item.elTagType === 'default'
-              ? ''
-              : item.elTagType
-          "
+          :type="item.elTagType === 'primary' || item.elTagType === 'default' ? '' : item.elTagType"
           :class="item.elTagClass"
         >
           {{ item.label + " " }}
@@ -45,32 +41,18 @@ const props = defineProps({
     default: null,
   },
   // 当前的值
-  value: [Number, String, Array] as PropType<
-    number | string | Array<number | string>
-  >,
+  value: [Number, String, Array] as PropType<number | string | Array<number | string>>,
   // 当未找到匹配的数据时，显示value
   showValue: propTypes.bool.def(true),
   separator: propTypes.string.def(","),
 });
 const values = computed(() => {
-  if (
-    props.value === "" ||
-    props.value === null ||
-    typeof props.value === "undefined"
-  )
-    return [];
-  return Array.isArray(props.value)
-    ? props.value.map((item) => "" + item)
-    : String(props.value).split(props.separator);
+  if (props.value === "" || props.value === null || typeof props.value === "undefined") return [];
+  return Array.isArray(props.value) ? props.value.map((item) => "" + item) : String(props.value).split(props.separator);
 });
 
 const unmatch = computed(() => {
-  if (
-    props.options?.length == 0 ||
-    props.value === "" ||
-    props.value === null ||
-    typeof props.value === "undefined"
-  )
+  if (props.options?.length == 0 || props.value === "" || props.value === null || typeof props.value === "undefined")
     return false;
   // 传入值为非数组
   values.value.forEach((item) => {
@@ -84,11 +66,7 @@ const unmatch = computed(() => {
 const unmatchArray = computed(() => {
   // 记录未匹配的项
   const itemUnmatchArray: Array<string | number> = [];
-  if (
-    props.value !== "" &&
-    props.value !== null &&
-    typeof props.value !== "undefined"
-  ) {
+  if (props.value !== "" && props.value !== null && typeof props.value !== "undefined") {
     values.value.forEach((item) => {
       if (!props.options.some((v) => v.value === item)) {
         itemUnmatchArray.push(item);

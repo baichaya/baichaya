@@ -6,31 +6,20 @@
     </div>
     <div class="content-box" v-loading="state.loading">
       <template v-if="newsList.length > 0">
-        <div
-          class="content-box-item"
-          v-for="(v, k) in newsList"
-          :key="k"
-          @click="onNewsClick(k)"
-        >
+        <div class="content-box-item" v-for="(v, k) in newsList" :key="k" @click="onNewsClick(k)">
           <div class="item-conten">
             <div>{{ v.message }}</div>
             <div class="content-box-msg"></div>
             <div class="content-box-time">{{ v.time }}</div>
           </div>
           <!-- 已读/未读 -->
-          <span v-if="v.read" class="el-tag el-tag--success el-tag--mini read"
-            >已读</span
-          >
-          <span v-else class="el-tag el-tag--danger el-tag--mini read"
-            >未读</span
-          >
+          <span v-if="v.read" class="el-tag el-tag--success el-tag--mini read">已读</span>
+          <span v-else class="el-tag el-tag--danger el-tag--mini read">未读</span>
         </div>
       </template>
-      <el-empty :description="'消息为空'" v-else></el-empty>
+      <el-empty :description="'消息为空'" v-else />
     </div>
-    <div class="foot-box" @click="onGoToGiteeClick" v-if="newsList.length > 0">
-      前往gitee
-    </div>
+    <div class="foot-box" @click="onGoToGiteeClick" v-if="newsList.length > 0">前往gitee</div>
   </div>
 </template>
 
@@ -81,62 +70,73 @@ onMounted(() => {
 <style scoped lang="scss">
 .layout-navbars-breadcrumb-user-news {
   .head-box {
-    display: flex;
-    border-bottom: 1px solid var(--el-border-color-lighter);
     box-sizing: border-box;
-    color: var(--el-text-color-primary);
+    display: flex;
+    align-items: center;
     justify-content: space-between;
     height: 35px;
-    align-items: center;
+    color: var(--el-text-color-primary);
+    border-bottom: 1px solid var(--el-border-color-lighter);
+
     .head-box-btn {
-      color: var(--el-color-primary);
       font-size: 13px;
+      color: var(--el-color-primary);
       cursor: pointer;
       opacity: 0.8;
+
       &:hover {
         opacity: 1;
       }
     }
   }
+
   .content-box {
     height: 300px;
     overflow: auto;
     font-size: 13px;
+
     .content-box-item {
-      padding-top: 12px;
       display: flex;
+      padding-top: 12px;
+
       &:last-of-type {
         padding-bottom: 12px;
       }
+
       .content-box-msg {
-        color: var(--el-text-color-secondary);
         margin-top: 5px;
         margin-bottom: 5px;
+        color: var(--el-text-color-secondary);
       }
+
       .content-box-time {
         color: var(--el-text-color-secondary);
       }
+
       .item-conten {
-        width: 100%;
         display: flex;
         flex-direction: column;
+        width: 100%;
       }
     }
   }
+
   .foot-box {
-    height: 35px;
-    color: var(--el-color-primary);
-    font-size: 13px;
-    cursor: pointer;
-    opacity: 0.8;
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 35px;
+    font-size: 13px;
+    color: var(--el-color-primary);
+    cursor: pointer;
     border-top: 1px solid var(--el-border-color-lighter);
+    opacity: 0.8;
+
     &:hover {
       opacity: 1;
     }
   }
+
   :deep(.el-empty__description p) {
     font-size: 13px;
   }

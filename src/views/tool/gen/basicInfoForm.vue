@@ -1,10 +1,5 @@
 <template>
-  <el-form
-    ref="basicInfoForm"
-    :model="infoForm"
-    :rules="rules"
-    label-width="150px"
-  >
+  <el-form ref="basicInfoForm" :model="infoForm" :rules="rules" label-width="150px">
     <el-row>
       <el-col :span="12">
         <el-form-item label="表名称" prop="tableName">
@@ -28,11 +23,7 @@
       </el-col>
       <el-col :span="24">
         <el-form-item label="备注" prop="remark">
-          <el-input
-            type="textarea"
-            :rows="3"
-            v-model="infoForm.remark"
-          ></el-input>
+          <el-input type="textarea" :rows="3" v-model="infoForm.remark" />
         </el-form-item>
       </el-col>
     </el-row>

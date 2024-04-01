@@ -53,9 +53,10 @@ const choose = (i: number) => {
 .redborder {
   border: 2px solid red !important;
 }
+
 .playWnd {
   width: 100%;
-  background-color: #ccc;
   height: 100%;
+  background-color: #ccc;
 }
 </style>

@@ -41,11 +41,7 @@ export function updateTenant(data: TenantForm) {
 }
 
 // 租户状态修改
-export function changeTenantStatus(
-  id: string | number,
-  tenantId: string | number,
-  status: string
-) {
+export function changeTenantStatus(id: string | number, tenantId: string | number, status: string) {
   const data = {
     id,
     tenantId,
@@ -83,10 +79,7 @@ export function dynamicClear() {
 }
 
 // 同步租户套餐
-export function syncTenantPackage(
-  tenantId: string | number,
-  packageId: string | number
-) {
+export function syncTenantPackage(tenantId: string | number, packageId: string | number) {
   const data = {
     tenantId,
     packageId,

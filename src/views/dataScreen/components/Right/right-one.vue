@@ -26,12 +26,7 @@ const options = {
   radar: {
     // shape: 'circle',
     radius: "60%",
-    indicator: [
-      { name: "新风" },
-      { name: "集水坑" },
-      { name: "气体检测" },
-      { name: "电梯" },
-    ],
+    indicator: [{ name: "新风" }, { name: "集水坑" }, { name: "气体检测" }, { name: "电梯" }],
   },
   series: [
     {
@@ -64,9 +59,7 @@ const options = {
 };
 
 onMounted(() => {
-  const chart = echarts.init(
-    document.getElementById("bachart") as HTMLDivElement
-  );
+  const chart = echarts.init(document.getElementById("bachart") as HTMLDivElement);
   chart.setOption(options);
 
   window.addEventListener("resize", () => {

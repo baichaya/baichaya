@@ -112,6 +112,7 @@ const data = reactive<CadData>({
 .el-space {
   width: calc(100% - 1200px);
   height: 100%;
+
   .el-card {
     width: 480px;
     height: 250px;

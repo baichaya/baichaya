@@ -2,10 +2,7 @@
   <div :class="{ 'has-logo': showLogo }" :style="{ backgroundColor: bgColor }">
     <logo v-if="showLogo" :collapse="isCollapse" />
     <el-scrollbar :class="sideTheme" wrap-class="scrollbar-wrapper">
-      <transition
-        :enter-active-class="proxy?.animate.menuSearchAnimate.enter"
-        mode="out-in"
-      >
+      <transition :enter-active-class="proxy?.animate.menuSearchAnimate.enter" mode="out-in">
         <el-menu
           :default-active="activeMenu"
           :collapse="isCollapse"
@@ -16,12 +13,7 @@
           :collapse-transition="false"
           mode="vertical"
         >
-          <sidebar-item
-            v-for="(r, index) in sidebarRouters"
-            :key="r.path + index"
-            :item="r"
-            :base-path="r.path"
-          />
+          <sidebar-item v-for="(r, index) in sidebarRouters" :key="r.path + index" :item="r" :base-path="r.path" />
         </el-menu>
       </transition>
     </el-scrollbar>
@@ -43,9 +35,7 @@ const route = useRoute();
 const appStore = useAppStore();
 const settingsStore = useSettingsStore();
 const permissionStore = usePermissionStore();
-const sidebarRouters = computed<RouteRecordRaw[]>(() =>
-  permissionStore.getSidebarRoutes()
-);
+const sidebarRouters = computed<RouteRecordRaw[]>(() => permissionStore.getSidebarRoutes());
 const showLogo = computed(() => settingsStore.sidebarLogo);
 const sideTheme = computed(() => settingsStore.sideTheme);
 const theme = computed(() => settingsStore.theme);
@@ -61,13 +51,7 @@ const activeMenu = computed(() => {
 });
 
 const bgColor = computed(() =>
-  sideTheme.value === "theme-dark"
-    ? variables.menuBackground
-    : variables.menuLightBackground
+  sideTheme.value === "theme-dark" ? variables.menuBackground : variables.menuLightBackground
 );
-const textColor = computed(() =>
-  sideTheme.value === "theme-dark"
-    ? variables.menuColor
-    : variables.menuLightColor
-);
+const textColor = computed(() => (sideTheme.value === "theme-dark" ? variables.menuColor : variables.menuLightColor));
 </script>

@@ -1,13 +1,6 @@
 import type * as ep from "element-plus";
 declare global {
-  declare type ElTagType =
-    | ""
-    | "success"
-    | "warning"
-    | "info"
-    | "danger"
-    | "default"
-    | "primary";
+  declare type ElTagType = "" | "success" | "warning" | "info" | "danger" | "default" | "primary";
   declare type ElFormInstance = InstanceType<typeof ep.ElForm>;
   declare type ElTableInstance = InstanceType<typeof ep.ElTable>;
   declare type ElTreeInstance = InstanceType<typeof ep.ElTree>;
@@ -22,9 +15,7 @@ declare global {
   declare type ElRadioGroupInstance = InstanceType<typeof ep.ElRadioGroup>;
   declare type ElRadioButtonInstance = InstanceType<typeof ep.ElRadioButton>;
   declare type ElCheckboxInstance = InstanceType<typeof ep.ElCheckbox>;
-  declare type ElCheckboxGroupInstance = InstanceType<
-    typeof ep.ElCheckboxGroup
-  >;
+  declare type ElCheckboxGroupInstance = InstanceType<typeof ep.ElCheckboxGroup>;
   declare type ElSwitchInstance = InstanceType<typeof ep.ElSwitch>;
   declare type ElDatePickerInstance = InstanceType<typeof ep.ElDatePicker>;
   declare type ElTimePickerInstance = InstanceType<typeof ep.ElTimePicker>;

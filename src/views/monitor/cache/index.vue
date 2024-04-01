@@ -25,9 +25,7 @@
                   </td>
                   <td class="el-table__cell is-leaf">
                     <div class="cell" v-if="cache.info">
-                      {{
-                        cache.info.redis_mode === "standalone" ? "单机" : "集群"
-                      }}
+                      {{ cache.info.redis_mode === "standalone" ? "单机" : "集群" }}
                     </div>
                   </td>
                   <td class="el-table__cell is-leaf">
@@ -69,9 +67,7 @@
                   </td>
                   <td class="el-table__cell is-leaf">
                     <div class="cell" v-if="cache.info">
-                      {{
-                        parseFloat(cache.info.used_cpu_user_children).toFixed(2)
-                      }}
+                      {{ parseFloat(cache.info.used_cpu_user_children).toFixed(2) }}
                     </div>
                   </td>
                   <td class="el-table__cell is-leaf">
@@ -113,9 +109,7 @@
                   </td>
                   <td class="el-table__cell is-leaf">
                     <div class="cell" v-if="cache.info">
-                      {{ cache.info.instantaneous_input_kbps }}kps/{{
-                        cache.info.instantaneous_output_kbps
-                      }}kps
+                      {{ cache.info.instantaneous_input_kbps }}kps/{{ cache.info.instantaneous_output_kbps }}kps
                     </div>
                   </td>
                 </tr>
@@ -132,7 +126,7 @@
             <span style="vertical-align: middle">命令统计</span>
           </template>
           <div class="el-table el-table--enable-row-hover el-table--medium">
-            <div ref="commandstats" style="height: 420px" />
+            <div ref="commandstats" style="height: 420px"></div>
           </div>
         </el-card>
       </el-col>
@@ -144,7 +138,7 @@
             <span style="vertical-align: middle">内存信息</span>
           </template>
           <div class="el-table el-table--enable-row-hover el-table--medium">
-            <div ref="usedmemory" style="height: 420px" />
+            <div ref="usedmemory" style="height: 420px"></div>
           </div>
         </el-card>
       </el-col>

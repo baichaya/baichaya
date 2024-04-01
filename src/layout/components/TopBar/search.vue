@@ -1,10 +1,6 @@
 <template>
   <div class="layout-search-dialog">
-    <el-dialog
-      v-model="state.isShowSearch"
-      destroy-on-close
-      :show-close="false"
-    >
+    <el-dialog v-model="state.isShowSearch" destroy-on-close :show-close="false">
       <template #footer>
         <el-autocomplete
           ref="layoutMenuAutocompleteRef"
@@ -79,11 +75,7 @@ const menuSearch = (queryString: string, cb: Function) => {
 
 // Filter out the routes that can be displayed in the sidebar
 // And generate the internationalized title
-const generateRoutes = (
-  routes: RouteRecordRaw[],
-  basePath = "",
-  prefixTitle: string[] = []
-) => {
+const generateRoutes = (routes: RouteRecordRaw[], basePath = "", prefixTitle: string[] = []) => {
   let res: Router = [];
   routes.forEach((r) => {
     // skip hidden router
@@ -141,24 +133,27 @@ defineExpose({
 <style scoped lang="scss">
 .layout-search-dialog {
   position: relative;
+
   :deep(.el-dialog) {
     .el-dialog__header,
     .el-dialog__body {
       display: none;
     }
+
     .el-dialog__footer {
-      width: 100%;
       position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
       top: -53vh;
+      left: 50%;
+      width: 100%;
+      transform: translateX(-50%);
     }
   }
+
   :deep(.el-autocomplete) {
-    width: 560px;
     position: absolute;
     top: 150px;
     left: 50%;
+    width: 560px;
     transform: translateX(-50%);
   }
 }

@@ -5,12 +5,7 @@
       :leave-active-class="proxy?.animate.searchAnimate.leave"
     >
       <div class="search" v-show="showSearch">
-        <el-form
-          :model="queryParams"
-          ref="queryFormRef"
-          :inline="true"
-          label-width="68px"
-        >
+        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
           <el-form-item label="方法名" prop="methodName">
             <el-input
               v-model="queryParams.methodName"
@@ -21,9 +16,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" icon="Search" @click="handleQuery"
-              >搜索</el-button
-            >
+            <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
             <el-button icon="Refresh" @click="resetQuery">重置</el-button>
           </el-form-item>
         </el-form>
@@ -34,12 +27,7 @@
       <template #header>
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
-            <el-button
-              type="primary"
-              plain
-              icon="Plus"
-              @click="handleAdd"
-              v-hasPermi="['linkageManage:method:add']"
+            <el-button type="primary" plain icon="Plus" @click="handleAdd" v-hasPermi="['linkageManage:method:add']"
               >新增</el-button
             >
           </el-col>
@@ -75,26 +63,15 @@
               >导出</el-button
             >
           </el-col>
-          <right-toolbar
-            v-model:showSearch="showSearch"
-            @queryTable="getList"
-          ></right-toolbar>
+          <right-toolbar v-model:showSearch="showSearch" @query-table="getList" />
         </el-row>
       </template>
 
-      <el-table
-        v-loading="loading"
-        :data="methodList"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table v-loading="loading" :data="methodList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column label="id" align="center" prop="id" v-if="true" />
         <el-table-column label="方法名" align="center" prop="methodName" />
-        <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
-        >
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
             <el-tooltip content="修改" placement="top">
               <el-button
@@ -103,7 +80,7 @@
                 icon="Edit"
                 @click="handleUpdate(scope.row)"
                 v-hasPermi="['linkageManage:method:edit']"
-              ></el-button>
+              />
             </el-tooltip>
             <el-tooltip content="删除" placement="top">
               <el-button
@@ -112,7 +89,7 @@
                 icon="Delete"
                 @click="handleDelete(scope.row)"
                 v-hasPermi="['linkageManage:method:remove']"
-              ></el-button>
+              />
             </el-tooltip>
           </template>
         </el-table-column>
@@ -127,27 +104,15 @@
       />
     </el-card>
     <!-- 添加或修改方法对话框 -->
-    <el-dialog
-      :title="dialog.title"
-      v-model="dialog.visible"
-      width="500px"
-      append-to-body
-    >
-      <el-form
-        ref="methodFormRef"
-        :model="form"
-        :rules="rules"
-        label-width="80px"
-      >
+    <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
+      <el-form ref="methodFormRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="方法名" prop="methodName">
           <el-input v-model="form.methodName" placeholder="请输入方法名" />
         </el-form-item>
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button :loading="buttonLoading" type="primary" @click="submitForm"
-            >确 定</el-button
-          >
+          <el-button :loading="buttonLoading" type="primary" @click="submitForm">确 定</el-button>
           <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
@@ -163,11 +128,7 @@ import {
   addMethod,
   updateMethod,
 } from "@/api/ibms/common/devOps/linkageManage/method";
-import {
-  MethodVO,
-  MethodQuery,
-  MethodForm,
-} from "@/api/ibms/common/devOps/linkageManage/method/types";
+import { MethodVO, MethodQuery, MethodForm } from "@/api/ibms/common/devOps/linkageManage/method/types";
 
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 
@@ -202,9 +163,7 @@ const data = reactive<PageData<MethodForm, MethodQuery>>({
   },
   rules: {
     id: [{ required: true, message: "id不能为空", trigger: "blur" }],
-    methodName: [
-      { required: true, message: "方法名不能为空", trigger: "blur" },
-    ],
+    methodName: [{ required: true, message: "方法名不能为空", trigger: "blur" }],
   },
 });
 
@@ -273,14 +232,10 @@ const submitForm = () => {
     if (valid) {
       buttonLoading.value = true;
       if (form.value.id) {
-        const res = await updateMethod(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        const res = await updateMethod(form.value).finally(() => (buttonLoading.value = false));
         proxy?.$modal.msgSuccess(res.msg);
       } else {
-        const res = await addMethod(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        const res = await addMethod(form.value).finally(() => (buttonLoading.value = false));
         proxy?.$modal.msgSuccess(res.msg);
       }
       dialog.visible = false;
@@ -292,9 +247,7 @@ const submitForm = () => {
 /** 删除按钮操作 */
 const handleDelete = async (row?: MethodVO) => {
   const _ids = row?.id || ids.value;
-  await proxy?.$modal
-    .confirm('是否确认删除方法编号为"' + _ids + '"的数据项？')
-    .finally(() => (loading.value = false));
+  await proxy?.$modal.confirm('是否确认删除方法编号为"' + _ids + '"的数据项？').finally(() => (loading.value = false));
   const res = await delMethod(_ids);
   proxy?.$modal.msgSuccess(res.msg);
   await getList();

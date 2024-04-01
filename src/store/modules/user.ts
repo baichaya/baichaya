@@ -1,13 +1,9 @@
 import { to } from "await-to-js";
+import { getToken, removeToken, setToken } from "@/utils/auth";
+import { login as loginApi, logout as logoutApi, getInfo as getUserInfo } from "@/api/login";
+import { LoginData } from "@/api/types";
 import defAva from "@/assets/images/profile.jpg";
 import store from "@/store";
-import { getToken, removeToken, setToken } from "@/utils/auth";
-import {
-  login as loginApi,
-  logout as logoutApi,
-  getInfo as getUserInfo,
-} from "@/api/login";
-import { LoginData } from "@/api/types";
 
 export const useUserStore = defineStore("user", () => {
   const token = ref(getToken());
@@ -40,8 +36,7 @@ export const useUserStore = defineStore("user", () => {
     if (res) {
       const data = res.data;
       const user = data.user;
-      const profile =
-        user.avatar == "" || user.avatar == null ? defAva : user.avatar;
+      const profile = user.avatar == "" || user.avatar == null ? defAva : user.avatar;
 
       if (data.roles && data.roles.length > 0) {
         // 验证返回的roles是否是一个非空数组

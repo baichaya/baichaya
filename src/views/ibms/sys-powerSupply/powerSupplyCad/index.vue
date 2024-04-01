@@ -4,23 +4,13 @@
       <template #option>
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
           <el-form-item label="区域">
-            <el-select
-              v-model="formInline.region"
-              placeholder="请选择区域"
-              clearable
-              filterable
-            >
+            <el-select v-model="formInline.region" placeholder="请选择区域" clearable filterable>
               <el-option label="Zone one" value="shanghai" />
               <el-option label="Zone two" value="beijing" />
             </el-select>
           </el-form-item>
           <el-form-item label="设备类型">
-            <el-select
-              v-model="formInline.region"
-              placeholder="请选择设备类型"
-              clearable
-              filterable
-            >
+            <el-select v-model="formInline.region" placeholder="请选择设备类型" clearable filterable>
               <el-option label="Zone one" value="shanghai" />
               <el-option label="Zone two" value="beijing" />
             </el-select>
@@ -69,5 +59,3 @@ const data = reactive<CadData>({
   title: "变配电",
 });
 </script>
-
-<style scoped></style>

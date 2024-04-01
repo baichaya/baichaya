@@ -4,12 +4,7 @@
       <template #option>
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
           <el-form-item label="设备类型">
-            <el-select
-              v-model="formInline.region"
-              placeholder="请选择设备类型"
-              clearable
-              filterable
-            >
+            <el-select v-model="formInline.region" placeholder="请选择设备类型" clearable filterable>
               <el-option label="Zone one" value="shanghai" />
               <el-option label="Zone two" value="beijing" />
             </el-select>

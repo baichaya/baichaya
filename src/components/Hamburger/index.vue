@@ -31,9 +31,9 @@ const toggleClick = () => {
 <style scoped>
 .hamburger {
   display: inline-block;
-  vertical-align: middle;
   width: 20px;
   height: 20px;
+  vertical-align: middle;
 }
 
 .hamburger.is-active {

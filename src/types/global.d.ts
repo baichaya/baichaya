@@ -1,7 +1,4 @@
-import type {
-  PropType as VuePropType,
-  ComponentInternalInstance as ComponentInstance,
-} from "vue";
+import type { PropType as VuePropType, ComponentInternalInstance as ComponentInstance } from "vue";
 import { LanguageEnum } from "@/enums/LanguageEnum";
 
 declare global {

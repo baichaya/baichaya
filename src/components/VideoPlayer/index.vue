@@ -108,9 +108,7 @@ const getDevicePort = () => {
     return;
   }
 
-  videoPlugins.port = window.WebVideoCtrl.I_GetDevicePort(
-    videoPlugins.szDeviceIdentify
-  );
+  videoPlugins.port = window.WebVideoCtrl.I_GetDevicePort(videoPlugins.szDeviceIdentify);
   if (videoPlugins.port != null) {
     clickStartRealPlay();
     return true;
@@ -195,7 +193,7 @@ defineExpose({
 <style lang="scss" scoped>
 .video {
   width: 100%;
-  background-color: #ccc;
   height: 100%;
+  background-color: #ccc;
 }
 </style>

@@ -5,30 +5,15 @@
         <basic-info-form ref="basicInfo" :info="info" />
       </el-tab-pane>
       <el-tab-pane label="字段信息" name="columnInfo">
-        <el-table
-          ref="dragTable"
-          :data="columns"
-          row-key="columnId"
-          :max-height="tableHeight"
-        >
+        <el-table ref="dragTable" :data="columns" row-key="columnId" :max-height="tableHeight">
           <el-table-column label="序号" type="index" min-width="5%" />
-          <el-table-column
-            label="字段列名"
-            prop="columnName"
-            min-width="10%"
-            :show-overflow-tooltip="true"
-          />
+          <el-table-column label="字段列名" prop="columnName" min-width="10%" :show-overflow-tooltip="true" />
           <el-table-column label="字段描述" min-width="10%">
             <template #default="scope">
-              <el-input v-model="scope.row.columnComment"></el-input>
+              <el-input v-model="scope.row.columnComment" />
             </template>
           </el-table-column>
-          <el-table-column
-            label="物理类型"
-            prop="columnType"
-            min-width="10%"
-            :show-overflow-tooltip="true"
-          />
+          <el-table-column label="物理类型" prop="columnType" min-width="10%" :show-overflow-tooltip="true" />
           <el-table-column label="Java类型" min-width="11%">
             <template #default="scope">
               <el-select v-model="scope.row.javaType">
@@ -44,44 +29,28 @@
           </el-table-column>
           <el-table-column label="java属性" min-width="10%">
             <template #default="scope">
-              <el-input v-model="scope.row.javaField"></el-input>
+              <el-input v-model="scope.row.javaField" />
             </template>
           </el-table-column>
 
           <el-table-column label="插入" min-width="5%">
             <template #default="scope">
-              <el-checkbox
-                true-label="1"
-                false-label="0"
-                v-model="scope.row.isInsert"
-              ></el-checkbox>
+              <el-checkbox true-label="1" false-label="0" v-model="scope.row.isInsert" />
             </template>
           </el-table-column>
           <el-table-column label="编辑" min-width="5%">
             <template #default="scope">
-              <el-checkbox
-                true-label="1"
-                false-label="0"
-                v-model="scope.row.isEdit"
-              ></el-checkbox>
+              <el-checkbox true-label="1" false-label="0" v-model="scope.row.isEdit" />
             </template>
           </el-table-column>
           <el-table-column label="列表" min-width="5%">
             <template #default="scope">
-              <el-checkbox
-                true-label="1"
-                false-label="0"
-                v-model="scope.row.isList"
-              ></el-checkbox>
+              <el-checkbox true-label="1" false-label="0" v-model="scope.row.isList" />
             </template>
           </el-table-column>
           <el-table-column label="查询" min-width="5%">
             <template #default="scope">
-              <el-checkbox
-                true-label="1"
-                false-label="0"
-                v-model="scope.row.isQuery"
-              ></el-checkbox>
+              <el-checkbox true-label="1" false-label="0" v-model="scope.row.isQuery" />
             </template>
           </el-table-column>
           <el-table-column label="查询方式" min-width="10%">
@@ -100,11 +69,7 @@
           </el-table-column>
           <el-table-column label="必填" min-width="5%">
             <template #default="scope">
-              <el-checkbox
-                true-label="1"
-                false-label="0"
-                v-model="scope.row.isRequired"
-              ></el-checkbox>
+              <el-checkbox true-label="1" false-label="0" v-model="scope.row.isRequired" />
             </template>
           </el-table-column>
           <el-table-column label="显示类型" min-width="12%">
@@ -124,12 +89,7 @@
           </el-table-column>
           <el-table-column label="字典类型" min-width="12%">
             <template #default="scope">
-              <el-select
-                v-model="scope.row.dictType"
-                clearable
-                filterable
-                placeholder="请选择"
-              >
+              <el-select v-model="scope.row.dictType" clearable filterable placeholder="请选择">
                 <el-option
                   v-for="dict in dictOptions"
                   :key="dict.dictType"
@@ -137,9 +97,7 @@
                   :value="dict.dictType"
                 >
                   <span style="float: left">{{ dict.dictName }}</span>
-                  <span style="float: right; color: #8492a6; font-size: 13px">{{
-                    dict.dictType
-                  }}</span>
+                  <span style="float: right; font-size: 13px; color: #8492a6">{{ dict.dictType }}</span>
                 </el-option>
               </el-select>
             </template>
@@ -151,7 +109,7 @@
       </el-tab-pane>
     </el-tabs>
     <el-form label-width="100px">
-      <div style="text-align: center; margin-left: -100px; margin-top: 10px">
+      <div style="margin-top: 10px; margin-left: -100px; text-align: center">
         <el-button type="primary" @click="submitForm()">提交</el-button>
         <el-button @click="close()">返回</el-button>
       </div>

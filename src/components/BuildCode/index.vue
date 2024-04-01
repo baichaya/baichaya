@@ -46,9 +46,7 @@ onMounted(() => {
       }"
     >
       <template #customToolButtons v-if="showBtn">
-        <el-button link type="primary" icon="Select" @click="getJson"
-          >保存</el-button
-        >
+        <el-button link type="primary" icon="Select" @click="getJson">保存</el-button>
       </template>
     </v-form-designer>
   </div>

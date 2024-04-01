@@ -6,12 +6,7 @@
     >
       <div class="mb-[10px]" v-show="showSearch">
         <el-card shadow="hover">
-          <el-form
-            :model="queryParams"
-            ref="queryFormRef"
-            :inline="true"
-            label-width="68px"
-          >
+          <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
             <el-form-item label="登录地址" prop="ipaddr">
               <el-input
                 v-model="queryParams.ipaddr"
@@ -31,12 +26,7 @@
               />
             </el-form-item>
             <el-form-item label="状态" prop="status">
-              <el-select
-                v-model="queryParams.status"
-                placeholder="登录状态"
-                clearable
-                style="width: 240px"
-              >
+              <el-select v-model="queryParams.status" placeholder="登录状态" clearable style="width: 240px">
                 <el-option
                   v-for="dict in sys_common_status"
                   :key="dict.value"
@@ -53,16 +43,11 @@
                 range-separator="-"
                 start-placeholder="开始日期"
                 end-placeholder="结束日期"
-                :default-time="[
-                  new Date(2000, 1, 1, 0, 0, 0),
-                  new Date(2000, 1, 1, 23, 59, 59),
-                ]"
-              ></el-date-picker>
+                :default-time="[new Date(2000, 1, 1, 0, 0, 0), new Date(2000, 1, 1, 23, 59, 59)]"
+              />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" icon="Search" @click="handleQuery"
-                >搜索</el-button
-              >
+              <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
               <el-button icon="Refresh" @click="resetQuery">重置</el-button>
             </el-form-item>
           </el-form>
@@ -86,12 +71,7 @@
             </el-button>
           </el-col>
           <el-col :span="1.5">
-            <el-button
-              type="danger"
-              plain
-              icon="Delete"
-              @click="handleClean"
-              v-hasPermi="['monitor:logininfor:remove']"
+            <el-button type="danger" plain icon="Delete" @click="handleClean" v-hasPermi="['monitor:logininfor:remove']"
               >清空</el-button
             >
           </el-col>
@@ -117,10 +97,7 @@
               >导出</el-button
             >
           </el-col>
-          <right-toolbar
-            v-model:showSearch="showSearch"
-            @queryTable="getList"
-          ></right-toolbar>
+          <right-toolbar v-model:showSearch="showSearch" @query-table="getList" />
         </el-row>
       </template>
 
@@ -142,55 +119,22 @@
           sortable="custom"
           :sort-orders="['descending', 'ascending']"
         />
-        <el-table-column
-          label="客户端"
-          align="center"
-          prop="clientKey"
-          :show-overflow-tooltip="true"
-        />
+        <el-table-column label="客户端" align="center" prop="clientKey" :show-overflow-tooltip="true" />
         <el-table-column label="设备类型" align="center">
           <template #default="scope">
-            <dict-tag
-              :options="sys_device_type"
-              :value="scope.row.deviceType"
-            />
+            <dict-tag :options="sys_device_type" :value="scope.row.deviceType" />
           </template>
         </el-table-column>
-        <el-table-column
-          label="地址"
-          align="center"
-          prop="ipaddr"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="登录地点"
-          align="center"
-          prop="loginLocation"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="操作系统"
-          align="center"
-          prop="os"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          label="浏览器"
-          align="center"
-          prop="browser"
-          :show-overflow-tooltip="true"
-        />
+        <el-table-column label="地址" align="center" prop="ipaddr" :show-overflow-tooltip="true" />
+        <el-table-column label="登录地点" align="center" prop="loginLocation" :show-overflow-tooltip="true" />
+        <el-table-column label="操作系统" align="center" prop="os" :show-overflow-tooltip="true" />
+        <el-table-column label="浏览器" align="center" prop="browser" :show-overflow-tooltip="true" />
         <el-table-column label="登录状态" align="center" prop="status">
           <template #default="scope">
             <dict-tag :options="sys_common_status" :value="scope.row.status" />
           </template>
         </el-table-column>
-        <el-table-column
-          label="描述"
-          align="center"
-          prop="msg"
-          :show-overflow-tooltip="true"
-        />
+        <el-table-column label="描述" align="center" prop="msg" :show-overflow-tooltip="true" />
         <el-table-column
           label="访问时间"
           align="center"
@@ -217,12 +161,7 @@
 </template>
 
 <script setup name="Logininfor" lang="ts">
-import {
-  list,
-  delLoginInfo,
-  cleanLoginInfo,
-  unlockLoginInfo,
-} from "@/api/monitor/loginInfo";
+import { list, delLoginInfo, cleanLoginInfo, unlockLoginInfo } from "@/api/monitor/loginInfo";
 import { LoginInfoQuery, LoginInfoVO } from "@/api/monitor/loginInfo/types";
 
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
@@ -256,9 +195,7 @@ const queryParams = ref<LoginInfoQuery>({
 /** 查询登录日志列表 */
 const getList = async () => {
   loading.value = true;
-  const res = await list(
-    proxy?.addDateRange(queryParams.value, dateRange.value)
-  );
+  const res = await list(proxy?.addDateRange(queryParams.value, dateRange.value));
   loginInfoList.value = res.rows;
   total.value = res.total;
   loading.value = false;
@@ -273,10 +210,7 @@ const resetQuery = () => {
   dateRange.value = ["", ""];
   queryFormRef.value?.resetFields();
   queryParams.value.pageNum = 1;
-  loginInfoTableRef.value?.sort(
-    defaultSort.value.prop,
-    defaultSort.value.order
-  );
+  loginInfoTableRef.value?.sort(defaultSort.value.prop, defaultSort.value.order);
 };
 /** 多选框选中数据 */
 const handleSelectionChange = (selection: LoginInfoVO[]) => {
@@ -294,9 +228,7 @@ const handleSortChange = (column: any) => {
 /** 删除按钮操作 */
 const handleDelete = async (row?: LoginInfoVO) => {
   const infoIds = row?.infoId || ids.value;
-  await proxy?.$modal.confirm(
-    '是否确认删除访问编号为"' + infoIds + '"的数据项?'
-  );
+  await proxy?.$modal.confirm('是否确认删除访问编号为"' + infoIds + '"的数据项?');
   await delLoginInfo(infoIds);
   await getList();
   proxy?.$modal.msgSuccess("删除成功");

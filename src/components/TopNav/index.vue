@@ -1,16 +1,7 @@
 <template>
-  <el-menu
-    :default-active="activeMenu"
-    mode="horizontal"
-    @select="handleSelect"
-    :ellipsis="false"
-  >
+  <el-menu :default-active="activeMenu" mode="horizontal" @select="handleSelect" :ellipsis="false">
     <template v-for="(item, index) in topMenus">
-      <el-menu-item
-        :style="{ '--theme': theme }"
-        :index="item.path"
-        :key="index"
-        v-if="index < visibleNumber"
+      <el-menu-item :style="{ '--theme': theme }" :index="item.path" :key="index" v-if="index < visibleNumber"
         ><svg-icon
           v-if="item.meta && item.meta.icon && item.meta.icon !== '#'"
           :icon-class="item.meta ? item.meta.icon : ''"
@@ -20,19 +11,11 @@
     </template>
 
     <!-- 顶部菜单超出数量折叠 -->
-    <el-sub-menu
-      :style="{ '--theme': theme }"
-      index="more"
-      v-if="topMenus.length > visibleNumber"
-    >
+    <el-sub-menu :style="{ '--theme': theme }" index="more" v-if="topMenus.length > visibleNumber">
       <template #title>更多菜单</template>
       <template v-for="(item, index) in topMenus">
-        <el-menu-item
-          :index="item.path"
-          :key="index"
-          v-if="index >= visibleNumber"
-          ><svg-icon :icon-class="item.meta ? item.meta.icon : ''" />
-          {{ item.meta?.title }}</el-menu-item
+        <el-menu-item :index="item.path" :key="index" v-if="index >= visibleNumber"
+          ><svg-icon :icon-class="item.meta ? item.meta.icon : ''" /> {{ item.meta?.title }}</el-menu-item
         >
       </template>
     </el-sub-menu>
@@ -106,11 +89,7 @@ const childrenMenus = computed(() => {
 const activeMenu = computed(() => {
   const path = route.path;
   let activePath = path;
-  if (
-    path !== undefined &&
-    path.lastIndexOf("/") > 0 &&
-    hideList.indexOf(path) === -1
-  ) {
+  if (path !== undefined && path.lastIndexOf("/") > 0 && hideList.indexOf(path) === -1) {
     const tmpPath = path.substring(1, path.length);
     activePath = "/" + tmpPath.substring(0, tmpPath.indexOf("/"));
     if (!route.meta.link) {
@@ -185,33 +164,33 @@ onMounted(() => {
 .topmenu-container.el-menu--horizontal > .el-menu-item {
   float: left;
   height: 50px !important;
-  line-height: 50px !important;
-  color: #999093 !important;
   padding: 0 5px !important;
   margin: 0 10px !important;
+  line-height: 50px !important;
+  color: #999093 !important;
 }
 
 .topmenu-container.el-menu--horizontal > .el-menu-item.is-active,
 .el-menu--horizontal > .el-sub-menu.is-active .el-submenu__title {
-  border-bottom: 2px solid #{"var(--theme)"} !important;
   color: #303133;
+  border-bottom: 2px solid #{"var(--theme)"} !important;
 }
 
 /* sub-menu item */
 .topmenu-container.el-menu--horizontal > .el-sub-menu .el-sub-menu__title {
   float: left;
   height: 50px !important;
-  line-height: 50px !important;
-  color: #999093 !important;
   padding: 0 5px !important;
   margin: 0 10px !important;
+  line-height: 50px !important;
+  color: #999093 !important;
 }
 
 /* 背景色隐藏 */
 .topmenu-container.el-menu--horizontal > .el-menu-item:not(.is-disabled):focus,
 .topmenu-container.el-menu--horizontal > .el-menu-item:not(.is-disabled):hover,
 .topmenu-container.el-menu--horizontal > .el-submenu .el-submenu__title:hover {
-  background-color: #ffffff !important;
+  background-color: #fff !important;
 }
 
 /* 图标右间距 */

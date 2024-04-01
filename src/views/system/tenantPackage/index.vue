@@ -6,12 +6,7 @@
     >
       <div class="mb-[10px]" v-show="showSearch">
         <el-card shadow="hover">
-          <el-form
-            :model="queryParams"
-            ref="queryFormRef"
-            :inline="true"
-            label-width="68px"
-          >
+          <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
             <el-form-item label="套餐名称" prop="packageName">
               <el-input
                 v-model="queryParams.packageName"
@@ -22,9 +17,7 @@
               />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" icon="Search" @click="handleQuery"
-                >搜索</el-button
-              >
+              <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
               <el-button icon="Refresh" @click="resetQuery">重置</el-button>
             </el-form-item>
           </el-form>
@@ -36,13 +29,7 @@
       <template #header>
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
-            <el-button
-              type="primary"
-              plain
-              icon="Plus"
-              @click="handleAdd"
-              v-hasPermi="['system:tenantPackage:add']"
-            >
+            <el-button type="primary" plain icon="Plus" @click="handleAdd" v-hasPermi="['system:tenantPackage:add']">
               新增
             </el-button>
           </el-col>
@@ -80,25 +67,13 @@
               >导出
             </el-button>
           </el-col>
-          <right-toolbar
-            v-model:showSearch="showSearch"
-            @queryTable="getList"
-          ></right-toolbar>
+          <right-toolbar v-model:showSearch="showSearch" @query-table="getList" />
         </el-row>
       </template>
 
-      <el-table
-        v-loading="loading"
-        :data="tenantPackageList"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table v-loading="loading" :data="tenantPackageList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column
-          label="租户套餐id"
-          align="center"
-          prop="packageId"
-          v-if="false"
-        />
+        <el-table-column label="租户套餐id" align="center" prop="packageId" v-if="false" />
         <el-table-column label="套餐名称" align="center" prop="packageName" />
         <el-table-column label="备注" align="center" prop="remark" />
         <el-table-column label="状态" align="center" prop="status">
@@ -108,14 +83,10 @@
               active-value="0"
               inactive-value="1"
               @click="handleStatusChange(scope.row)"
-            ></el-switch>
+            />
           </template>
         </el-table-column>
-        <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
-        >
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
             <el-tooltip content="修改" placement="top">
               <el-button
@@ -124,7 +95,7 @@
                 icon="Edit"
                 @click="handleUpdate(scope.row)"
                 v-hasPermi="['system:tenantPackage:edit']"
-              ></el-button>
+              />
             </el-tooltip>
             <el-tooltip content="删除" placement="top">
               <el-button
@@ -133,7 +104,7 @@
                 icon="Delete"
                 @click="handleDelete(scope.row)"
                 v-hasPermi="['system:tenantPackage:remove']"
-              ></el-button>
+              />
             </el-tooltip>
           </template>
         </el-table-column>
@@ -149,35 +120,17 @@
     </el-card>
 
     <!-- 添加或修改租户套餐对话框 -->
-    <el-dialog
-      :title="dialog.title"
-      v-model="dialog.visible"
-      width="500px"
-      append-to-body
-    >
-      <el-form
-        ref="tenantPackageFormRef"
-        :model="form"
-        :rules="rules"
-        label-width="80px"
-      >
+    <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
+      <el-form ref="tenantPackageFormRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="套餐名称" prop="packageName">
           <el-input v-model="form.packageName" placeholder="请输入套餐名称" />
         </el-form-item>
         <el-form-item label="关联菜单">
-          <el-checkbox
-            v-model="menuExpand"
-            @change="handleCheckedTreeExpand($event, 'menu')"
-            >展开/折叠</el-checkbox
-          >
-          <el-checkbox
-            v-model="menuNodeAll"
-            @change="handleCheckedTreeNodeAll($event, 'menu')"
+          <el-checkbox v-model="menuExpand" @change="handleCheckedTreeExpand($event, 'menu')">展开/折叠</el-checkbox>
+          <el-checkbox v-model="menuNodeAll" @change="handleCheckedTreeNodeAll($event, 'menu')"
             >全选/全不选
           </el-checkbox>
-          <el-checkbox
-            v-model="form.menuCheckStrictly"
-            @change="handleCheckedTreeConnect($event, 'menu')"
+          <el-checkbox v-model="form.menuCheckStrictly" @change="handleCheckedTreeConnect($event, 'menu')"
             >父子联动
           </el-checkbox>
           <el-tree
@@ -189,7 +142,7 @@
             :check-strictly="!form.menuCheckStrictly"
             empty-text="加载中，请稍候"
             :props="{ label: 'label', children: 'children' }"
-          ></el-tree>
+          />
         </el-form-item>
         <el-form-item label="备注" prop="remark">
           <el-input v-model="form.remark" placeholder="请输入备注" />
@@ -197,9 +150,7 @@
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button :loading="buttonLoading" type="primary" @click="submitForm"
-            >确 定</el-button
-          >
+          <el-button :loading="buttonLoading" type="primary" @click="submitForm">确 定</el-button>
           <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
@@ -216,15 +167,8 @@ import {
   updateTenantPackage,
   changePackageStatus,
 } from "@/api/system/tenantPackage";
-import {
-  treeselect as menuTreeselect,
-  tenantPackageMenuTreeselect,
-} from "@/api/system/menu";
-import {
-  TenantPkgForm,
-  TenantPkgQuery,
-  TenantPkgVO,
-} from "@/api/system/tenantPackage/types";
+import { treeselect as menuTreeselect, tenantPackageMenuTreeselect } from "@/api/system/menu";
+import { TenantPkgForm, TenantPkgQuery, TenantPkgVO } from "@/api/system/tenantPackage/types";
 import { MenuTreeOption } from "@/api/system/menu/types";
 import to from "await-to-js";
 
@@ -266,12 +210,8 @@ const data = reactive<PageData<TenantPkgForm, TenantPkgQuery>>({
     packageName: "",
   },
   rules: {
-    packageId: [
-      { required: true, message: "租户套餐id不能为空", trigger: "blur" },
-    ],
-    packageName: [
-      { required: true, message: "套餐名称不能为空", trigger: "blur" },
-    ],
+    packageId: [{ required: true, message: "租户套餐id不能为空", trigger: "blur" }],
+    packageName: [{ required: true, message: "套餐名称不能为空", trigger: "blur" }],
   },
 });
 
@@ -315,9 +255,7 @@ const getList = async () => {
 const handleStatusChange = async (row: TenantPkgVO) => {
   let text = row.status === "0" ? "启用" : "停用";
   const [err] = await to(
-    proxy?.$modal.confirm(
-      '确认要"' + text + '""' + row.packageName + '"套餐吗？'
-    ) as Promise<any>
+    proxy?.$modal.confirm('确认要"' + text + '""' + row.packageName + '"套餐吗？') as Promise<any>
   );
   if (err) {
     row.status = row.status === "0" ? "1" : "0";
@@ -367,8 +305,7 @@ const handleCheckedTreeExpand = (value: CheckboxValueType, type: string) => {
     let treeList = menuOptions.value;
     for (let i = 0; i < treeList.length; i++) {
       if (menuTreeRef.value) {
-        menuTreeRef.value.store.nodesMap[treeList[i].id].expanded =
-          value as boolean;
+        menuTreeRef.value.store.nodesMap[treeList[i].id].expanded = value as boolean;
       }
     }
   }
@@ -419,13 +356,9 @@ const submitForm = () => {
       buttonLoading.value = true;
       form.value.menuIds = getMenuAllCheckedKeys();
       if (form.value.packageId != null) {
-        await updateTenantPackage(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        await updateTenantPackage(form.value).finally(() => (buttonLoading.value = false));
       } else {
-        await addTenantPackage(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        await addTenantPackage(form.value).finally(() => (buttonLoading.value = false));
       }
       proxy?.$modal.msgSuccess("操作成功");
       dialog.visible = false;
@@ -437,11 +370,9 @@ const submitForm = () => {
 /** 删除按钮操作 */
 const handleDelete = async (row?: TenantPkgVO) => {
   const _packageIds = row?.packageId || ids.value;
-  await proxy?.$modal
-    .confirm('是否确认删除租户套餐编号为"' + _packageIds + '"的数据项？')
-    .finally(() => {
-      loading.value = false;
-    });
+  await proxy?.$modal.confirm('是否确认删除租户套餐编号为"' + _packageIds + '"的数据项？').finally(() => {
+    loading.value = false;
+  });
   await delTenantPackage(_packageIds);
   loading.value = true;
   await getList();

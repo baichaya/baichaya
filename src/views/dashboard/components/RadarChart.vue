@@ -88,9 +88,7 @@ const options = {
 };
 
 onMounted(() => {
-  const chart = echarts.init(
-    document.getElementById(props.id) as HTMLDivElement
-  );
+  const chart = echarts.init(document.getElementById(props.id) as HTMLDivElement);
   chart.setOption(options);
 
   window.addEventListener("resize", () => {

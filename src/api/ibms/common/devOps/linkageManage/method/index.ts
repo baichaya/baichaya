@@ -1,10 +1,6 @@
 import request from "@/utils/request";
 import { AxiosPromise } from "axios";
-import {
-  MethodVO,
-  MethodForm,
-  MethodQuery,
-} from "@/api/ibms/common/devOps/linkageManage/method/types";
+import { MethodVO, MethodForm, MethodQuery } from "@/api/ibms/common/devOps/linkageManage/method/types";
 
 /**
  * 查询方法列表

@@ -12,9 +12,7 @@ import {
  * @returns {*}
  */
 
-export const listTargetDevice = (
-  query?: TargetDeviceQuery
-): AxiosPromise<TargetDeviceVO[]> => {
+export const listTargetDevice = (query?: TargetDeviceQuery): AxiosPromise<TargetDeviceVO[]> => {
   return request({
     url: "/linkageManage/targetDevice/list",
     method: "get",
@@ -26,9 +24,7 @@ export const listTargetDevice = (
  * 查询执行设备详细
  * @param id
  */
-export const getTargetDevice = (
-  id: string | number
-): AxiosPromise<TargetDeviceVO> => {
+export const getTargetDevice = (id: string | number): AxiosPromise<TargetDeviceVO> => {
   return request({
     url: "/linkageManage/targetDevice/" + id,
     method: "get",
@@ -63,9 +59,7 @@ export const updateTargetDevice = (data: TargetDeviceForm) => {
  * 删除执行设备
  * @param id
  */
-export const delTargetDevice = (
-  id: string | number | Array<string | number>
-) => {
+export const delTargetDevice = (id: string | number | Array<string | number>) => {
   return request({
     url: "/linkageManage/targetDevice/" + id,
     method: "delete",

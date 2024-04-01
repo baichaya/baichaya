@@ -38,9 +38,7 @@ export default {
     }
   },
   // 关闭指定tab页签
-  async closePage(
-    obj?: TagView
-  ): Promise<{ visitedViews: TagView[]; cachedViews: string[] } | any> {
+  async closePage(obj?: TagView): Promise<{ visitedViews: TagView[]; cachedViews: string[] } | any> {
     if (obj === undefined) {
       // prettier-ignore
       const { visitedViews } = await useTagsViewStore().delView(router.currentRoute.value) as any

@@ -6,12 +6,7 @@
     >
       <div class="mb-[10px]" v-show="showSearch">
         <el-card shadow="hover">
-          <el-form
-            :model="queryParams"
-            ref="queryFormRef"
-            :inline="true"
-            label-width="68px"
-          >
+          <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
             <el-form-item label="租户编号" prop="tenantId">
               <el-input
                 v-model="queryParams.tenantId"
@@ -49,9 +44,7 @@
               />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" icon="Search" @click="handleQuery"
-                >搜索</el-button
-              >
+              <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
               <el-button icon="Refresh" @click="resetQuery">重置</el-button>
             </el-form-item>
           </el-form>
@@ -63,12 +56,7 @@
       <template #header>
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
-            <el-button
-              type="primary"
-              plain
-              icon="Plus"
-              @click="handleAdd"
-              v-hasPermi="['system:tenant:add']"
+            <el-button type="primary" plain icon="Plus" @click="handleAdd" v-hasPermi="['system:tenant:add']"
               >新增</el-button
             >
           </el-col>
@@ -96,44 +84,23 @@
             </el-button>
           </el-col>
           <el-col :span="1.5">
-            <el-button
-              type="warning"
-              plain
-              icon="Download"
-              @click="handleExport"
-              v-hasPermi="['system:tenant:export']"
+            <el-button type="warning" plain icon="Download" @click="handleExport" v-hasPermi="['system:tenant:export']"
               >导出</el-button
             >
           </el-col>
-          <right-toolbar
-            v-model:showSearch="showSearch"
-            @queryTable="getList"
-          ></right-toolbar>
+          <right-toolbar v-model:showSearch="showSearch" @query-table="getList" />
         </el-row>
       </template>
 
-      <el-table
-        v-loading="loading"
-        :data="tenantList"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table v-loading="loading" :data="tenantList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column label="id" align="center" prop="id" v-if="false" />
         <el-table-column label="租户编号" align="center" prop="tenantId" />
         <el-table-column label="联系人" align="center" prop="contactUserName" />
         <el-table-column label="联系电话" align="center" prop="contactPhone" />
         <el-table-column label="企业名称" align="center" prop="companyName" />
-        <el-table-column
-          label="社会信用代码"
-          align="center"
-          prop="licenseNumber"
-        />
-        <el-table-column
-          label="过期时间"
-          align="center"
-          prop="expireTime"
-          width="180"
-        >
+        <el-table-column label="社会信用代码" align="center" prop="licenseNumber" />
+        <el-table-column label="过期时间" align="center" prop="expireTime" width="180">
           <template #default="scope">
             <span>{{ parseTime(scope.row.expireTime, "{y}-{m}-{d}") }}</span>
           </template>
@@ -145,16 +112,10 @@
               active-value="0"
               inactive-value="1"
               @change="handleStatusChange(scope.row)"
-            ></el-switch>
+            />
           </template>
         </el-table-column>
-        <el-table-column
-          width="150"
-          label="操作"
-          align="center"
-          fixed="right"
-          class-name="small-padding fixed-width"
-        >
+        <el-table-column width="150" label="操作" align="center" fixed="right" class-name="small-padding fixed-width">
           <template #default="scope">
             <el-tooltip content="修改" placement="top">
               <el-button
@@ -163,7 +124,7 @@
                 icon="Edit"
                 @click="handleUpdate(scope.row)"
                 v-hasPermi="['system:tenant:edit']"
-              ></el-button>
+              />
             </el-tooltip>
             <el-tooltip content="同步套餐" placement="top">
               <el-button
@@ -172,8 +133,7 @@
                 icon="Refresh"
                 @click="handleSyncTenantPackage(scope.row)"
                 v-hasPermi="['system:tenant:edit']"
-              >
-              </el-button>
+              />
             </el-tooltip>
             <el-tooltip content="删除" placement="top">
               <el-button
@@ -182,7 +142,7 @@
                 icon="Delete"
                 @click="handleDelete(scope.row)"
                 v-hasPermi="['system:tenant:remove']"
-              ></el-button>
+              />
             </el-tooltip>
           </template>
         </el-table-column>
@@ -197,18 +157,8 @@
       />
     </el-card>
     <!-- 添加或修改租户对话框 -->
-    <el-dialog
-      :title="dialog.title"
-      v-model="dialog.visible"
-      width="500px"
-      append-to-body
-    >
-      <el-form
-        ref="tenantFormRef"
-        :model="form"
-        :rules="rules"
-        label-width="80px"
-      >
+    <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
+      <el-form ref="tenantFormRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="企业名称" prop="companyName">
           <el-input v-model="form.companyName" placeholder="请输入企业名称" />
         </el-form-item>
@@ -219,19 +169,10 @@
           <el-input v-model="form.contactPhone" placeholder="请输入联系电话" />
         </el-form-item>
         <el-form-item v-if="!form.id" label="用户名" prop="username">
-          <el-input
-            v-model="form.username"
-            placeholder="请输入系统用户名"
-            maxlength="30"
-          />
+          <el-input v-model="form.username" placeholder="请输入系统用户名" maxlength="30" />
         </el-form-item>
         <el-form-item v-if="!form.id" label="用户密码" prop="password">
-          <el-input
-            type="password"
-            v-model="form.password"
-            placeholder="请输入系统用户密码"
-            maxlength="20"
-          />
+          <el-input type="password" v-model="form.password" placeholder="请输入系统用户密码" maxlength="20" />
         </el-form-item>
         <el-form-item label="租户套餐" prop="packageId">
           <el-select
@@ -256,8 +197,7 @@
             type="datetime"
             value-format="YYYY-MM-DD HH:mm:ss"
             placeholder="请选择过期时间"
-          >
-          </el-date-picker>
+          />
         </el-form-item>
         <el-form-item label="用户数量" prop="accountCount">
           <el-input v-model="form.accountCount" placeholder="请输入用户数量" />
@@ -269,17 +209,10 @@
           <el-input v-model="form.address" placeholder="请输入企业地址" />
         </el-form-item>
         <el-form-item label="企业代码" prop="licenseNumber">
-          <el-input
-            v-model="form.licenseNumber"
-            placeholder="请输入统一社会信用代码"
-          />
+          <el-input v-model="form.licenseNumber" placeholder="请输入统一社会信用代码" />
         </el-form-item>
         <el-form-item label="企业简介" prop="intro">
-          <el-input
-            type="textarea"
-            v-model="form.intro"
-            placeholder="请输入企业简介"
-          />
+          <el-input type="textarea" v-model="form.intro" placeholder="请输入企业简介" />
         </el-form-item>
         <el-form-item label="备注" prop="remark">
           <el-input v-model="form.remark" placeholder="请输入备注" />
@@ -287,9 +220,7 @@
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button :loading="buttonLoading" type="primary" @click="submitForm"
-            >确 定</el-button
-          >
+          <el-button :loading="buttonLoading" type="primary" @click="submitForm">确 定</el-button>
           <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
@@ -361,18 +292,10 @@ const data = reactive<PageData<TenantForm, TenantQuery>>({
   },
   rules: {
     id: [{ required: true, message: "id不能为空", trigger: "blur" }],
-    tenantId: [
-      { required: true, message: "租户编号不能为空", trigger: "blur" },
-    ],
-    contactUserName: [
-      { required: true, message: "联系人不能为空", trigger: "blur" },
-    ],
-    contactPhone: [
-      { required: true, message: "联系电话不能为空", trigger: "blur" },
-    ],
-    companyName: [
-      { required: true, message: "企业名称不能为空", trigger: "blur" },
-    ],
+    tenantId: [{ required: true, message: "租户编号不能为空", trigger: "blur" }],
+    contactUserName: [{ required: true, message: "联系人不能为空", trigger: "blur" }],
+    contactPhone: [{ required: true, message: "联系电话不能为空", trigger: "blur" }],
+    companyName: [{ required: true, message: "企业名称不能为空", trigger: "blur" }],
     username: [
       { required: true, message: "用户名不能为空", trigger: "blur" },
       {
@@ -415,9 +338,7 @@ const getList = async () => {
 const handleStatusChange = async (row: TenantVO) => {
   let text = row.status === "0" ? "启用" : "停用";
   try {
-    await proxy?.$modal.confirm(
-      '确认要"' + text + '""' + row.companyName + '"租户吗？'
-    );
+    await proxy?.$modal.confirm('确认要"' + text + '""' + row.companyName + '"租户吗？');
     await changeTenantStatus(row.id, row.tenantId, row.status);
     proxy?.$modal.msgSuccess(text + "成功");
   } catch {
@@ -481,13 +402,9 @@ const submitForm = () => {
     if (valid) {
       buttonLoading.value = true;
       if (form.value.id) {
-        await updateTenant(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        await updateTenant(form.value).finally(() => (buttonLoading.value = false));
       } else {
-        await addTenant(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        await addTenant(form.value).finally(() => (buttonLoading.value = false));
       }
       proxy?.$modal.msgSuccess("操作成功");
       dialog.visible = false;
@@ -509,9 +426,7 @@ const handleDelete = async (row?: TenantVO) => {
 /** 同步租户套餐按钮操作 */
 const handleSyncTenantPackage = async (row: TenantVO) => {
   try {
-    await proxy?.$modal.confirm(
-      '是否确认同步租户套餐租户编号为"' + row.tenantId + '"的数据项？'
-    );
+    await proxy?.$modal.confirm('是否确认同步租户套餐租户编号为"' + row.tenantId + '"的数据项？');
     loading.value = true;
     await syncTenantPackage(row.tenantId, row.packageId);
     await getList();

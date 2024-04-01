@@ -1,19 +1,8 @@
 <template>
-  <div
-    :class="classObj"
-    class="app-wrapper"
-    :style="{ '--current-color': theme }"
-  >
-    <div
-      v-if="device === 'mobile' && sidebar.opened"
-      class="drawer-bg"
-      @click="handleClickOutside"
-    />
+  <div :class="classObj" class="app-wrapper" :style="{ '--current-color': theme }">
+    <div v-if="device === 'mobile' && sidebar.opened" class="drawer-bg" @click="handleClickOutside"></div>
     <side-bar v-if="!sidebar.hide" class="sidebar-container" />
-    <div
-      :class="{ hasTagsView: needTagsView, sidebarHide: sidebar.hide }"
-      class="main-container"
-    >
+    <div :class="{ hasTagsView: needTagsView, sidebarHide: sidebar.hide }" class="main-container">
       <!-- <el-scrollbar>
         <div :class="{ 'fixed-header': fixedHeader }">
           <navbar ref="navbarRef" @setLayout="setLayout" />
@@ -79,12 +68,7 @@ onMounted(() => {
 
 onMounted(() => {
   let protocol = window.location.protocol === "https:" ? "wss://" : "ws://";
-  initWebSocket(
-    protocol +
-      window.location.host +
-      import.meta.env.VITE_APP_BASE_API +
-      "/resource/websocket"
-  );
+  initWebSocket(protocol + window.location.host + import.meta.env.VITE_APP_BASE_API + "/resource/websocket");
 });
 
 const handleClickOutside = () => {
@@ -97,14 +81,15 @@ const setLayout = () => {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/mixin.scss";
-@import "@/assets/styles/variables.module.scss";
+@import "@/assets/styles/mixin";
+@import "@/assets/styles/variables.module";
 
 .app-wrapper {
   @include clearfix;
+
   position: relative;
-  height: 100%;
   width: 100%;
+  height: 100%;
 
   &.mobile.openSidebar {
     position: fixed;
@@ -113,13 +98,13 @@ const setLayout = () => {
 }
 
 .drawer-bg {
+  position: absolute;
+  top: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
   background: #000;
   opacity: 0.3;
-  width: 100%;
-  top: 0;
-  height: 100%;
-  position: absolute;
-  z-index: 999;
 }
 
 .fixed-header {
@@ -128,8 +113,8 @@ const setLayout = () => {
   right: 0;
   z-index: 9;
   width: calc(100% - #{$base-sidebar-width});
-  transition: width 0.28s;
   background: $fixed-header-bg;
+  transition: width 0.28s;
 }
 
 .hideSidebar .fixed-header {
