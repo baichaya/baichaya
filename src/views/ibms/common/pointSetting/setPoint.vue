@@ -57,7 +57,7 @@
           class="icon"
           @on-move-finished="dragEnd"
         >
-          <svg-icon :icon-class="iconType" size="30" color="#67C23A" />
+          <svg-icon :icon-class="iconType" size="30" color="#409EFF" />
         </v3-drag-zoom-item>
       </v3-drag-zoom-container>
     </div>
@@ -136,6 +136,8 @@ const getDeviceType = async (id: any) => {
 
 //节点点击事件，点击后获取选中节点的cad_url值。
 const handleNodeClick = (selectedNode: { cadUrl: string; id: number; treeViewNameTemp: string }) => {
+  console.log(selectedNode);
+
   // 在这里处理获取到的 cadUrl
   switch (selectedNode.treeViewNameTemp) {
     case "总平":
