@@ -78,6 +78,7 @@ import { listDeviceType } from "@/api/ibms/common/devOps/deviceConfig/deviceType
 import { Position } from "v3-drag-zoom";
 import { DeviceTypeVO } from "@/api/ibms/common/devOps/deviceConfig/deviceType/types";
 import { findValue } from "@/utils";
+import { AreaBuildingFloorVo } from "@/api/ibms/common/device/area/types";
 
 const route = useRoute();
 
@@ -135,9 +136,7 @@ const getDeviceType = async (id: any) => {
 };
 
 //节点点击事件，点击后获取选中节点的cad_url值。
-const handleNodeClick = (selectedNode: { cadUrl: string; id: number; treeViewNameTemp: string }) => {
-  console.log(selectedNode);
-
+const handleNodeClick = (selectedNode: AreaBuildingFloorVo) => {
   // 在这里处理获取到的 cadUrl
   switch (selectedNode.treeViewNameTemp) {
     case "总平":
