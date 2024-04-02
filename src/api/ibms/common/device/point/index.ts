@@ -1,6 +1,10 @@
 import request from "@/utils/request";
 import { AxiosPromise } from "axios";
-import { PointVO, PointForm, PointQuery } from "@/api/ibms/common/device/point/types";
+import {
+  PointVO,
+  PointForm,
+  PointQuery,
+} from "@/api/ibms/common/device/point/types";
 import { AreaVO } from "@/api/ibms/common/device/area/types";
 
 /**

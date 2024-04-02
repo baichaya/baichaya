@@ -1,6 +1,10 @@
 import request from "@/utils/request";
 import { AxiosPromise } from "axios";
-import { BuildingVO, BuildingForm, BuildingQuery } from "@/api/ibms/common/device/building/types";
+import {
+  BuildingVO,
+  BuildingForm,
+  BuildingQuery,
+} from "@/api/ibms/common/device/building/types";
 
 /**
  * 查询楼栋
@@ -9,7 +13,9 @@ import { BuildingVO, BuildingForm, BuildingQuery } from "@/api/ibms/common/devic
  * @returns {*}
  */
 
-export const listBuilding = (query?: BuildingQuery): AxiosPromise<BuildingVO[]> => {
+export const listBuilding = (
+  query?: BuildingQuery
+): AxiosPromise<BuildingVO[]> => {
   return request({
     url: "/ibms/building/list",
     method: "get",

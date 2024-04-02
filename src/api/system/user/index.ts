@@ -156,7 +156,9 @@ export const uploadAvatar = (data: FormData) => {
  * 查询授权角色
  * @param userId 用户ID
  */
-export const getAuthRole = (userId: string | number): AxiosPromise<{ user: UserVO; roles: RoleVO[] }> => {
+export const getAuthRole = (
+  userId: string | number
+): AxiosPromise<{ user: UserVO; roles: RoleVO[] }> => {
   return request({
     url: "/system/user/authRole/" + userId,
     method: "get",
@@ -179,7 +181,9 @@ export const updateAuthRole = (data: { userId: string; roleIds: string }) => {
  * 查询当前部门的所有用户信息
  * @param deptId
  */
-export const listUserByDeptId = (deptId: string | number): AxiosPromise<UserVO[]> => {
+export const listUserByDeptId = (
+  deptId: string | number
+): AxiosPromise<UserVO[]> => {
   return request({
     url: "/system/user/list/dept/" + deptId,
     method: "get",

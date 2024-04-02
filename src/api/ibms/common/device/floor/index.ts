@@ -1,6 +1,10 @@
 import request from "@/utils/request";
 import { AxiosPromise } from "axios";
-import { FloorVO, FloorForm, FloorQuery } from "@/api/ibms/common/device/floor/types";
+import {
+  FloorVO,
+  FloorForm,
+  FloorQuery,
+} from "@/api/ibms/common/device/floor/types";
 import { AreaVO } from "@/api/ibms/common/device/area/types";
 
 /**
@@ -22,7 +26,9 @@ export const listFloor = (query?: FloorQuery): AxiosPromise<FloorVO[]> => {
  * @returns {*}
  */
 
-export const areaBuildingTree = (query?: FloorQuery): AxiosPromise<AreaVO[]> => {
+export const areaBuildingTree = (
+  query?: FloorQuery
+): AxiosPromise<AreaVO[]> => {
   return request({
     url: "/ibms/floor/selectByAreaBuilding",
     method: "get",

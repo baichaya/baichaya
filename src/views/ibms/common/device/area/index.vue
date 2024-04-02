@@ -67,7 +67,7 @@
               >导出</el-button
             >
           </el-col>
-          <right-toolbar v-model:showSearch="showSearch" @query-table="getList" />
+          <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
         </el-row>
       </template>
 
@@ -87,7 +87,7 @@
                 icon="Edit"
                 @click="handleUpdate(scope.row)"
                 v-hasPermi="['ibms:area:edit']"
-              />
+              ></el-button>
             </el-tooltip>
             <el-tooltip content="删除" placement="top">
               <el-button
@@ -96,7 +96,7 @@
                 icon="Delete"
                 @click="handleDelete(scope.row)"
                 v-hasPermi="['ibms:area:remove']"
-              />
+              ></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -153,7 +153,7 @@
 </template>
 
 <script setup name="Area" lang="ts">
-import { listArea, getArea, delArea, addArea, updateArea, selectAreaTree } from "@/api/ibms/common/device/area";
+import { listArea, getArea, delArea, addArea, updateArea, getAreaTree } from "@/api/ibms/common/device/area";
 import { AreaVO, AreaQuery, AreaForm } from "@/api/ibms/common/device/area/types";
 
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
@@ -211,7 +211,7 @@ const getList = async () => {
 
 /** 查询区域下拉树结构 */
 const getTreeList = async () => {
-  const res = await selectAreaTree();
+  const res = await getAreaTree();
   areaOptions.value = res.data;
 };
 /** 无限级树 */

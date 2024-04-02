@@ -8,7 +8,9 @@ import { AccessRecordVO, AccessRecordForm, AccessRecordQuery } from "./types";
  * @returns {*}
  */
 
-export const listAccessRecord = (query?: AccessRecordQuery): AxiosPromise<AccessRecordVO[]> => {
+export const listAccessRecord = (
+  query?: AccessRecordQuery
+): AxiosPromise<AccessRecordVO[]> => {
   return request({
     url: "/ibms/accessRecord/list",
     method: "get",
@@ -20,7 +22,9 @@ export const listAccessRecord = (query?: AccessRecordQuery): AxiosPromise<Access
  * 查询门禁记录详细
  * @param id
  */
-export const getAccessRecord = (id: string | number): AxiosPromise<AccessRecordVO> => {
+export const getAccessRecord = (
+  id: string | number
+): AxiosPromise<AccessRecordVO> => {
   return request({
     url: "/ibms/accessRecord/" + id,
     method: "get",
@@ -55,7 +59,9 @@ export const updateAccessRecord = (data: AccessRecordForm) => {
  * 删除门禁记录
  * @param id
  */
-export const delAccessRecord = (id: string | number | Array<string | number>) => {
+export const delAccessRecord = (
+  id: string | number | Array<string | number>
+) => {
   return request({
     url: "/ibms/accessRecord/" + id,
     method: "delete",

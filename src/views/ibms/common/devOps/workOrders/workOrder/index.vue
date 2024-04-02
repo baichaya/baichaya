@@ -5,9 +5,18 @@
       :leave-active-class="proxy?.animate.searchAnimate.leave"
     >
       <div class="search" v-show="showSearch">
-        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
+        <el-form
+          :model="queryParams"
+          ref="queryFormRef"
+          :inline="true"
+          label-width="68px"
+        >
           <el-form-item label="优先级" prop="workOrderPriority">
-            <el-select v-model="queryParams.workOrderPriority" placeholder="请选择优先级" clearable>
+            <el-select
+              v-model="queryParams.workOrderPriority"
+              placeholder="请选择优先级"
+              clearable
+            >
               <el-option
                 v-for="dict in work_order_priority"
                 :key="dict.value"
@@ -26,8 +35,17 @@
             />
           </el-form-item>
           <el-form-item label="状态" prop="workOrderStatus">
-            <el-select v-model="queryParams.workOrderStatus" placeholder="请选择状态" clearable>
-              <el-option v-for="dict in work_order_status" :key="dict.value" :label="dict.label" :value="dict.value" />
+            <el-select
+              v-model="queryParams.workOrderStatus"
+              placeholder="请选择状态"
+              clearable
+            >
+              <el-option
+                v-for="dict in work_order_status"
+                :key="dict.value"
+                :label="dict.label"
+                :value="dict.value"
+              />
             </el-select>
           </el-form-item>
           <el-form-item label="工单描述" prop="workOrderDescription">
@@ -67,7 +85,9 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
+            <el-button type="primary" icon="Search" @click="handleQuery"
+              >搜索</el-button
+            >
             <el-button icon="Refresh" @click="resetQuery">重置</el-button>
           </el-form-item>
         </el-form>
@@ -78,7 +98,12 @@
       <template #header>
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
-            <el-button type="primary" plain icon="Plus" @click="handleAdd" v-hasPermi="['workOrders:workOrder:add']"
+            <el-button
+              type="primary"
+              plain
+              icon="Plus"
+              @click="handleAdd"
+              v-hasPermi="['workOrders:workOrder:add']"
               >新增</el-button
             >
           </el-col>
@@ -116,43 +141,85 @@
               >导出</el-button
             >
           </el-col>
-          <right-toolbar v-model:showSearch="showSearch" @query-table="getList" />
+          <right-toolbar
+            v-model:showSearch="showSearch"
+            @query-table="getList"
+          />
         </el-row>
       </template>
 
-      <el-table v-loading="loading" :data="workOrderList" @selection-change="handleSelectionChange">
+      <el-table
+        v-loading="loading"
+        :data="workOrderList"
+        @selection-change="handleSelectionChange"
+      >
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column label="id" align="center" prop="id" v-if="true" />
         <!-- <el-table-column label="工单编号" align="center" prop="workOrderSn" v-if="true" /> -->
         <el-table-column label="工单名称" align="center" prop="workOrderName" />
         <el-table-column label="优先级" align="center" prop="workOrderPriority">
           <template #default="scope">
-            <dict-tag :options="work_order_priority" :value="scope.row.workOrderPriority" />
+            <dict-tag
+              :options="work_order_priority"
+              :value="scope.row.workOrderPriority"
+            />
           </template>
         </el-table-column>
         <el-table-column label="类型" align="center" prop="workOrderDetailType">
           <template #default="scope">
-            <dict-tag :options="work_order_detail_type" :value="scope.row.workOrderDetailType" />
+            <dict-tag
+              :options="work_order_detail_type"
+              :value="scope.row.workOrderDetailType"
+            />
           </template>
         </el-table-column>
         <el-table-column label="状态" align="center" prop="workOrderStatus">
           <template #default="scope">
-            <dict-tag :options="work_order_status" :value="scope.row.workOrderStatus" />
+            <dict-tag
+              :options="work_order_status"
+              :value="scope.row.workOrderStatus"
+            />
           </template>
         </el-table-column>
-        <el-table-column label="工单描述" align="center" prop="workOrderDescription" />
-        <el-table-column label="工单备注" align="center" prop="workOrderComments" />
+        <el-table-column
+          label="工单描述"
+          align="center"
+          prop="workOrderDescription"
+        />
+        <el-table-column
+          label="工单备注"
+          align="center"
+          prop="workOrderComments"
+        />
         <!-- <el-table-column label="被分配人名称" align="center" prop="workOrderAssignedTo" /> -->
-        <el-table-column label="创建人" align="center" prop="workOrderCreateName" />
-        <el-table-column label="创建日期" align="center" prop="createTime" width="180">
+        <el-table-column
+          label="创建人"
+          align="center"
+          prop="workOrderCreateName"
+        />
+        <el-table-column
+          label="创建日期"
+          align="center"
+          prop="createTime"
+          width="180"
+        >
           <template #default="scope">
             <span>{{ parseTime(scope.row.createTime, "{y}-{m}-{d}") }}</span>
           </template>
         </el-table-column>
 
-        <el-table-column label="操作" width="250" align="center" class-name="small-padding fixed-width">
+        <el-table-column
+          label="操作"
+          width="250"
+          align="center"
+          class-name="small-padding fixed-width"
+        >
           <template #default="scope">
-            <el-tooltip content="修改" placement="top" v-if="loginUser && scope.row.workOrderStatus != 4">
+            <el-tooltip
+              content="修改"
+              placement="top"
+              v-if="loginUser && scope.row.workOrderStatus != 4"
+            >
               <el-button
                 link
                 type="primary"
@@ -173,7 +240,11 @@
                 v-hasPermi="['workOrders:workOrder:edit']"
               />
             </el-tooltip>
-            <el-tooltip content="处理" placement="top" v-if="scope.row.workOrderStatus != 4">
+            <el-tooltip
+              content="处理"
+              placement="top"
+              v-if="scope.row.workOrderStatus != 4"
+            >
               <el-button
                 link
                 type="info"
@@ -182,7 +253,11 @@
                 v-hasPermi="['workOrders:workOrder:edit']"
               />
             </el-tooltip>
-            <el-tooltip content="评价" placement="top" v-if="scope.row.workOrderStatus == 4">
+            <el-tooltip
+              content="评价"
+              placement="top"
+              v-if="scope.row.workOrderStatus == 4"
+            >
               <el-button
                 link
                 type="warning"
@@ -214,13 +289,26 @@
       />
     </el-card>
     <!-- 添加或修改工单对话框 -->
-    <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
-      <el-form ref="workOrderFormRef" :model="form" :rules="rules" label-width="80px">
+    <el-dialog
+      :title="dialog.title"
+      v-model="dialog.visible"
+      width="500px"
+      append-to-body
+    >
+      <el-form
+        ref="workOrderFormRef"
+        :model="form"
+        :rules="rules"
+        label-width="80px"
+      >
         <el-form-item label="工单名称" prop="workOrderName">
           <el-input v-model="form.workOrderName" placeholder="请输入工单名称" />
         </el-form-item>
         <el-form-item label="优先级" prop="workOrderPriority">
-          <el-select v-model="form.workOrderPriority" placeholder="请选择优先级">
+          <el-select
+            v-model="form.workOrderPriority"
+            placeholder="请选择优先级"
+          >
             <el-option
               v-for="dict in work_order_priority"
               :key="dict.value"
@@ -230,7 +318,10 @@
           </el-select>
         </el-form-item>
         <el-form-item label="工单类型" prop="workOrderDetailType">
-          <el-select v-model="form.workOrderDetailType" placeholder="请选择工单类型">
+          <el-select
+            v-model="form.workOrderDetailType"
+            placeholder="请选择工单类型"
+          >
             <el-option
               v-for="dict in work_order_detail_type"
               :key="dict.value"
@@ -251,23 +342,43 @@
           </el-select>
         </el-form-item> -->
         <el-form-item label="工单描述" prop="workOrderDescription">
-          <el-input v-model="form.workOrderDescription" placeholder="请输入工单描述" />
+          <el-input
+            v-model="form.workOrderDescription"
+            placeholder="请输入工单描述"
+          />
         </el-form-item>
         <!-- <el-form-item label="详细信息" prop="workOrderDetailValue">
           <el-input v-model="form.workOrderDetailValue" placeholder="请输入详细信息" />
         </el-form-item> -->
         <el-form-item label="分配给" prop="workOrderAssignedTo">
-          <el-select v-model="userIds" multiple placeholder="分配人" style="width: 240px">
-            <el-option v-for="item in userNames" :key="item.userId" :label="item.userName" :value="item.userId" />
+          <el-select
+            v-model="userIds"
+            multiple
+            placeholder="分配人"
+            style="width: 240px"
+          >
+            <el-option
+              v-for="item in userNames"
+              :key="item.userId"
+              :label="item.userName"
+              :value="item.userId"
+            />
           </el-select>
-          <el-button :loading="buttonLoading" type="primary" @click="selectBotton">选择</el-button>
+          <el-button
+            :loading="buttonLoading"
+            type="primary"
+            @click="selectBotton"
+            >选择</el-button
+          >
           <!-- 选择人员对话框 -->
           <users-option ref="usersOptionRef" @get-data="getData" />
         </el-form-item>
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button :loading="buttonLoading" type="primary" @click="submitForm">确 定</el-button>
+          <el-button :loading="buttonLoading" type="primary" @click="submitForm"
+            >确 定</el-button
+          >
           <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
@@ -293,30 +404,74 @@
     </el-dialog> -->
 
     <!-- 分配人员对话框 -->
-    <el-dialog :title="dialog.title" v-model="dialog.visible2" width="500px" append-to-body>
-      <el-form ref="workOrderFormRef" :model="form" :rules="rules" label-width="80px">
+    <el-dialog
+      :title="dialog.title"
+      v-model="dialog.visible2"
+      width="500px"
+      append-to-body
+    >
+      <el-form
+        ref="workOrderFormRef"
+        :model="form"
+        :rules="rules"
+        label-width="80px"
+      >
         <el-form-item label="分配给" prop="workOrderAssignedTo">
-          <el-select v-model="userIds" multiple placeholder="分配人" style="width: 240px">
-            <el-option v-for="item in userNames" :key="item.userId" :label="item.userName" :value="item.userId" />
+          <el-select
+            v-model="userIds"
+            multiple
+            placeholder="分配人"
+            style="width: 240px"
+          >
+            <el-option
+              v-for="item in userNames"
+              :key="item.userId"
+              :label="item.userName"
+              :value="item.userId"
+            />
           </el-select>
-          <el-button :loading="buttonLoading" type="primary" @click="selectBotton">选择</el-button>
+          <el-button
+            :loading="buttonLoading"
+            type="primary"
+            @click="selectBotton"
+            >选择</el-button
+          >
           <!-- 选择人员对话框 -->
           <users-option ref="usersOptionRef" @get-data="getData" />
         </el-form-item>
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button v-if="loginUser" :loading="buttonLoading" type="primary" @click="submitFormTo">确 定</el-button>
+          <el-button
+            v-if="loginUser"
+            :loading="buttonLoading"
+            type="primary"
+            @click="submitFormTo"
+            >确 定</el-button
+          >
           <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
     </el-dialog>
 
     <!-- 工单处理对话框 -->
-    <el-dialog :title="dialog.title" v-model="dialog.visible3" width="500px" append-to-body>
-      <el-form ref="workOrderFormRef" :model="form" :rules="rules" label-width="80px">
+    <el-dialog
+      :title="dialog.title"
+      v-model="dialog.visible3"
+      width="500px"
+      append-to-body
+    >
+      <el-form
+        ref="workOrderFormRef"
+        :model="form"
+        :rules="rules"
+        label-width="80px"
+      >
         <el-form-item label="处理状态" prop="workOrderStatus">
-          <el-select v-model="form.workOrderStatus" placeholder="请选择处理状态">
+          <el-select
+            v-model="form.workOrderStatus"
+            placeholder="请选择处理状态"
+          >
             <el-option
               v-for="dict in work_order_status"
               :key="dict.value"
@@ -325,23 +480,40 @@
             />
           </el-select>
         </el-form-item>
-        <el-form-item :disabled="form.workOrderStatus == 2" label="图片" prop="pictureUrl">
+        <el-form-item
+          :disabled="form.workOrderStatus == 2"
+          label="图片"
+          prop="pictureUrl"
+        >
           <image-upload v-model="form.pictureUrl" />
         </el-form-item>
         <el-form-item label="工单备注" prop="workOrderComments">
-          <el-input v-model="form.workOrderComments" placeholder="请输入工单备注" />
+          <el-input
+            v-model="form.workOrderComments"
+            placeholder="请输入工单备注"
+          />
         </el-form-item>
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button :loading="buttonLoading" type="primary" @click="submitFormHandle">确 定</el-button>
+          <el-button
+            :loading="buttonLoading"
+            type="primary"
+            @click="submitFormHandle"
+            >确 定</el-button
+          >
           <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
     </el-dialog>
 
     <!-- 工单评价列表 -->
-    <el-dialog :title="dialog.title" v-model="dialog.visible7" width="950px" append-to-body>
+    <el-dialog
+      :title="dialog.title"
+      v-model="dialog.visible7"
+      width="950px"
+      append-to-body
+    >
       <template #header>
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
@@ -356,11 +528,24 @@
           </el-col>
         </el-row>
       </template>
-      <el-table v-loading="loading" :data="orderEvaluateList" @selection-change="handleSelectionChange">
+      <el-table
+        v-loading="loading"
+        :data="orderEvaluateList"
+        @selection-change="handleSelectionChange"
+      >
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column label="工单评价id" align="center" prop="id" v-if="true" />
+        <el-table-column
+          label="工单评价id"
+          align="center"
+          prop="id"
+          v-if="true"
+        />
         <el-table-column label="工单编号" align="center" prop="workOrderSn" />
-        <el-table-column label="评价人姓名" align="center" prop="evaluateUserName" />
+        <el-table-column
+          label="评价人姓名"
+          align="center"
+          prop="evaluateUserName"
+        />
         <!-- <el-table-column label="评价人id" align="center" prop="evaluateUserId" /> -->
         <el-table-column label="评价等级" align="center" prop="evaluateLv">
           <template #default="scope">
@@ -368,13 +553,27 @@
           </template>
         </el-table-column>
         <el-table-column label="评价描述" align="center" prop="evaluateDes" />
-        <el-table-column label="改进建议" align="center" prop="evaluateRecommendation" />
-        <el-table-column label="图片" align="center" prop="annexUrl" width="100">
+        <el-table-column
+          label="改进建议"
+          align="center"
+          prop="evaluateRecommendation"
+        />
+        <el-table-column
+          label="图片"
+          align="center"
+          prop="annexUrl"
+          width="100"
+        >
           <template #default="scope">
             <image-preview :src="scope.row.annexUrl" :width="50" :height="50" />
           </template>
         </el-table-column>
-        <el-table-column label="评价时间" align="center" prop="createTime" width="180">
+        <el-table-column
+          label="评价时间"
+          align="center"
+          prop="createTime"
+          width="180"
+        >
           <template #default="scope">
             <span>{{ parseTime(scope.row.createTime, "{y}-{m}-{d}") }}</span>
           </template>
@@ -389,10 +588,23 @@
       />
     </el-dialog>
     <!-- 工单新增评价对话框 -->
-    <el-dialog :title="dialog.title" v-model="dialog.visible6" width="500" append-to-body>
-      <el-form ref="orderEvaluateFormRef" :model="evaluateData" :rules="rules" label-width="80px">
+    <el-dialog
+      :title="dialog.title"
+      v-model="dialog.visible6"
+      width="500"
+      append-to-body
+    >
+      <el-form
+        ref="orderEvaluateFormRef"
+        :model="evaluateData"
+        :rules="rules"
+        label-width="80px"
+      >
         <el-form-item label="评价等级" prop="evaluateLv">
-          <el-select v-model="evaluateData.evaluateLv" placeholder="请选择评价等级">
+          <el-select
+            v-model="evaluateData.evaluateLv"
+            placeholder="请选择评价等级"
+          >
             <el-option
               v-for="dict in evaluate_lv"
               :key="dict.value"
@@ -402,10 +614,16 @@
           </el-select>
         </el-form-item>
         <el-form-item label="评价描述" prop="evaluateDes">
-          <el-input v-model="evaluateData.evaluateDes" placeholder="请输入评价描述" />
+          <el-input
+            v-model="evaluateData.evaluateDes"
+            placeholder="请输入评价描述"
+          />
         </el-form-item>
         <el-form-item label="改进建议" prop="evaluateRecommendation">
-          <el-input v-model="evaluateData.evaluateRecommendation" placeholder="请输入改进建议" />
+          <el-input
+            v-model="evaluateData.evaluateRecommendation"
+            placeholder="请输入改进建议"
+          />
         </el-form-item>
         <el-form-item label="图片" prop="annexUrl">
           <image-upload v-model="evaluateData.annexUrl" />
@@ -413,7 +631,12 @@
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button :loading="buttonLoading" type="primary" @click="submitEvalueteForm">确 定</el-button>
+          <el-button
+            :loading="buttonLoading"
+            type="primary"
+            @click="submitEvalueteForm"
+            >确 定</el-button
+          >
           <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
@@ -429,7 +652,11 @@ import {
   addWorkOrder,
   updateWorkOrder,
 } from "@/api/ibms/common/devOps/workOrders/workOrder";
-import { WorkOrderVO, WorkOrderQuery, WorkOrderForm } from "@/api/ibms/common/devOps/workOrders/workOrder/types";
+import {
+  WorkOrderVO,
+  WorkOrderQuery,
+  WorkOrderForm,
+} from "@/api/ibms/common/devOps/workOrders/workOrder/types";
 import {
   listOrderDetails,
   getOrderDetails,
@@ -490,7 +717,9 @@ const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 const { work_order_priority, work_order_status } = toRefs<any>(
   proxy?.useDict("work_order_priority", "work_order_status")
 );
-const { work_order_detail_type } = toRefs<any>(proxy?.useDict("work_order_detail_type"));
+const { work_order_detail_type } = toRefs<any>(
+  proxy?.useDict("work_order_detail_type")
+);
 const { evaluate_lv } = toRefs<any>(proxy?.useDict("evaluate_lv"));
 
 const workOrderList = ref<WorkOrderVO[]>([]);
@@ -520,14 +749,16 @@ const uploadRef = ref<ElUploadInstance>();
 const formDialogRef = ref<ElDialogInstance>();
 
 const router = useRouter();
-const { sys_normal_disable, sys_user_sex } = toRefs<any>(proxy?.useDict("sys_normal_disable", "sys_user_sex"));
+const { sys_normal_disable, sys_user_sex } = toRefs<any>(
+  proxy?.useDict("sys_normal_disable", "sys_user_sex")
+);
 
 const userList = ref<UserVO[]>();
 
 const dateRange = ref<[DateModelType, DateModelType]>(["", ""]);
 const deptName = ref("");
 const deptOptions = ref<DeptVO[]>([]);
-const initPassword = ref<string>("");
+const initPassword = ref<String>("");
 const postOptions = ref<PostVO[]>([]);
 const roleOptions = ref<RoleVO[]>([]);
 
@@ -587,7 +818,9 @@ const initFormDataEvaluate: OrderEvaluateForm = {
   annexUrl: undefined,
 };
 
-const dataEvluate = reactive<DataEvluate<OrderEvaluateForm, OrderEvaluateQuery>>({
+const dataEvluate = reactive<
+  DataEvluate<OrderEvaluateForm, OrderEvaluateQuery>
+>({
   formE: { ...initFormDataEvaluate },
   queryParamsE: {
     pageNum: 1,
@@ -602,7 +835,9 @@ const dataEvluate = reactive<DataEvluate<OrderEvaluateForm, OrderEvaluateQuery>>
     params: {},
   },
   rulesE: {
-    evaluateLv: [{ required: true, message: "评价等级不能为空", trigger: "change" }],
+    evaluateLv: [
+      { required: true, message: "评价等级不能为空", trigger: "change" },
+    ],
   },
 });
 
@@ -623,15 +858,27 @@ const data = reactive<PageData<WorkOrderForm, WorkOrderQuery>>({
     params: {},
   },
   rules: {
-    workOrderPriority: [{ required: true, message: "优先级不能为空", trigger: "change" }],
-    workOrderName: [{ required: true, message: "工单名称不能为空", trigger: "blur" }],
-    workOrderStatus: [{ required: true, message: "状态不能为空", trigger: "change" }],
-    workOrderDescription: [{ required: true, message: "工单描述不能为空", trigger: "blur" }],
+    workOrderPriority: [
+      { required: true, message: "优先级不能为空", trigger: "change" },
+    ],
+    workOrderName: [
+      { required: true, message: "工单名称不能为空", trigger: "blur" },
+    ],
+    workOrderStatus: [
+      { required: true, message: "状态不能为空", trigger: "change" },
+    ],
+    workOrderDescription: [
+      { required: true, message: "工单描述不能为空", trigger: "blur" },
+    ],
     // workOrderAssignedTo: [
     //   { required: true, message: "分配人不能为空", trigger: "blur" }
     // ],
-    workOrderDetailType: [{ required: true, message: "工单类型不能为空", trigger: "blur" }],
-    evaluateLv: [{ required: true, message: "评价等级不能为空", trigger: "change" }],
+    workOrderDetailType: [
+      { required: true, message: "工单类型不能为空", trigger: "blur" },
+    ],
+    evaluateLv: [
+      { required: true, message: "评价等级不能为空", trigger: "change" },
+    ],
   },
 });
 
@@ -740,7 +987,9 @@ const submitEvalueteForm = () => {
     if (valid) {
       buttonLoading.value = true;
       evaluateData;
-      await addOrderEvaluate(evaluateData).finally(() => (buttonLoading.value = false));
+      await addOrderEvaluate(evaluateData).finally(
+        () => (buttonLoading.value = false)
+      );
 
       proxy?.$modal.msgSuccess("评价成功");
       dialog.visible6 = false;
@@ -809,9 +1058,13 @@ const submitForm = () => {
       buttonLoading.value = true;
 
       if (form.value.id) {
-        await updateWorkOrder(form.value).finally(() => (buttonLoading.value = false));
+        await updateWorkOrder(form.value).finally(
+          () => (buttonLoading.value = false)
+        );
       } else {
-        await addWorkOrder(form.value).finally(() => (buttonLoading.value = false));
+        await addWorkOrder(form.value).finally(
+          () => (buttonLoading.value = false)
+        );
       }
       proxy?.$modal.msgSuccess("修改成功");
       dialog.visible = false;
@@ -833,7 +1086,9 @@ const submitFormTo = () => {
       buttonLoading.value = true;
       form.value.workOrderAssignedTo = userIds.value.join(",");
 
-      await updateWorkOrder(form.value).finally(() => (buttonLoading.value = false));
+      await updateWorkOrder(form.value).finally(
+        () => (buttonLoading.value = false)
+      );
       proxy?.$modal.msgSuccess("分配成功");
       buttonLoading.value = false;
       dialog.visible2 = false;
@@ -847,7 +1102,9 @@ const submitFormHandle = () => {
   workOrderFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
       buttonLoading.value = true;
-      await updateWorkOrder(form.value).finally(() => (buttonLoading.value = false));
+      await updateWorkOrder(form.value).finally(
+        () => (buttonLoading.value = false)
+      );
       proxy?.$modal.msgSuccess("处理成功");
       dialog.visible3 = false;
       await getList();
@@ -858,7 +1115,9 @@ const submitFormHandle = () => {
 /** 删除按钮操作 */
 const handleDelete = async (row?: WorkOrderVO) => {
   const id = row?.id || ids.value;
-  await proxy?.$modal.confirm('是否确认删除工单编号为"' + id + '"的数据项？').finally(() => (loading.value = false));
+  await proxy?.$modal
+    .confirm('是否确认删除工单编号为"' + id + '"的数据项？')
+    .finally(() => (loading.value = false));
   await delWorkOrder(id);
   proxy?.$modal.msgSuccess("删除成功");
   await getList();

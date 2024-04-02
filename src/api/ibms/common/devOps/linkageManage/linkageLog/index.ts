@@ -1,6 +1,10 @@
 import request from "@/utils/request";
 import { AxiosPromise } from "axios";
-import { LinkageLogVO, LinkageLogForm, LinkageLogQuery } from "@/api/ibms/common/devOps/linkageManage/linkageLog/types";
+import {
+  LinkageLogVO,
+  LinkageLogForm,
+  LinkageLogQuery,
+} from "@/api/ibms/common/devOps/linkageManage/linkageLog/types";
 
 /**
  * 查询联动执行日志列表
@@ -8,7 +12,9 @@ import { LinkageLogVO, LinkageLogForm, LinkageLogQuery } from "@/api/ibms/common
  * @returns {*}
  */
 
-export const listLinkageLog = (query?: LinkageLogQuery): AxiosPromise<LinkageLogVO[]> => {
+export const listLinkageLog = (
+  query?: LinkageLogQuery
+): AxiosPromise<LinkageLogVO[]> => {
   return request({
     url: "/linkageManage/linkageLog/list",
     method: "get",
@@ -20,7 +26,9 @@ export const listLinkageLog = (query?: LinkageLogQuery): AxiosPromise<LinkageLog
  * 查询联动执行日志详细
  * @param id
  */
-export const getLinkageLog = (id: string | number): AxiosPromise<LinkageLogVO> => {
+export const getLinkageLog = (
+  id: string | number
+): AxiosPromise<LinkageLogVO> => {
   return request({
     url: "/linkageManage/linkageLog/" + id,
     method: "get",

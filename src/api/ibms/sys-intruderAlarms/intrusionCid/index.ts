@@ -8,7 +8,9 @@ import { IntrusionCidVO, IntrusionCidForm, IntrusionCidQuery } from "./types";
  * @returns {*}
  */
 
-export const listIntrusionCid = (query?: IntrusionCidQuery): AxiosPromise<IntrusionCidVO[]> => {
+export const listIntrusionCid = (
+  query?: IntrusionCidQuery
+): AxiosPromise<IntrusionCidVO[]> => {
   return request({
     url: "/intrusionAlarm/intrusionCid/list",
     method: "get",
@@ -20,7 +22,9 @@ export const listIntrusionCid = (query?: IntrusionCidQuery): AxiosPromise<Intrus
  * 查询入侵报警_CID码详细
  * @param alarmCode
  */
-export const getIntrusionCid = (alarmCode: string | number): AxiosPromise<IntrusionCidVO> => {
+export const getIntrusionCid = (
+  alarmCode: string | number
+): AxiosPromise<IntrusionCidVO> => {
   return request({
     url: "/intrusionAlarm/intrusionCid/" + alarmCode,
     method: "get",
@@ -55,7 +59,9 @@ export const updateIntrusionCid = (data: IntrusionCidForm) => {
  * 删除入侵报警_CID码
  * @param alarmCode
  */
-export const delIntrusionCid = (alarmCode: string | number | Array<string | number>) => {
+export const delIntrusionCid = (
+  alarmCode: string | number | Array<string | number>
+) => {
   return request({
     url: "/intrusionAlarm/intrusionCid/" + alarmCode,
     method: "delete",

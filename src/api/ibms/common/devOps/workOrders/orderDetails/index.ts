@@ -12,7 +12,9 @@ import {
  * @returns {*}
  */
 
-export const listOrderDetails = (query?: OrderDetailsQuery): AxiosPromise<OrderDetailsVO[]> => {
+export const listOrderDetails = (
+  query?: OrderDetailsQuery
+): AxiosPromise<OrderDetailsVO[]> => {
   return request({
     url: "/workOrders/orderDetails/list",
     method: "get",
@@ -24,7 +26,9 @@ export const listOrderDetails = (query?: OrderDetailsQuery): AxiosPromise<OrderD
  * 查询工单管理-工单详细详细
  * @param workOrderDetailSn
  */
-export const getOrderDetails = (workOrderDetailSn: string | number): AxiosPromise<OrderDetailsVO> => {
+export const getOrderDetails = (
+  workOrderDetailSn: string | number
+): AxiosPromise<OrderDetailsVO> => {
   return request({
     url: "/workOrders/orderDetails/" + workOrderDetailSn,
     method: "get",
@@ -35,7 +39,9 @@ export const getOrderDetails = (workOrderDetailSn: string | number): AxiosPromis
  * 查询工单管理-工单详细详细---根据沟通单编号查询
  * @param getOrderDetailsByOrderSn
  */
-export const getOrderDetailsByOrderSn = (workOrderSn: string | number): AxiosPromise<OrderDetailsVO> => {
+export const getOrderDetailsByOrderSn = (
+  workOrderSn: string | number
+): AxiosPromise<OrderDetailsVO> => {
   return request({
     url: "/workOrders/orderDetails/byOrderSn/" + workOrderSn,
     method: "get",
@@ -70,7 +76,9 @@ export const updateOrderDetails = (data: OrderDetailsForm) => {
  * 删除工单管理-工单详细
  * @param workOrderDetailSn
  */
-export const delOrderDetails = (workOrderDetailSn: string | number | Array<string | number>) => {
+export const delOrderDetails = (
+  workOrderDetailSn: string | number | Array<string | number>
+) => {
   return request({
     url: "/workOrders/orderDetails/" + workOrderDetailSn,
     method: "delete",

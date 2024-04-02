@@ -3,7 +3,9 @@ import { TenantPkgForm, TenantPkgQuery, TenantPkgVO } from "./types";
 import { AxiosPromise } from "axios";
 
 // 查询租户套餐列表
-export function listTenantPackage(query?: TenantPkgQuery): AxiosPromise<TenantPkgVO[]> {
+export function listTenantPackage(
+  query?: TenantPkgQuery
+): AxiosPromise<TenantPkgVO[]> {
   return request({
     url: "/system/tenant/package/list",
     method: "get",
@@ -20,7 +22,9 @@ export function selectTenantPackage(): AxiosPromise<TenantPkgVO[]> {
 }
 
 // 查询租户套餐详细
-export function getTenantPackage(packageId: string | number): AxiosPromise<TenantPkgVO> {
+export function getTenantPackage(
+  packageId: string | number
+): AxiosPromise<TenantPkgVO> {
   return request({
     url: "/system/tenant/package/" + packageId,
     method: "get",
@@ -46,7 +50,10 @@ export function updateTenantPackage(data: TenantPkgForm) {
 }
 
 // 租户套餐状态修改
-export function changePackageStatus(packageId: number | string, status: string) {
+export function changePackageStatus(
+  packageId: number | string,
+  status: string
+) {
   const data = {
     packageId,
     status,
@@ -59,7 +66,9 @@ export function changePackageStatus(packageId: number | string, status: string) 
 }
 
 // 删除租户套餐
-export function delTenantPackage(packageId: string | number | Array<string | number>) {
+export function delTenantPackage(
+  packageId: string | number | Array<string | number>
+) {
   return request({
     url: "/system/tenant/package/" + packageId,
     method: "delete",

@@ -12,7 +12,9 @@ import {
  * @returns {*}
  */
 
-export const listOrderHistory = (query?: OrderHistoryQuery): AxiosPromise<OrderHistoryVO[]> => {
+export const listOrderHistory = (
+  query?: OrderHistoryQuery
+): AxiosPromise<OrderHistoryVO[]> => {
   return request({
     url: "/workOrders/orderHistory/list",
     method: "get",
@@ -24,7 +26,9 @@ export const listOrderHistory = (query?: OrderHistoryQuery): AxiosPromise<OrderH
  * 查询处理历史详细
  * @param id
  */
-export const getOrderHistory = (id: string | number): AxiosPromise<OrderHistoryVO> => {
+export const getOrderHistory = (
+  id: string | number
+): AxiosPromise<OrderHistoryVO> => {
   return request({
     url: "/workOrders/orderHistory/" + id,
     method: "get",
@@ -59,7 +63,9 @@ export const updateOrderHistory = (data: OrderHistoryForm) => {
  * 删除处理历史
  * @param id
  */
-export const delOrderHistory = (id: string | number | Array<string | number>) => {
+export const delOrderHistory = (
+  id: string | number | Array<string | number>
+) => {
   return request({
     url: "/workOrders/orderHistory/" + id,
     method: "delete",

@@ -1,3 +1,5 @@
+import { LinkageTriggerVO } from "../linkageTrigger/types";
+
 export interface LinkageConfigVO {
   /**
    * id

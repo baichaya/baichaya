@@ -12,7 +12,9 @@ import {
  * @returns {*}
  */
 
-export const listDeviceGroup = (query?: DeviceGroupQuery): AxiosPromise<DeviceGroupVO[]> => {
+export const listDeviceGroup = (
+  query?: DeviceGroupQuery
+): AxiosPromise<DeviceGroupVO[]> => {
   return request({
     url: "/deviceConfig/deviceGroup/list",
     method: "get",
@@ -24,7 +26,9 @@ export const listDeviceGroup = (query?: DeviceGroupQuery): AxiosPromise<DeviceGr
  * 查询设备分组详细
  * @param id
  */
-export const getDeviceGroup = (id: string | number): AxiosPromise<DeviceGroupVO> => {
+export const getDeviceGroup = (
+  id: string | number
+): AxiosPromise<DeviceGroupVO> => {
   return request({
     url: "/deviceConfig/deviceGroup/" + id,
     method: "get",
@@ -59,7 +63,9 @@ export const updateDeviceGroup = (data: DeviceGroupForm) => {
  * 删除设备分组
  * @param id
  */
-export const delDeviceGroup = (id: string | number | Array<string | number>) => {
+export const delDeviceGroup = (
+  id: string | number | Array<string | number>
+) => {
   return request({
     url: "/deviceConfig/deviceGroup/" + id,
     method: "delete",

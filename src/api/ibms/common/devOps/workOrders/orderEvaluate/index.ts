@@ -12,7 +12,9 @@ import {
  * @returns {*}
  */
 
-export const listOrderEvaluate = (query?: OrderEvaluateQuery): AxiosPromise<OrderEvaluateVO[]> => {
+export const listOrderEvaluate = (
+  query?: OrderEvaluateQuery
+): AxiosPromise<OrderEvaluateVO[]> => {
   return request({
     url: "/workOrders/orderEvaluate/list",
     method: "get",
@@ -24,7 +26,9 @@ export const listOrderEvaluate = (query?: OrderEvaluateQuery): AxiosPromise<Orde
  * 查询评价详细
  * @param id
  */
-export const getOrderEvaluate = (id: string | number): AxiosPromise<OrderEvaluateVO> => {
+export const getOrderEvaluate = (
+  id: string | number
+): AxiosPromise<OrderEvaluateVO> => {
   return request({
     url: "/workOrders/orderEvaluate/" + id,
     method: "get",
@@ -59,7 +63,9 @@ export const updateOrderEvaluate = (data: OrderEvaluateForm) => {
  * 删除评价
  * @param id
  */
-export const delOrderEvaluate = (id: string | number | Array<string | number>) => {
+export const delOrderEvaluate = (
+  id: string | number | Array<string | number>
+) => {
   return request({
     url: "/workOrders/orderEvaluate/" + id,
     method: "delete",

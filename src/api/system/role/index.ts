@@ -95,7 +95,9 @@ export const allocatedUserList = (query: UserQuery): AxiosPromise<UserVO[]> => {
 /**
  * 查询角色未授权用户列表
  */
-export const unallocatedUserList = (query: UserQuery): AxiosPromise<UserVO[]> => {
+export const unallocatedUserList = (
+  query: UserQuery
+): AxiosPromise<UserVO[]> => {
   return request({
     url: "/system/role/authUser/unallocatedList",
     method: "get",
@@ -136,7 +138,9 @@ export const authUserSelectAll = (data: any) => {
   });
 };
 // 根据角色ID查询部门树结构
-export const deptTreeSelect = (roleId: string | number): AxiosPromise<RoleDeptTree> => {
+export const deptTreeSelect = (
+  roleId: string | number
+): AxiosPromise<RoleDeptTree> => {
   return request({
     url: "/system/role/deptTree/" + roleId,
     method: "get",

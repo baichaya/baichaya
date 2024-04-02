@@ -8,7 +8,9 @@ import { AccessDeviceVO, AccessDeviceForm, AccessDeviceQuery } from "./types";
  * @returns {*}
  */
 
-export const listAccessDevice = (query?: AccessDeviceQuery): AxiosPromise<AccessDeviceVO[]> => {
+export const listAccessDevice = (
+  query?: AccessDeviceQuery
+): AxiosPromise<AccessDeviceVO[]> => {
   return request({
     url: "/ibms/accessDevice/list",
     method: "get",
@@ -20,7 +22,9 @@ export const listAccessDevice = (query?: AccessDeviceQuery): AxiosPromise<Access
  * 查询门禁设备信息详细
  * @param id
  */
-export const getAccessDevice = (id: string | number): AxiosPromise<AccessDeviceVO> => {
+export const getAccessDevice = (
+  id: string | number
+): AxiosPromise<AccessDeviceVO> => {
   return request({
     url: "/ibms/accessDevice/" + id,
     method: "get",
@@ -55,7 +59,9 @@ export const updateAccessDevice = (data: AccessDeviceForm) => {
  * 删除门禁设备信息
  * @param id
  */
-export const delAccessDevice = (id: string | number | Array<string | number>) => {
+export const delAccessDevice = (
+  id: string | number | Array<string | number>
+) => {
   return request({
     url: "/ibms/accessDevice/" + id,
     method: "delete",
