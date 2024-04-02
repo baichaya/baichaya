@@ -18,7 +18,7 @@ router.beforeEach(async (to, from, next) => {
     to.meta.title && useSettingsStore().setTitle(to.meta.title as string);
     /* has token*/
     if (to.path === "/login") {
-      next({ path: "/" });
+      next({ path: "/dataScreen" });
       NProgress.done();
     } else if (whiteList.indexOf(to.path as string) !== -1) {
       next();
@@ -30,7 +30,7 @@ router.beforeEach(async (to, from, next) => {
         if (err) {
           await useUserStore().logout();
           ElMessage.error(err);
-          next({ path: "/" });
+          next({ path: "/dataScreen" });
         } else {
           isRelogin.show = false;
           const accessRoutes = await usePermissionStore().generateRoutes();

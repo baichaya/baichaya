@@ -316,3 +316,15 @@ export const removeClass = (ele: HTMLElement, cls: string) => {
 export const isExternal = (path: string) => {
   return /^(https?:|http?:|mailto:|tel:)/.test(path);
 };
+
+/**
+ * @description: 返回数组指定值
+ * @param {any} arr
+ * @param {string} label
+ * @param {string} val
+ * @param {string} findVal
+ * @return {*}
+ */
+export const findValue = (arr: any[], label: string, val: string, findVal: string) => {
+  return arr.find((e) => e[val] == label)[findVal];
+};

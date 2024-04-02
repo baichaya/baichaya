@@ -18,6 +18,11 @@ export interface DeviceTypeVO {
    * 分组名
    */
   groupName: string;
+
+  /**
+   * 图标
+   */
+  icon: string;
 }
 
 export interface DeviceTypeForm extends BaseEntity {

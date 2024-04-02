@@ -21,79 +21,74 @@
     </div>
 
     <div class="card">
-      <el-card class="h-3.75rem mb1.25rem" shadow="never">
-        <div class="flex justify-between">
-          <div>
-            <el-select v-model="selectedDeviceType" placeholder="请选择设备类型" style="width: 15rem">
-              <el-option v-for="item in deviceTypeData" :key="item.id" :label="item.deviceType" :value="item.id" />
-            </el-select>
-          </div>
-          <div class="float-right">
-            <el-button type="primary" :icon="Plus" plain @click="addPoints">新增点位</el-button>
-            <el-button type="success" :icon="FolderAdd" plain>保存点位</el-button>
-            <el-button type="warning" :icon="Close" plain>取消</el-button>
-          </div>
+      <div class="options">
+        <div>
+          <el-radio-group v-model="deviceType" class="ml-4" size="small" @change="typeChange">
+            <el-radio-button v-for="item in deviceTypeData" :key="item.id" :label="item.id">
+              <el-space>
+                <svg-icon :icon-class="item.icon" size="30" />
+                <span class="text-16px font-600">{{ item.deviceType }}</span>
+              </el-space>
+            </el-radio-button>
+          </el-radio-group>
         </div>
-      </el-card>
-
-      <div class="cad">
-        <!-- 拖拽 -->
-        <Vue3DraggableResizable
-          v-if="isAdd"
-          :initW="30"
-          :initH="30"
-          v-model:active="active"
-          :draggable="true"
-          :resizable="false"
-          :parent="true"
-          classNameActive="active"
-          @drag-end="dragEnd"
-        >
-          <svg-icon :icon-class="iconType" size="30" color="#409EFF" />
-        </Vue3DraggableResizable>
-
-        <!-- 点位 -->
-        <div class="icon" :style="{ left: 680 + 'px', top: 290 + 'px', position: 'absolute' }">
-          <svg-icon :icon-class="iconType" size="30" color="#409EFF" />
+        <div class="float-right">
+          <el-button @click="resetMap" plain class="mr-10px"><i-ep-refresh />重置</el-button>
+          <el-button type="primary" :icon="Plus" plain @click="addPoints">新增点位</el-button>
+          <el-button type="success" :icon="FolderAdd" plain>保存点位</el-button>
+          <el-button type="warning" :icon="Close" plain>取消</el-button>
         </div>
-        <img :src="selectedFloorImageUrl" style="object-fit: fill" />
       </div>
+
+      <v3-drag-zoom-container
+        :loading="isLoading"
+        class="cad"
+        ref="dragRef"
+        align="contain"
+        :min-zoom="0.8"
+        :max-zoom="10"
+      >
+        <img :src="selectedFloorImageUrl" alt="" />
+        <v3-drag-zoom-item
+          v-if="isAdd"
+          :position="{ x: 0, y: 2 }"
+          :draggable="true"
+          :fixed-size="true"
+          class="icon"
+          @on-move-finished="dragEnd"
+        >
+          <svg-icon :icon-class="iconType" size="30" color="#67C23A" />
+        </v3-drag-zoom-item>
+      </v3-drag-zoom-container>
     </div>
   </div>
 </template>
 
-<script setup name="SetPoint" lang="ts">
+<script setup name="Test" lang="ts">
 interface Tree {
   [key: string]: any;
 }
 
-interface Payload {
-  x: number;
-  y: number;
-}
-
 import { ElTree } from "element-plus";
 import { Plus, FolderAdd, Close } from "@element-plus/icons-vue";
-import { IconTypeEnum } from "@/enums/IBMSEnum";
 //引用区域表-楼层树结构
 import { getAreaTree } from "@/api/ibms/common/device/area";
 //引用设备类型表
 import { listDeviceType } from "@/api/ibms/common/devOps/deviceConfig/deviceType";
+import { Position } from "v3-drag-zoom";
+import { DeviceTypeVO } from "@/api/ibms/common/devOps/deviceConfig/deviceType/types";
+import { findValue } from "@/utils";
 
 const route = useRoute();
 
-const deviceData = reactive({
-  iconType: IconTypeEnum.M,
-});
-
-const { iconType } = toRefs(deviceData);
-
 const selectedFloorCadUrl = ref("zp"); //选中楼层的cad_url
 const AreaTreeData = ref(); // 楼层数结构
-const deviceTypeData = ref(); // 设备类型数据
-const selectedDeviceType = ref(); // 初始化设备选择下拉框选中值为 null
-const active = ref(true);
+const deviceTypeData = ref<DeviceTypeVO[]>(); // 设备类型数据
+const deviceType = ref(); // 初始化设备选择下拉框选中值为 null
+const iconType = ref();
+const dragRef = ref();
 const isAdd = ref(false);
+const isLoading = ref(false);
 
 //实时获取选中节点楼层对应的CAD地址
 const selectedFloorImageUrl = computed(() => {
@@ -106,8 +101,20 @@ const addPoints = () => {
   isAdd.value = true;
 };
 
+// 地图重置
+const resetMap = () => {
+  isLoading.value = true;
+  setTimeout(() => {
+    dragRef.value.reset();
+    isAdd.value = false;
+    isLoading.value = false;
+  }, 1000);
+};
+
 // 拖动结束获取坐标
-const dragEnd = (position: Payload) => {};
+const dragEnd = (position: Position) => {
+  const { x, y } = position;
+};
 
 // 获取区域树结构，包含楼栋楼层
 const getAreaTreeList = async () => {
@@ -123,6 +130,8 @@ const getDeviceType = async (id: any) => {
     groupId: id,
   });
   deviceTypeData.value = res.rows;
+  deviceType.value = res.rows[0].id;
+  typeChange(deviceType.value);
 };
 
 //节点点击事件，点击后获取选中节点的cad_url值。
@@ -139,6 +148,11 @@ const handleNodeClick = (selectedNode: { cadUrl: string; id: number; treeViewNam
     default:
       selectedFloorCadUrl.value = selectedNode.cadUrl;
   }
+};
+
+// 选择设备类型
+const typeChange = (val: any) => {
+  iconType.value = findValue(deviceTypeData.value!, val, "id", "icon");
 };
 
 getAreaTreeList();
@@ -158,6 +172,15 @@ watch(
   },
   { deep: true, immediate: true }
 );
+
+// 图片重置
+watch(
+  selectedFloorCadUrl,
+  (val) => {
+    resetMap();
+  },
+  { deep: true }
+);
 </script>
 
 <style lang="scss" scoped>
@@ -166,24 +189,29 @@ watch(
   margin-left: 0.625rem;
 }
 
+.options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  padding-right: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #dcdfe6;
+}
+
 .cad {
-  position: relative;
   width: 100%;
+  min-height: 900px;
+  background-color: #ffff;
 
   img {
-    z-index: -99;
-    width: 100%;
-    min-height: 3.125rem;
+    pointer-events: none !important;
   }
 }
 
-.active {
-  z-index: 1000;
+.icon {
+  width: 30px;
+  height: 30px;
   cursor: pointer;
-  border: 0;
-}
-
-::-webkit-scrollbar {
-  display: none;
 }
 </style>

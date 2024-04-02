@@ -68,7 +68,6 @@ interface Tree {
 
 import { ElTree } from "element-plus";
 import { Plus, FolderAdd, Close, Refresh } from "@element-plus/icons-vue";
-import { IconTypeEnum } from "@/enums/IBMSEnum";
 //引用区域表-楼层树结构
 import { getAreaTree } from "@/api/ibms/common/device/area";
 //引用设备类型表

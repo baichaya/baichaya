@@ -155,7 +155,7 @@ const handleLogin = () => {
       // 调用action的登录方法
       const [err] = await to(userStore.login(loginForm.value));
       if (!err) {
-        // await router.push({ path: redirect.value || '/' });
+        // await router.push({ path: redirect.value || '/dataScreen' });
         await router.push({ path: "/dataScreen" });
         loading.value = false;
       } else {

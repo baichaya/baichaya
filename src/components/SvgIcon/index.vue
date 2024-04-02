@@ -41,4 +41,16 @@ const svgClass = computed(() => {
   vertical-align: -2px;
   fill: currentcolor;
 }
+
+svg {
+  pointer-events: none; /* 禁用拖放事件，防止出现默认的蓝色遮罩层 */
+  user-select: none; /* Chrome/Safari */
+  user-select: none; /* Firefox */
+  user-select: none; /* IE10+ */
+  user-select: none; /* Standard syntax */
+}
+
+svg:active {
+  outline: none; /* 移除默认的蓝色边框 */
+}
 </style>
