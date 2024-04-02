@@ -123,7 +123,7 @@
               >导出</el-button
             >
           </el-col>
-          <right-toolbar v-model:showSearch="showSearch" @queryTable="getList" />
+          <right-toolbar v-model:showSearch="showSearch" @query-table="getList" />
         </el-row>
       </template>
 
@@ -810,9 +810,9 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .trigger {
+  padding-top: 10px;
   margin-top: 5px;
   background-color: #ebeef5;
-  padding-top: 10px;
   border-radius: 5px;
 }
 </style>

@@ -5,12 +5,7 @@
       :leave-active-class="proxy?.animate.searchAnimate.leave"
     >
       <div class="search" v-show="showSearch">
-        <el-form
-          :model="queryParams"
-          ref="queryFormRef"
-          :inline="true"
-          label-width="68px"
-        >
+        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
           <el-form-item label="楼层名称" prop="floorName">
             <el-input
               v-model="queryParams.floorName"
@@ -24,9 +19,7 @@
             <el-input v-model="queryParams.cadUrl" placeholder="请输入电子地图url" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>-->
           <el-form-item>
-            <el-button type="primary" icon="Search" @click="handleQuery"
-              >搜索</el-button
-            >
+            <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
             <el-button icon="Refresh" @click="resetQuery">重置</el-button>
           </el-form-item>
         </el-form>
@@ -37,12 +30,7 @@
       <template #header>
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
-            <el-button
-              type="primary"
-              plain
-              icon="Plus"
-              @click="handleAdd"
-              v-hasPermi="['ibms:floor:add']"
+            <el-button type="primary" plain icon="Plus" @click="handleAdd" v-hasPermi="['ibms:floor:add']"
               >新增</el-button
             >
           </el-col>
@@ -69,38 +57,22 @@
             >
           </el-col>
           <el-col :span="1.5">
-            <el-button
-              type="warning"
-              plain
-              icon="Download"
-              @click="handleExport"
-              v-hasPermi="['ibms:floor:export']"
+            <el-button type="warning" plain icon="Download" @click="handleExport" v-hasPermi="['ibms:floor:export']"
               >导出</el-button
             >
           </el-col>
-          <right-toolbar
-            v-model:showSearch="showSearch"
-            @queryTable="getList"
-          ></right-toolbar>
+          <right-toolbar v-model:showSearch="showSearch" @query-table="getList" />
         </el-row>
       </template>
 
-      <el-table
-        v-loading="loading"
-        :data="floorList"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table v-loading="loading" :data="floorList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column label="主键" align="center" prop="id" v-if="true" />
         <el-table-column label="楼栋名称" align="center" prop="buildingName" />
         <el-table-column label="楼层名称" align="center" prop="floorName" />
         <el-table-column label="电子地图url" align="center" prop="cadUrl" />
         <el-table-column label="其他情况" align="center" prop="remark" />
-        <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
-        >
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
             <el-tooltip content="修改" placement="top">
               <el-button
@@ -109,7 +81,7 @@
                 icon="Edit"
                 @click="handleUpdate(scope.row)"
                 v-hasPermi="['ibms:floor:edit']"
-              ></el-button>
+              />
             </el-tooltip>
             <el-tooltip content="删除" placement="top">
               <el-button
@@ -118,7 +90,7 @@
                 icon="Delete"
                 @click="handleDelete(scope.row)"
                 v-hasPermi="['ibms:floor:remove']"
-              ></el-button>
+              />
             </el-tooltip>
           </template>
         </el-table-column>
@@ -133,18 +105,8 @@
       />
     </el-card>
     <!-- 添加或修改楼层对话框 -->
-    <el-dialog
-      :title="dialog.title"
-      v-model="dialog.visible"
-      width="500px"
-      append-to-body
-    >
-      <el-form
-        ref="floorFormRef"
-        :model="form"
-        :rules="rules"
-        label-width="80px"
-      >
+    <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
+      <el-form ref="floorFormRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="楼层名称" prop="floorName">
           <el-input v-model="form.floorName" placeholder="请输入楼层名称" />
         </el-form-item>
@@ -176,9 +138,7 @@
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button :loading="buttonLoading" type="primary" @click="submitForm"
-            >确 定</el-button
-          >
+          <el-button :loading="buttonLoading" type="primary" @click="submitForm">确 定</el-button>
           <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
@@ -195,11 +155,7 @@ import {
   updateFloor,
   areaBuildingTree,
 } from "@/api/ibms/common/device/floor/index";
-import {
-  FloorVO,
-  FloorQuery,
-  FloorForm,
-} from "@/api/ibms/common/device/floor/types";
+import { FloorVO, FloorQuery, FloorForm } from "@/api/ibms/common/device/floor/types";
 import { AreaVO } from "@/api/ibms/common/device/area/types";
 
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
@@ -240,12 +196,8 @@ const data = reactive<PageData<FloorForm, FloorQuery>>({
     params: {},
   },
   rules: {
-    buildingId: [
-      { required: true, message: "楼栋id不能为空", trigger: "change" },
-    ],
-    floorName: [
-      { required: true, message: "楼层名称不能为空", trigger: "blur" },
-    ],
+    buildingId: [{ required: true, message: "楼栋id不能为空", trigger: "change" }],
+    floorName: [{ required: true, message: "楼层名称不能为空", trigger: "blur" }],
   },
 });
 
@@ -321,13 +273,9 @@ const submitForm = () => {
   floorFormRef.value?.validate(async (valid: boolean) => {
     if (valid) {
       buttonLoading.value = true;
-      form.value.buildingId = parseInt(
-        form.value.buildingId.toString().split(",").pop()
-      );
+      form.value.buildingId = parseInt(form.value.buildingId.toString().split(",").pop());
       if (form.value.id) {
-        await updateFloor(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        await updateFloor(form.value).finally(() => (buttonLoading.value = false));
       } else {
         await addFloor(form.value).finally(() => (buttonLoading.value = false));
       }
@@ -341,9 +289,7 @@ const submitForm = () => {
 /** 删除按钮操作 */
 const handleDelete = async (row?: FloorVO) => {
   const _ids = row?.id || ids.value;
-  await proxy?.$modal
-    .confirm('是否确认删除楼层编号为"' + _ids + '"的数据项？')
-    .finally(() => (loading.value = false));
+  await proxy?.$modal.confirm('是否确认删除楼层编号为"' + _ids + '"的数据项？').finally(() => (loading.value = false));
   await delFloor(_ids);
   proxy?.$modal.msgSuccess("删除成功");
   await getList();

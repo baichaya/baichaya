@@ -31,9 +31,7 @@ const move = (amount: number) => {
 
 const position = () => {
   return (
-    document.documentElement.scrollTop ||
-    (document.body.parentNode as HTMLElement).scrollTop ||
-    document.body.scrollTop
+    document.documentElement.scrollTop || (document.body.parentNode as HTMLElement).scrollTop || document.body.scrollTop
   );
 };
 

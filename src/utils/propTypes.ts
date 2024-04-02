@@ -1,10 +1,5 @@
 import { CSSProperties } from "vue";
-import VueTypes, {
-  createTypes,
-  toValidableType,
-  VueTypeValidableDef,
-  VueTypesInterface,
-} from "vue-types";
+import VueTypes, { createTypes, toValidableType, VueTypeValidableDef, VueTypesInterface } from "vue-types";
 
 type PropTypes = VueTypesInterface & {
   readonly style: VueTypeValidableDef<CSSProperties>;

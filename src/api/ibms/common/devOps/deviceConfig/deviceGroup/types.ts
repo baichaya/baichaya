@@ -18,7 +18,6 @@ export interface DeviceGroupVO {
    * 图标(对应图标名称)
    */
   icon: string;
-
 }
 
 export interface DeviceGroupForm extends BaseEntity {
@@ -41,11 +40,9 @@ export interface DeviceGroupForm extends BaseEntity {
    * 图标(对应图标名称)
    */
   icon?: string;
-
 }
 
 export interface DeviceGroupQuery extends PageQuery {
-
   /**
    * 分组名称
    */
@@ -61,8 +58,8 @@ export interface DeviceGroupQuery extends PageQuery {
    */
   icon?: string;
 
-    /**
-     * 日期范围参数
-     */
-    params?: any;
+  /**
+   * 日期范围参数
+   */
+  params?: any;
 }

@@ -5,8 +5,7 @@ import CryptoJS from "crypto-js";
  * @returns {string}
  */
 const generateRandomString = () => {
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let result = "";
   const charactersLength = characters.length;
   for (let i = 0; i < 32; i++) {
@@ -44,10 +43,7 @@ export const decryptBase64 = (str: string) => {
  * @param aesKey
  * @returns {string}
  */
-export const encryptWithAes = (
-  message: string,
-  aesKey: CryptoJS.lib.WordArray
-) => {
+export const encryptWithAes = (message: string, aesKey: CryptoJS.lib.WordArray) => {
   const encrypted = CryptoJS.AES.encrypt(message, aesKey, {
     mode: CryptoJS.mode.ECB,
     padding: CryptoJS.pad.Pkcs7,
@@ -61,10 +57,7 @@ export const encryptWithAes = (
  * @param aesKey
  * @returns {string}
  */
-export const decryptWithAes = (
-  message: string,
-  aesKey: CryptoJS.lib.WordArray
-) => {
+export const decryptWithAes = (message: string, aesKey: CryptoJS.lib.WordArray) => {
   const decrypted = CryptoJS.AES.decrypt(message, aesKey, {
     mode: CryptoJS.mode.ECB,
     padding: CryptoJS.pad.Pkcs7,

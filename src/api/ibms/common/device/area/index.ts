@@ -1,10 +1,6 @@
 import request from "@/utils/request";
 import { AxiosPromise } from "axios";
-import {
-  AreaVO,
-  AreaForm,
-  AreaQuery,
-} from "@/api/ibms/common/device/area/types";
+import { AreaVO, AreaForm, AreaQuery } from "@/api/ibms/common/device/area/types";
 
 /**
  * 查询区域列表

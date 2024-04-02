@@ -3,9 +3,7 @@ import { useDictStore } from "@/store/modules/dict";
 /**
  * 获取字典数据
  */
-export const useDict = (
-  ...args: string[]
-): { [key: string]: DictDataOption[] } => {
+export const useDict = (...args: string[]): { [key: string]: DictDataOption[] } => {
   const res = ref<{
     [key: string]: DictDataOption[];
   }>({});

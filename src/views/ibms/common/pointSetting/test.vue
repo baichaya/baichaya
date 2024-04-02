@@ -1,82 +1,204 @@
 <template>
-  <div class="p2">
-    <el-button @click="onChange">重置</el-button>
+  <div class="w-100% p-2 flex">
+    <!-- 楼栋树 -->
+    <div class="floor">
+      <el-card shadow="hover">
+        <el-input placeholder="请输入楼栋名称" prefix-icon="Search" clearable />
+        <el-tree
+          class="mt-2"
+          ref="deptTreeRef"
+          node-key="id"
+          :data="AreaTreeData"
+          :props="{ label: 'treeViewNameTemp', children: 'children' }"
+          :default-expanded-keys="[-99]"
+          :default-checked-keys="[-99]"
+          :expand-on-click-node="true"
+          :filter-node-method="filterNode"
+          highlight-current
+          @node-click="handleNodeClick"
+        />
+      </el-card>
+    </div>
 
-    <v3-drag-zoom-container
-      ref="dragRef"
-      :align="alignMode"
-      :min-zoom="0.8"
-      :max-zoom="10"
-      style="width: 1200px; height: 900px"
-    >
-      <img :src="mg" alt="" />
-      <v3-drag-zoom-item
-        v-for="point in points"
-        :key="point.label"
-        :position="point.position"
-        style="width: 30px; height: 30px; cursor: pointer"
-        :style="{ 'background-color': point.color }"
-        :draggable="false"
-        :fixed-size="fixedSize"
-      />
-      <v3-drag-zoom-item
-        :draggable="true"
-        :fixed-size="fixedSize"
-        :position="{ x: 1, y: 0 }"
-        @on-move-finished="finished"
+    <div class="card">
+      <el-card class="h-3.75rem mb1.25rem" shadow="never">
+        <div class="flex justify-between">
+          <div>
+            <el-select v-model="selectedDeviceType" placeholder="请选择设备类型" style="width: 15rem">
+              <el-option v-for="item in deviceTypeData" :key="item.id" :label="item.deviceType" :value="item.id" />
+            </el-select>
+          </div>
+          <div class="float-right">
+            <el-button @click="resetMap" type="warning" plain class="mr-10px"><i-ep-refresh />重置</el-button>
+            <el-button type="primary" :icon="Plus" plain @click="addPoints">新增点位</el-button>
+            <el-button type="success" :icon="FolderAdd" plain>保存点位</el-button>
+            <el-button type="warning" :icon="Close" plain>取消</el-button>
+          </div>
+        </div>
+      </el-card>
+
+      <v3-drag-zoom-container
+        :loading="isLoading"
+        class="cad"
+        ref="dragRef"
+        align="contain"
+        :min-zoom="0.8"
+        :max-zoom="10"
       >
-        <svg-icon :icon-class="iconType" size="30" color="#409EFF" />
-      </v3-drag-zoom-item>
-    </v3-drag-zoom-container>
+        <img :src="selectedFloorImageUrl" />
+        <v3-drag-zoom-item
+          v-if="isAdd"
+          :position="{ x: 0, y: 2 }"
+          :draggable="true"
+          :fixed-size="true"
+          class="icon"
+          @on-move-finished="dragEnd"
+        >
+          <svg-icon :icon-class="iconType" size="30" color="#409EFF" />
+        </v3-drag-zoom-item>
+      </v3-drag-zoom-container>
+    </div>
   </div>
 </template>
 
-<script setup lang="ts">
-import mg from "@/assets/images/ibms/floor/zp.jpg";
-import { IconTypeEnum } from "@/enums/IBMSEnum";
-import { Position } from "v3-drag-zoom";
-
-interface Payload {
-  x: number;
-  y: number;
+<script setup name="Test" lang="ts">
+interface Tree {
+  [key: string]: any;
 }
 
-const dragRef = ref();
+import { ElTree } from "element-plus";
+import { Plus, FolderAdd, Close, Refresh } from "@element-plus/icons-vue";
+import { IconTypeEnum } from "@/enums/IBMSEnum";
+//引用区域表-楼层树结构
+import { getAreaTree } from "@/api/ibms/common/device/area";
+//引用设备类型表
+import { listDeviceType } from "@/api/ibms/common/devOps/deviceConfig/deviceType";
+import { Position } from "v3-drag-zoom";
+
+const route = useRoute();
+
+const selectedFloorCadUrl = ref("zp"); //选中楼层的cad_url
+const AreaTreeData = ref(); // 楼层数结构
+const deviceTypeData = ref(); // 设备类型数据
+const selectedDeviceType = ref(); // 初始化设备选择下拉框选中值为 null
 const iconType = ref(IconTypeEnum.M);
-const active = ref(true);
-const alignMode = ref<any>("contain");
+const dragRef = ref();
+const isAdd = ref(false);
+const isLoading = ref(false);
 
-const size = ref(0);
+//实时获取选中节点楼层对应的CAD地址
+const selectedFloorImageUrl = computed(() => {
+  // 根据选中节点的cadUrl拼接完整的图片地址
+  return new URL(`../../../../assets/images/ibms/floor/${selectedFloorCadUrl.value}.jpg`, import.meta.url).href;
+});
 
-const onChange = () => {
+// 增加点位
+const addPoints = () => {
+  isAdd.value = true;
+};
+
+// 地图重置
+const resetMap = () => {
+  isLoading.value = true;
   setTimeout(() => {
     dragRef.value.reset();
+    isAdd.value = false;
+    isLoading.value = false;
+  }, 1000);
+};
+
+// 拖动结束获取坐标
+const dragEnd = (position: Position) => {
+  const { x, y } = position;
+};
+
+// 获取区域树结构，包含楼栋楼层
+const getAreaTreeList = async () => {
+  let res = (await getAreaTree()).data;
+  AreaTreeData.value = res;
+};
+
+// 获取设备具体类型
+const getDeviceType = async (id: any) => {
+  const res = await listDeviceType({
+    pageNum: 1,
+    pageSize: 99,
+    groupId: id,
   });
+  deviceTypeData.value = res.rows;
 };
 
-const points = ref([
-  { label: 1, position: { x: 20, y: 20 }, color: "darkred" },
-  { label: 1, position: { x: 50, y: 20 }, color: "darkblue" },
-  { label: 1, position: { x: 80, y: 20 }, color: "darkgreen" },
-]);
-
-const textPoints = ref([
-  { label: 1, position: { x: 20, y: 25 }, text: "哈哈" },
-  { label: 1, position: { x: 50, y: 25 }, text: "吼吼" },
-  { label: 1, position: { x: 80, y: 25 }, text: "嘿嘿" },
-]);
-
-const finished = (pos: Payload) => {
-  console.log(pos);
+//节点点击事件，点击后获取选中节点的cad_url值。
+const handleNodeClick = (selectedNode: { cadUrl: string; id: number; treeViewNameTemp: string }) => {
+  // 在这里处理获取到的 cadUrl
+  switch (selectedNode.treeViewNameTemp) {
+    case "总平":
+    case "默认区域":
+      selectedFloorCadUrl.value = "zp";
+      break;
+    case "地下室":
+      selectedFloorCadUrl.value = "dxs";
+      break;
+    default:
+      selectedFloorCadUrl.value = selectedNode.cadUrl;
+  }
 };
 
-const fixedSize = ref(true);
+getAreaTreeList();
+
+const filterNode = (value: string, data: Tree) => {
+  if (!value) return true;
+  return data.label.includes(value);
+};
+
+getAreaTreeList();
+
+//路由传参  获取index页面传过来的设备分组对象deviceGroup
+watch(
+  () => route.query,
+  (val) => {
+    getDeviceType(val.id);
+  },
+  { deep: true, immediate: true }
+);
+
+// 图片重置
+watch(
+  selectedFloorCadUrl,
+  (val) => {
+    resetMap();
+  },
+  { deep: true }
+);
+
+window.addEventListener("resize", () => {
+  resetMap();
+});
 </script>
 
 <style lang="scss" scoped>
-.active {
-  z-index: 1000;
+.card {
+  width: calc(85%);
+  margin-left: 0.625rem;
+}
+
+.cad {
+  position: relative;
+  width: 100%;
+  min-height: 900px;
+
+  img {
+    pointer-events: none;
+  }
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
   cursor: pointer;
-  border: 0;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 </style>

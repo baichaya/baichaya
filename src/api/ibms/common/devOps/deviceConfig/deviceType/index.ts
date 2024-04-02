@@ -1,10 +1,6 @@
 import request from "@/utils/request";
 import { AxiosPromise } from "axios";
-import {
-  DeviceTypeVO,
-  DeviceTypeForm,
-  DeviceTypeQuery,
-} from "@/api/ibms/common/devOps/deviceConfig/deviceType/types";
+import { DeviceTypeVO, DeviceTypeForm, DeviceTypeQuery } from "@/api/ibms/common/devOps/deviceConfig/deviceType/types";
 
 /**
  * 查询设备分类列表
@@ -12,9 +8,7 @@ import {
  * @returns {*}
  */
 
-export const listDeviceType = (
-  query?: DeviceTypeQuery
-): AxiosPromise<DeviceTypeVO[]> => {
+export const listDeviceType = (query?: DeviceTypeQuery): AxiosPromise<DeviceTypeVO[]> => {
   return request({
     url: "/deviceConfig/deviceType/list",
     method: "get",
@@ -26,9 +20,7 @@ export const listDeviceType = (
  * 查询设备分类详细
  * @param id
  */
-export const getDeviceType = (
-  id: string | number
-): AxiosPromise<DeviceTypeVO> => {
+export const getDeviceType = (id: string | number): AxiosPromise<DeviceTypeVO> => {
   return request({
     url: "/deviceConfig/deviceType/" + id,
     method: "get",

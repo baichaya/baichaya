@@ -27,6 +27,8 @@ module.exports = {
     "keyframes-name-pattern": null, // 动画帧节点样式命名规则
     "no-descending-specificity": null, // 允许无降序特异性
     "no-empty-source": null,
+    "scss/at-import-no-partial-leading-underscore": null,
+    "scss/load-no-partial-leading-underscore": true,
     // 允许 global 、export 、deep伪类
     "selector-pseudo-class-no-unknown": [
       true,

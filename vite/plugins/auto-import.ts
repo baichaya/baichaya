@@ -19,10 +19,6 @@ export default (path: any) => {
       }),
     ],
     vueTemplate: true, // 是否在 vue 模板中自动导入
-    dts: path.resolve(
-      path.resolve(__dirname, "../../src"),
-      "types",
-      "auto-imports.d.ts"
-    ),
+    dts: path.resolve(path.resolve(__dirname, "../../src"), "types", "auto-imports.d.ts"),
   });
 };

@@ -5,38 +5,15 @@
       :leave-active-class="proxy?.animate.searchAnimate.leave"
     >
       <div class="search" v-show="showSearch">
-        <el-form
-          :model="queryParams"
-          ref="queryFormRef"
-          :inline="true"
-          label-width="68px"
-        >
+        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
           <el-form-item label="设备分组" prop="deviceGroup">
-            <el-select
-              v-model="queryParams.deviceGroup"
-              placeholder="请选择设备分组"
-              clearable
-            >
-              <el-option
-                v-for="dict in device_group"
-                :key="dict.value"
-                :label="dict.label"
-                :value="dict.value"
-              />
+            <el-select v-model="queryParams.deviceGroup" placeholder="请选择设备分组" clearable>
+              <el-option v-for="dict in device_group" :key="dict.value" :label="dict.label" :value="dict.value" />
             </el-select>
           </el-form-item>
           <el-form-item label="设备类型" prop="deviceType">
-            <el-select
-              v-model="queryParams.deviceType"
-              placeholder="请选择设备类型"
-              clearable
-            >
-              <el-option
-                v-for="dict in device_type"
-                :key="dict.value"
-                :label="dict.label"
-                :value="dict.value"
-              />
+            <el-select v-model="queryParams.deviceType" placeholder="请选择设备类型" clearable>
+              <el-option v-for="dict in device_type" :key="dict.value" :label="dict.label" :value="dict.value" />
             </el-select>
           </el-form-item>
           <!--          <el-form-item label="X轴" prop="xaxis">
@@ -49,23 +26,12 @@
             <el-input v-model="queryParams.zaxis" placeholder="请输入z轴" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>-->
           <el-form-item label="是否已绑定设备" prop="isBinding">
-            <el-select
-              v-model="queryParams.isBinding"
-              placeholder="请选择是否已绑定设备"
-              clearable
-            >
-              <el-option
-                v-for="dict in is_binding"
-                :key="dict.value"
-                :label="dict.label"
-                :value="dict.value"
-              />
+            <el-select v-model="queryParams.isBinding" placeholder="请选择是否已绑定设备" clearable>
+              <el-option v-for="dict in is_binding" :key="dict.value" :label="dict.label" :value="dict.value" />
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" icon="Search" @click="handleQuery"
-              >搜索</el-button
-            >
+            <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
             <el-button icon="Refresh" @click="resetQuery">重置</el-button>
           </el-form-item>
         </el-form>
@@ -76,12 +42,7 @@
       <template #header>
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
-            <el-button
-              type="primary"
-              plain
-              icon="Plus"
-              @click="handleAdd"
-              v-hasPermi="['ibms:point:add']"
+            <el-button type="primary" plain icon="Plus" @click="handleAdd" v-hasPermi="['ibms:point:add']"
               >新增</el-button
             >
           </el-col>
@@ -108,27 +69,15 @@
             >
           </el-col>
           <el-col :span="1.5">
-            <el-button
-              type="warning"
-              plain
-              icon="Download"
-              @click="handleExport"
-              v-hasPermi="['ibms:point:export']"
+            <el-button type="warning" plain icon="Download" @click="handleExport" v-hasPermi="['ibms:point:export']"
               >导出</el-button
             >
           </el-col>
-          <right-toolbar
-            v-model:showSearch="showSearch"
-            @queryTable="getList"
-          ></right-toolbar>
+          <right-toolbar v-model:showSearch="showSearch" @query-table="getList" />
         </el-row>
       </template>
 
-      <el-table
-        v-loading="loading"
-        :data="pointList"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table v-loading="loading" :data="pointList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column label="主键" align="center" prop="id" v-if="true" />
         <el-table-column label="设备id" align="center" prop="deviceId" />
@@ -152,11 +101,7 @@
             <dict-tag :options="is_binding" :value="scope.row.isBinding" />
           </template>
         </el-table-column>
-        <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
-        >
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
             <el-tooltip content="修改" placement="top">
               <el-button
@@ -165,7 +110,7 @@
                 icon="Edit"
                 @click="handleUpdate(scope.row)"
                 v-hasPermi="['ibms:point:edit']"
-              ></el-button>
+              />
             </el-tooltip>
             <el-tooltip content="删除" placement="top">
               <el-button
@@ -174,7 +119,7 @@
                 icon="Delete"
                 @click="handleDelete(scope.row)"
                 v-hasPermi="['ibms:point:remove']"
-              ></el-button>
+              />
             </el-tooltip>
           </template>
         </el-table-column>
@@ -189,26 +134,11 @@
       />
     </el-card>
     <!-- 添加或修改设备点位对话框 -->
-    <el-dialog
-      :title="dialog.title"
-      v-model="dialog.visible"
-      width="500px"
-      append-to-body
-    >
-      <el-form
-        ref="pointFormRef"
-        :model="form"
-        :rules="rules"
-        label-width="80px"
-      >
+    <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
+      <el-form ref="pointFormRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="设备分组" prop="deviceGroup">
           <el-select v-model="form.deviceGroup" placeholder="请选择设备分组">
-            <el-option
-              v-for="dict in device_group"
-              :key="dict.value"
-              :label="dict.label"
-              :value="dict.value"
-            ></el-option>
+            <el-option v-for="dict in device_group" :key="dict.value" :label="dict.label" :value="dict.value" />
           </el-select>
         </el-form-item>
         <!--        <el-form-item label="设备类型" prop="deviceType">
@@ -257,24 +187,14 @@
           <el-input v-model="form.remark" placeholder="请输入备注" />
         </el-form-item>
         <el-form-item label="是否已绑定设备" prop="isBinding">
-          <el-select
-            v-model="form.isBinding"
-            placeholder="请选择是否已绑定设备"
-          >
-            <el-option
-              v-for="dict in is_binding"
-              :key="dict.value"
-              :label="dict.label"
-              :value="dict.value"
-            ></el-option>
+          <el-select v-model="form.isBinding" placeholder="请选择是否已绑定设备">
+            <el-option v-for="dict in is_binding" :key="dict.value" :label="dict.label" :value="dict.value" />
           </el-select>
         </el-form-item>
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button :loading="buttonLoading" type="primary" @click="submitForm"
-            >确 定</el-button
-          >
+          <el-button :loading="buttonLoading" type="primary" @click="submitForm">确 定</el-button>
           <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
@@ -283,19 +203,8 @@
 </template>
 
 <script setup name="Point" lang="ts">
-import {
-  listPoint,
-  getPoint,
-  delPoint,
-  addPoint,
-  updatePoint,
-  selectTree,
-} from "@/api/ibms/common/device/point/index";
-import {
-  PointVO,
-  PointQuery,
-  PointForm,
-} from "@/api/ibms/common/device/point/types";
+import { listPoint, getPoint, delPoint, addPoint, updatePoint, selectTree } from "@/api/ibms/common/device/point/index";
+import { PointVO, PointQuery, PointForm } from "@/api/ibms/common/device/point/types";
 import { AreaVO } from "@/api/ibms/common/device/area/types";
 
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
@@ -356,18 +265,10 @@ const data = reactive<PageData<PointForm, PointQuery>>({
     /*deviceId: [
       { required: true, message: "设备id不能为空", trigger: "change" }
     ],*/
-    deviceGroup: [
-      { required: true, message: "设备分组不能为空", trigger: "change" },
-    ],
-    deviceType: [
-      { required: true, message: "设备类型不能为空", trigger: "change" },
-    ],
-    floorIds: [
-      { required: true, message: "安装位置不能为空", trigger: "change" },
-    ],
-    isBinding: [
-      { required: true, message: "是否已绑定设备不能为空", trigger: "change" },
-    ],
+    deviceGroup: [{ required: true, message: "设备分组不能为空", trigger: "change" }],
+    deviceType: [{ required: true, message: "设备类型不能为空", trigger: "change" }],
+    floorIds: [{ required: true, message: "安装位置不能为空", trigger: "change" }],
+    isBinding: [{ required: true, message: "是否已绑定设备不能为空", trigger: "change" }],
   },
 });
 
@@ -454,9 +355,7 @@ const submitForm = () => {
       form.value.areaBuildingFloorId = form.value.floorIds.join(",");
       form.value.floorId = form.value.floorIds.pop();
       if (form.value.id) {
-        await updatePoint(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        await updatePoint(form.value).finally(() => (buttonLoading.value = false));
       } else {
         await addPoint(form.value).finally(() => (buttonLoading.value = false));
       }

@@ -33,10 +33,10 @@ import { parseTime, addDateRange, handleTree, selectDictLabel, selectDictLabels 
 // 国际化
 import i18n from "@/lang/index";
 
-// 拖拽组件
-import Vue3DraggableResizable from "vue3-draggable-resizable";
-//需引入默认样式
-import "vue3-draggable-resizable/dist/Vue3DraggableResizable.css";
+// // 拖拽组件
+// import Vue3DraggableResizable from "vue3-draggable-resizable";
+// //需引入默认样式
+// import "vue3-draggable-resizable/dist/Vue3DraggableResizable.css";
 
 // datav
 import DataVVue3 from "@kjgl77/datav-vue3";
@@ -64,7 +64,7 @@ app.use(router);
 app.use(store);
 app.use(i18n);
 app.use(plugins);
-app.use(Vue3DraggableResizable);
+// app.use(Vue3DraggableResizable);
 app.use(DataVVue3);
 app.use(V3DragZoom);
 // 自定义指令

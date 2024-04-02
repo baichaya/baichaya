@@ -5,12 +5,7 @@
       :leave-active-class="proxy?.animate.searchAnimate.leave"
     >
       <div class="search" v-show="showSearch">
-        <el-form
-          :model="queryParams"
-          ref="queryFormRef"
-          :inline="true"
-          label-width="68px"
-        >
+        <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
           <el-form-item label="设备id" prop="deciveId">
             <el-input
               v-model="queryParams.deciveId"
@@ -21,31 +16,13 @@
             />
           </el-form-item>
           <el-form-item label="设备分组" prop="deviceGroup">
-            <el-select
-              v-model="queryParams.deviceGroup"
-              placeholder="请选择设备分组"
-              clearable
-            >
-              <el-option
-                v-for="dict in device_group"
-                :key="dict.value"
-                :label="dict.label"
-                :value="dict.value"
-              />
+            <el-select v-model="queryParams.deviceGroup" placeholder="请选择设备分组" clearable>
+              <el-option v-for="dict in device_group" :key="dict.value" :label="dict.label" :value="dict.value" />
             </el-select>
           </el-form-item>
           <el-form-item label="报警类型" prop="alertType">
-            <el-select
-              v-model="queryParams.alertType"
-              placeholder="请选择报警类型"
-              clearable
-            >
-              <el-option
-                v-for="dict in device_type"
-                :key="dict.value"
-                :label="dict.label"
-                :value="dict.value"
-              />
+            <el-select v-model="queryParams.alertType" placeholder="请选择报警类型" clearable>
+              <el-option v-for="dict in device_type" :key="dict.value" :label="dict.label" :value="dict.value" />
             </el-select>
           </el-form-item>
           <!--          <el-form-item label="报警信息" prop="alertInformation">
@@ -60,17 +37,8 @@
             />
           </el-form-item>-->
           <el-form-item label="处理状态" prop="status">
-            <el-select
-              v-model="queryParams.status"
-              placeholder="请选择处理状态"
-              clearable
-            >
-              <el-option
-                v-for="dict in device_type"
-                :key="dict.value"
-                :label="dict.label"
-                :value="dict.value"
-              />
+            <el-select v-model="queryParams.status" placeholder="请选择处理状态" clearable>
+              <el-option v-for="dict in device_type" :key="dict.value" :label="dict.label" :value="dict.value" />
             </el-select>
           </el-form-item>
           <!--          <el-form-item label="处理时间" prop="handleTime">
@@ -85,9 +53,7 @@
             <el-input v-model="queryParams.handleBy" placeholder="请输入处理人" clearable style="width: 240px" @keyup.enter="handleQuery" />
           </el-form-item>-->
           <el-form-item>
-            <el-button type="primary" icon="Search" @click="handleQuery"
-              >搜索</el-button
-            >
+            <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
             <el-button icon="Refresh" @click="resetQuery">重置</el-button>
           </el-form-item>
         </el-form>
@@ -98,12 +64,7 @@
       <template #header>
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
-            <el-button
-              type="primary"
-              plain
-              icon="Plus"
-              @click="handleAdd"
-              v-hasPermi="['ibms:alertRecord:add']"
+            <el-button type="primary" plain icon="Plus" @click="handleAdd" v-hasPermi="['ibms:alertRecord:add']"
               >新增</el-button
             >
           </el-col>
@@ -139,18 +100,11 @@
               >导出</el-button
             >
           </el-col>
-          <right-toolbar
-            v-model:showSearch="showSearch"
-            @queryTable="getList"
-          ></right-toolbar>
+          <right-toolbar v-model:showSearch="showSearch" @query-table="getList" />
         </el-row>
       </template>
 
-      <el-table
-        v-loading="loading"
-        :data="alertRecordList"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table v-loading="loading" :data="alertRecordList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column label="主键" align="center" prop="id" v-if="true" />
         <el-table-column label="设备id" align="center" prop="deciveId" />
@@ -164,21 +118,10 @@
             <dict-tag :options="device_type" :value="scope.row.alertType" />
           </template>
         </el-table-column>
-        <el-table-column
-          label="报警信息"
-          align="center"
-          prop="alertInformation"
-        />
-        <el-table-column
-          label="报警时间"
-          align="center"
-          prop="alertTime"
-          width="180"
-        >
+        <el-table-column label="报警信息" align="center" prop="alertInformation" />
+        <el-table-column label="报警时间" align="center" prop="alertTime" width="180">
           <template #default="scope">
-            <span>{{
-              parseTime(scope.row.alertTime, "{y}-{m}-{d} {h}:{m}:{s}")
-            }}</span>
+            <span>{{ parseTime(scope.row.alertTime, "{y}-{m}-{d} {h}:{m}:{s}") }}</span>
           </template>
         </el-table-column>
         <el-table-column label="处理状态" align="center" prop="status">
@@ -186,25 +129,14 @@
             <dict-tag :options="alarm_state" :value="scope.row.status" />
           </template>
         </el-table-column>
-        <el-table-column
-          label="处理时间"
-          align="center"
-          prop="handleTime"
-          width="180"
-        >
+        <el-table-column label="处理时间" align="center" prop="handleTime" width="180">
           <template #default="scope">
-            <span>{{
-              parseTime(scope.row.handleTime, "{y}-{m}-{d} {h}:{m}:{s}")
-            }}</span>
+            <span>{{ parseTime(scope.row.handleTime, "{y}-{m}-{d} {h}:{m}:{s}") }}</span>
           </template>
         </el-table-column>
         <el-table-column label="处理人" align="center" prop="handleBy" />
         <el-table-column label="备注" align="center" prop="remark" />
-        <el-table-column
-          label="操作"
-          align="center"
-          class-name="small-padding fixed-width"
-        >
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
             <el-tooltip content="修改" placement="top">
               <el-button
@@ -213,7 +145,7 @@
                 icon="Edit"
                 @click="handleUpdate(scope.row)"
                 v-hasPermi="['ibms:alertRecord:edit']"
-              ></el-button>
+              />
             </el-tooltip>
             <el-tooltip content="删除" placement="top">
               <el-button
@@ -222,7 +154,7 @@
                 icon="Delete"
                 @click="handleDelete(scope.row)"
                 v-hasPermi="['ibms:alertRecord:remove']"
-              ></el-button>
+              />
             </el-tooltip>
           </template>
         </el-table-column>
@@ -237,46 +169,23 @@
       />
     </el-card>
     <!-- 添加或修改告警记录对话框 -->
-    <el-dialog
-      :title="dialog.title"
-      v-model="dialog.visible"
-      width="500px"
-      append-to-body
-    >
-      <el-form
-        ref="alertRecordFormRef"
-        :model="form"
-        :rules="rules"
-        label-width="80px"
-      >
+    <el-dialog :title="dialog.title" v-model="dialog.visible" width="500px" append-to-body>
+      <el-form ref="alertRecordFormRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="设备id" prop="deciveId">
           <el-input v-model="form.deciveId" placeholder="请输入设备id" />
         </el-form-item>
         <el-form-item label="设备分组" prop="deviceGroup">
           <el-select v-model="form.deviceGroup" placeholder="请选择设备分组">
-            <el-option
-              v-for="dict in device_group"
-              :key="dict.value"
-              :label="dict.label"
-              :value="dict.value"
-            ></el-option>
+            <el-option v-for="dict in device_group" :key="dict.value" :label="dict.label" :value="dict.value" />
           </el-select>
         </el-form-item>
         <el-form-item label="报警类型" prop="alertType">
           <el-select v-model="form.alertType" placeholder="请选择报警类型">
-            <el-option
-              v-for="dict in device_type"
-              :key="dict.value"
-              :label="dict.label"
-              :value="dict.value"
-            ></el-option>
+            <el-option v-for="dict in device_type" :key="dict.value" :label="dict.label" :value="dict.value" />
           </el-select>
         </el-form-item>
         <el-form-item label="报警信息" prop="alertInformation">
-          <el-input
-            v-model="form.alertInformation"
-            placeholder="请输入报警信息"
-          />
+          <el-input v-model="form.alertInformation" placeholder="请输入报警信息" />
         </el-form-item>
         <el-form-item label="报警时间" prop="alertTime">
           <el-date-picker
@@ -285,8 +194,7 @@
             type="datetime"
             value-format="YYYY-MM-DD HH:mm:ss"
             placeholder="请选择报警时间"
-          >
-          </el-date-picker>
+          />
         </el-form-item>
         <!--        <el-form-item label="处理状态" prop="status">
           <el-select v-model="form.status" placeholder="请选择处理状态">
@@ -312,9 +220,7 @@
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button :loading="buttonLoading" type="primary" @click="submitForm"
-            >确 定</el-button
-          >
+          <el-button :loading="buttonLoading" type="primary" @click="submitForm">确 定</el-button>
           <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
@@ -330,11 +236,7 @@ import {
   addAlertRecord,
   updateAlertRecord,
 } from "@/api/ibms/common/alarm/alertRecord/index";
-import {
-  AlertRecordVO,
-  AlertRecordQuery,
-  AlertRecordForm,
-} from "@/api/ibms/common/alarm/alertRecord/types";
+import { AlertRecordVO, AlertRecordQuery, AlertRecordForm } from "@/api/ibms/common/alarm/alertRecord/types";
 
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 const { device_group, device_type, alarm_state } = toRefs<any>(
@@ -389,18 +291,10 @@ const data = reactive<PageData<AlertRecordForm, AlertRecordQuery>>({
     /*deciveId: [
       { required: true, message: "设备id不能为空", trigger: "blur" }
     ],*/
-    deviceGroup: [
-      { required: true, message: "设备分组不能为空", trigger: "change" },
-    ],
-    alertType: [
-      { required: true, message: "报警类型不能为空", trigger: "change" },
-    ],
-    alertInformation: [
-      { required: true, message: "报警信息不能为空", trigger: "blur" },
-    ],
-    alertTime: [
-      { required: true, message: "报警时间不能为空", trigger: "blur" },
-    ],
+    deviceGroup: [{ required: true, message: "设备分组不能为空", trigger: "change" }],
+    alertType: [{ required: true, message: "报警类型不能为空", trigger: "change" }],
+    alertInformation: [{ required: true, message: "报警信息不能为空", trigger: "blur" }],
+    alertTime: [{ required: true, message: "报警时间不能为空", trigger: "blur" }],
     /* status: [
       { required: true, message: "处理状态不能为空", trigger: "change" }
     ],*/
@@ -475,14 +369,10 @@ const submitForm = () => {
     if (valid) {
       buttonLoading.value = true;
       if (form.value.id) {
-        const res = await updateAlertRecord(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        const res = await updateAlertRecord(form.value).finally(() => (buttonLoading.value = false));
         proxy?.$modal.msgSuccess(res.msg);
       } else {
-        const res = await addAlertRecord(form.value).finally(
-          () => (buttonLoading.value = false)
-        );
+        const res = await addAlertRecord(form.value).finally(() => (buttonLoading.value = false));
         proxy?.$modal.msgSuccess(res.msg);
       }
       dialog.visible = false;

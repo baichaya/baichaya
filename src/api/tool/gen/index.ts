@@ -1,12 +1,5 @@
 import request from "@/utils/request";
-import {
-  DbTableQuery,
-  DbTableVO,
-  TableQuery,
-  TableVO,
-  GenTableVO,
-  DbTableForm,
-} from "./types";
+import { DbTableQuery, DbTableVO, TableQuery, TableVO, GenTableVO, DbTableForm } from "./types";
 import { AxiosPromise } from "axios";
 
 // 查询生成表数据
@@ -27,9 +20,7 @@ export const listDbTable = (query: DbTableQuery): AxiosPromise<DbTableVO[]> => {
 };
 
 // 查询表详细信息
-export const getGenTable = (
-  tableId: string | number
-): AxiosPromise<GenTableVO> => {
+export const getGenTable = (tableId: string | number): AxiosPromise<GenTableVO> => {
   return request({
     url: "/tool/gen/" + tableId,
     method: "get",

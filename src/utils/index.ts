@@ -7,19 +7,12 @@ export const formatDate = (cellValue: string) => {
   if (cellValue == null || cellValue == "") return "";
   const date = new Date(cellValue);
   const year = date.getFullYear();
-  const month =
-    date.getMonth() + 1 < 10
-      ? "0" + (date.getMonth() + 1)
-      : date.getMonth() + 1;
+  const month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
   const day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
   const hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-  const minutes =
-    date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-  const seconds =
-    date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-  return (
-    year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds
-  );
+  const minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+  const seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+  return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
 };
 
 /**
@@ -52,17 +45,7 @@ export const formatTime = (time: string, option: string) => {
   if (option) {
     return parseTime(t, option);
   } else {
-    return (
-      d.getMonth() +
-      1 +
-      "月" +
-      d.getDate() +
-      "日" +
-      d.getHours() +
-      "时" +
-      d.getMinutes() +
-      "分"
-    );
+    return d.getMonth() + 1 + "月" + d.getDate() + "日" + d.getHours() + "时" + d.getMinutes() + "分";
   }
 };
 
@@ -198,9 +181,7 @@ export const toggleClass = (element: HTMLElement, className: string) => {
   if (nameIndex === -1) {
     classString += "" + className;
   } else {
-    classString =
-      classString.substring(0, nameIndex) +
-      classString.substring(nameIndex + className.length);
+    classString = classString.substring(0, nameIndex) + classString.substring(nameIndex + className.length);
   }
   element.className = classString;
 };

@@ -1,12 +1,6 @@
 import request from "@/utils/request";
 import { AxiosPromise } from "axios";
-import {
-  MenuQuery,
-  MenuVO,
-  MenuForm,
-  MenuTreeOption,
-  RoleMenuTree,
-} from "./types";
+import { MenuQuery, MenuVO, MenuForm, MenuTreeOption, RoleMenuTree } from "./types";
 
 // 查询菜单列表
 export const listMenu = (query?: MenuQuery): AxiosPromise<MenuVO[]> => {
@@ -34,9 +28,7 @@ export const treeselect = (): AxiosPromise<MenuTreeOption[]> => {
 };
 
 // 根据角色ID查询菜单下拉树结构
-export const roleMenuTreeselect = (
-  roleId: string | number
-): AxiosPromise<RoleMenuTree> => {
+export const roleMenuTreeselect = (roleId: string | number): AxiosPromise<RoleMenuTree> => {
   return request({
     url: "/system/menu/roleMenuTreeselect/" + roleId,
     method: "get",
@@ -44,9 +36,7 @@ export const roleMenuTreeselect = (
 };
 
 // 根据角色ID查询菜单下拉树结构
-export const tenantPackageMenuTreeselect = (
-  packageId: string | number
-): AxiosPromise<RoleMenuTree> => {
+export const tenantPackageMenuTreeselect = (packageId: string | number): AxiosPromise<RoleMenuTree> => {
   return request({
     url: "/system/menu/tenantPackageMenuTreeselect/" + packageId,
     method: "get",

@@ -1,10 +1,6 @@
 import request from "@/utils/request";
 import { AxiosPromise } from "axios";
-import {
-  IntrusionStateChangeVO,
-  IntrusionStateChangeForm,
-  IntrusionStateChangeQuery,
-} from "./types";
+import { IntrusionStateChangeVO, IntrusionStateChangeForm, IntrusionStateChangeQuery } from "./types";
 
 /**
  * 查询入侵报警-状态变化日志列表
@@ -12,9 +8,7 @@ import {
  * @returns {*}
  */
 
-export const listIntrusionStateChange = (
-  query?: IntrusionStateChangeQuery
-): AxiosPromise<IntrusionStateChangeVO[]> => {
+export const listIntrusionStateChange = (query?: IntrusionStateChangeQuery): AxiosPromise<IntrusionStateChangeVO[]> => {
   return request({
     url: "/intrusionAlarm/intrusionStateChange/list",
     method: "get",
@@ -26,9 +20,7 @@ export const listIntrusionStateChange = (
  * 查询入侵报警-状态变化日志详细
  * @param id
  */
-export const getIntrusionStateChange = (
-  id: string | number
-): AxiosPromise<IntrusionStateChangeVO> => {
+export const getIntrusionStateChange = (id: string | number): AxiosPromise<IntrusionStateChangeVO> => {
   return request({
     url: "/intrusionAlarm/intrusionStateChange/" + id,
     method: "get",
@@ -63,9 +55,7 @@ export const updateIntrusionStateChange = (data: IntrusionStateChangeForm) => {
  * 删除入侵报警-状态变化日志
  * @param id
  */
-export const delIntrusionStateChange = (
-  id: string | number | Array<string | number>
-) => {
+export const delIntrusionStateChange = (id: string | number | Array<string | number>) => {
   return request({
     url: "/intrusionAlarm/intrusionStateChange/" + id,
     method: "delete",

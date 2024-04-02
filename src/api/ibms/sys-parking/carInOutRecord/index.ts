@@ -1,10 +1,6 @@
 import request from "@/utils/request";
 import { AxiosPromise } from "axios";
-import {
-  CarInOutRecordVO,
-  CarInOutRecordForm,
-  CarInOutRecordQuery,
-} from "./types";
+import { CarInOutRecordVO, CarInOutRecordForm, CarInOutRecordQuery } from "./types";
 
 /**
  * 查询停车进出记录列表
@@ -12,9 +8,7 @@ import {
  * @returns {*}
  */
 
-export const listCarInOutRecord = (
-  query?: CarInOutRecordQuery
-): AxiosPromise<CarInOutRecordVO[]> => {
+export const listCarInOutRecord = (query?: CarInOutRecordQuery): AxiosPromise<CarInOutRecordVO[]> => {
   return request({
     url: "/ibms/carInOutRecord/list",
     method: "get",
@@ -26,9 +20,7 @@ export const listCarInOutRecord = (
  * 查询停车进出记录详细
  * @param id
  */
-export const getCarInOutRecord = (
-  id: string | number
-): AxiosPromise<CarInOutRecordVO> => {
+export const getCarInOutRecord = (id: string | number): AxiosPromise<CarInOutRecordVO> => {
   return request({
     url: "/ibms/carInOutRecord/" + id,
     method: "get",
@@ -63,9 +55,7 @@ export const updateCarInOutRecord = (data: CarInOutRecordForm) => {
  * 删除停车进出记录
  * @param id
  */
-export const delCarInOutRecord = (
-  id: string | number | Array<string | number>
-) => {
+export const delCarInOutRecord = (id: string | number | Array<string | number>) => {
   return request({
     url: "/ibms/carInOutRecord/" + id,
     method: "delete",

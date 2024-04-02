@@ -2,16 +2,10 @@
 export const handleThemeStyle = (theme: string) => {
   document.documentElement.style.setProperty("--el-color-primary", theme);
   for (let i = 1; i <= 9; i++) {
-    document.documentElement.style.setProperty(
-      `--el-color-primary-light-${i}`,
-      `${getLightColor(theme, i / 10)}`
-    );
+    document.documentElement.style.setProperty(`--el-color-primary-light-${i}`, `${getLightColor(theme, i / 10)}`);
   }
   for (let i = 1; i <= 9; i++) {
-    document.documentElement.style.setProperty(
-      `--el-color-primary-dark-${i}`,
-      `${getDarkColor(theme, i / 10)}`
-    );
+    document.documentElement.style.setProperty(`--el-color-primary-dark-${i}`, `${getDarkColor(theme, i / 10)}`);
   }
 };
 
@@ -29,11 +23,7 @@ export const hexToRgb = (str: string): string[] => {
 
 // rgb颜色转Hex颜色
 export const rgbToHex = (r: string, g: string, b: string) => {
-  const hexs = [
-    Number(r).toString(16),
-    Number(g).toString(16),
-    Number(b).toString(16),
-  ];
+  const hexs = [Number(r).toString(16), Number(g).toString(16), Number(b).toString(16)];
   for (let i = 0; i < 3; i++) {
     if (hexs[i].length == 1) {
       hexs[i] = `0${hexs[i]}`;
