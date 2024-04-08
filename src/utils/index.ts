@@ -326,5 +326,5 @@ export const isExternal = (path: string) => {
  * @return {*}
  */
 export const findValue = (arr: any[], label: string, val: string, findVal: string) => {
-  return arr.find((e) => e[val] == label)[findVal];
+  return arr.find((e) => e[val] == label)[findVal] || "";
 };

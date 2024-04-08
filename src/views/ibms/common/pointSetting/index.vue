@@ -2,7 +2,7 @@
   <div class="p-2">
     <el-row :gutter="20" justify="center" class="row" align="middle">
       <el-col v-for="subSysList in deviceGroupList" :key="subSysList.id" :span="5" class="col">
-        <el-card class="el-card" @click="toPointCad(subSysList)">
+        <el-card class="hvr-box-shadow-inset m10px" @click="toPointCad(subSysList)">
           <div class="text_container">
             <div class="text_content">
               {{ subSysList.groupName }}
@@ -57,16 +57,26 @@ getProjectSubSys();
 
 /* ============================= 美化el-card 样式 ============================= */
 
-.el-card {
-  margin: 10px;
+/* Box Shadow Inset */
+.hvr-box-shadow-inset {
   cursor: pointer;
-  border-color: #c0c4cc;
-  border-radius: 15px;
+  background-color: #e1e1e1;
+  border-radius: 10px;
+  box-shadow: 0 0 1px rgb(0 0 0 / 0%);
+  box-shadow: inset 0 0 0 rgb(0 0 0 / 60%), 0 0 1px rgb(0 0 0 / 0%);
+  transition-duration: 0.3s;
+  transition-property: box-shadow;
+  transform: perspective(1px) translateZ(0);
+
+  /* Hack to improve aliasing on mobile/tablet devices */
 }
 
-.el-card:hover {
-  margin: 30px;
-  margin-top: -10px;
+.hvr-box-shadow-inset:hover,
+.hvr-box-shadow-inset:focus,
+.hvr-box-shadow-inset:active {
+  box-shadow: inset 2px 2px 2px rgb(0 0 0 / 60%), 0 0 1px rgb(0 0 0 / 0%);
+
+  /* Hack to improve aliasing on mobile/tablet devices */
 }
 
 .text_container {

@@ -62,7 +62,7 @@
   </div>
 </template>
 
-<script setup name="PowerSupplyCad" lang="ts">
+<script setup name="parkingPoint" lang="ts">
 const formInline = reactive({
   region: "",
 });

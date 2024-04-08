@@ -22,7 +22,7 @@ export const listPoint = (query?: PointQuery): AxiosPromise<PointVO[]> => {
  */
 export const selectTree = (query?: PointQuery): AxiosPromise<AreaVO[]> => {
   return request({
-    url: "/ibms/point/selectByAreaBuilding",
+    url: "/ibms/point/getInfiniteTree",
     method: "get",
     params: query,
   });
@@ -71,5 +71,35 @@ export const delPoint = (id: string | number | Array<string | number>) => {
   return request({
     url: "/ibms/point/" + id,
     method: "delete",
+  });
+};
+
+/**
+ * 获取设备分组列表
+ */
+export const listDeviceGroup = () => {
+  return request({
+    url: "/deviceConfig/deviceGroup/list",
+    method: "get",
+  });
+};
+
+/**
+ * 根据设备分组id查询设备类型
+ */
+export const listDeviceType = (deviceGroup: string | number) => {
+  return request({
+    url: "/deviceConfig/deviceType/deviceGroup/" + deviceGroup,
+    method: "get",
+  });
+};
+
+/**
+ * 根据设备分组id和设备类型查询设备列表
+ */
+export const listDevice = (deviceGroupId: string | number, deviceTypeId: string | number) => {
+  return request({
+    url: "/ibms/deviceAll/getDevice/" + deviceGroupId + "/" + deviceTypeId,
+    method: "get",
   });
 };

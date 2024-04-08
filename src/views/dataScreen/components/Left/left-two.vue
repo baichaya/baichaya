@@ -142,7 +142,7 @@ const init = () => {
       show: true,
 
       formatter: (params) => {
-        return v2L2Chart.xData[params.dataIndex] + ":" + v2L2Chart.data[params.dataIndex] + "kv";
+        // return v2L2Chart.xData[params.dataIndex] + ":" + v2L2Chart.data[params.dataIndex] + "kv";
       },
       backgroundColor: "rgba(38, 68, 110, 0.8)",
       padding: [10, 30],
